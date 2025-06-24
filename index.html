@@ -39,16 +39,20 @@
     header {
       background-color: rgba(30, 41, 59, 0.85);
       padding: 20px;
-      text-align: center;
+      text-align: left;
       animation: fadeIn 1.5s ease;
+      position: relative;
     }
     header h1 {
-      margin: 10px 0 0;
+      margin: 10px 0 0 90px;
       font-size: 2rem;
     }
     header img.logo {
-      height: 60px;
-      border-radius: 50%;
+      height: 80px;
+      border-radius: 10px;
+      position: absolute;
+      top: 10px;
+      left: 20px;
     }
     nav {
       display: flex;
@@ -116,7 +120,7 @@
   <header>
     <img src="logo.png" alt="PashtunEinstein Logo" class="logo">
     <h1>PashtunEinstein</h1>
-    <p>Science & Technology Simplified</p>
+    <p style="margin-left: 90px;">Science & Technology Simplified</p>
   </header>
 
   <nav>
