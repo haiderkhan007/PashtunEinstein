@@ -7,20 +7,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: rgba(0, 0, 0, 0.75);
+      --bg-color: #000000;
       --text-color: #e2e8f0;
-      --card-bg: rgba(15, 23, 42, 0.8);
+      --card-bg: #0a0a0a;
+      --button-bg: #F8BD33;
+      --button-text: #000000;
     }
     [data-theme="light"] {
-      --bg-color: rgba(255, 255, 255, 0.85);
+      --bg-color: #ffffff;
       --text-color: #1e293b;
-      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-bg: #ffffff;
+      --button-bg: #F8BD33;
+      --button-text: #000000;
     }
     body {
       font-family: 'Roboto Mono', monospace;
       margin: 0;
       padding: 0;
-      background: url('bg.jpg') no-repeat center center fixed;
+      background-color: var(--bg-color);
+      background-image: url('bg.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
       background-size: cover;
       color: var(--text-color);
       transition: background-color 0.3s ease, color 0.3s ease;
@@ -34,10 +41,9 @@
       height: 100%;
       background-color: var(--bg-color);
       z-index: -1;
-      transition: background-color 0.3s ease;
     }
     header {
-      background-color: rgba(30, 41, 59, 0.85);
+      background-color: #000000;
       padding: 20px;
       text-align: center;
       animation: fadeIn 1.5s ease;
@@ -74,7 +80,7 @@
     nav {
       display: flex;
       justify-content: center;
-      background-color: rgba(51, 65, 85, 0.85);
+      background-color: #0a0a0a;
       padding: 10px;
       animation: slideIn 1s ease;
     }
@@ -96,14 +102,14 @@
       animation: fadeIn 1.2s ease;
     }
     footer {
-      background-color: rgba(30, 41, 59, 0.85);
+      background-color: #0a0a0a;
       text-align: center;
       padding: 10px;
       font-size: 0.9rem;
     }
     .button {
-      background-color: #3b82f6;
-      color: white;
+      background-color: var(--button-bg);
+      color: var(--button-text);
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
@@ -139,7 +145,7 @@
     <img src="logo.png" alt="PashtunEinstein Logo" class="logo">
     <div>
       <h1>PashtunEinstein</h1>
-      <p>Science & Technology Simplified</p>
+      <p>Empowering Pashtun people through science and technology</p>
     </div>
   </header>
 
@@ -153,9 +159,9 @@
 
   <main>
     <section id="about">
-  <h2>About Us</h2>
-  <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. We believe every Pashtun has the potential to succeed, just like any other nation. While many in our community are bright and educated, many still lack access to these vital topics. Our goal is to present content in a simple and clear way, so everyone can learn and grow together.</p>
-</section>
+      <h2>About Us</h2>
+      <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. We believe every Pashtun has the potential to succeed, just like any other nation. While many in our community are bright and educated, many still lack access to these vital topics. Our goal is to present content in a simple and clear way, so everyone can learn and grow together.</p>
+    </section>
 
     <section id="youtube">
       <h2>My YouTube Channel</h2>
