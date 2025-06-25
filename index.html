@@ -62,7 +62,7 @@
     }
     header {
       background-color: rgba(30, 41, 59, 0.85);
-      padding: 80px 20px;
+      padding: 60px 20px 40px;
       text-align: center;
       position: relative;
       z-index: 1;
@@ -75,7 +75,7 @@
       animation: glow 2s ease-in-out infinite alternate;
     }
     header p {
-      margin: 0;
+      margin: 5px 0;
       font-size: 1.1rem;
       color: #F8BD33;
       letter-spacing: 0.5px;
@@ -108,12 +108,6 @@
       border-radius: 10px;
       filter: brightness(1.5) contrast(1.2);
       animation: logoFloat 4s ease-in-out infinite;
-    }
-    .logo-wrapper p {
-      font-weight: bold;
-      margin-top: 5px;
-      font-size: 0.9rem;
-      color: #ffffff;
     }
     nav {
       display: flex;
@@ -173,7 +167,7 @@
       background-color: #ffd366;
     }
     .toggle-btn {
-      position: absolute;
+      position: fixed;
       top: 10px;
       right: 10px;
       background: none;
@@ -204,11 +198,11 @@
   <header>
     <div class="logo-wrapper">
       <img src="logo.png" alt="PashtunEinstein Logo" class="logo">
-      <p><strong>Knowledge is power</strong></p>
     </div>
     <div>
       <h1>PashtunEinstein</h1>
       <p class="typewriter">Empowering Pashtun people through science and technology</p>
+      <p style="margin-top: 10px; font-weight: bold; color: #ffffff;">Knowledge is power</p>
     </div>
   </header>
 
@@ -259,12 +253,11 @@
 
   <script>
     function toggleTheme() {
-      const current = document.body.getAttribute("data-theme");
+      const current = document.body.getAttribute("data-theme") || "dark";
       document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
     }
     document.body.setAttribute("data-theme", "dark");
 
-    // Floating stars background
     const starsContainer = document.createElement('canvas');
     document.getElementById('stars').appendChild(starsContainer);
     const ctx = starsContainer.getContext('2d');
