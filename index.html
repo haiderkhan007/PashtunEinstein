@@ -37,6 +37,7 @@
       top: 0; left: 0; width: 100%; height: 100%;
       background-color: var(--bg-color);
       z-index: -1;
+      pointer-events: none;
     }
     #stars {
       position: fixed;
@@ -44,6 +45,7 @@
       width: 100%; height: 100%;
       background: transparent;
       z-index: 0;
+      pointer-events: none;
     }
     #stars canvas {
       width: 100%; height: 100%;
@@ -90,6 +92,14 @@
       border-radius: 50%;
       filter: brightness(1.2) contrast(1.2);
     }
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
     .header-text {
       max-width: 800px;
     }
@@ -122,6 +132,7 @@
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
+      transition: color 0.3s ease;
     }
     nav a:hover {
       color: #F8BD33;
@@ -151,6 +162,11 @@
       text-decoration: none;
       display: inline-block;
       margin-top: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .button:active {
+      transform: scale(0.95);
     }
     footer {
       background-color: rgba(30, 41, 59, 0.85);
@@ -173,10 +189,6 @@
       from { text-shadow: 0 0 5px #F8BD33; }
       to { text-shadow: 0 0 20px #F8BD33; }
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
   </style>
 </head>
 <body data-theme="dark">
@@ -187,13 +199,13 @@
     <div class="logo-wrapper">
       <img src="logo.png" alt="Logo">
     </div>
+    <div class="profile-wrapper">
+      <img src="mypic.png" alt="My Picture">
+    </div>
     <div class="header-text">
       <h1>PashtunEinstein</h1>
       <p class="typewriter">Empowering Pashtun people through science and technology</p>
       <p class="subtitle">Knowledge is power</p>
-    </div>
-    <div class="profile-wrapper">
-      <img src="mypic.png" alt="My Picture">
     </div>
   </header>
 
