@@ -80,15 +80,15 @@
     }
     .profile-wrapper {
       position: absolute;
-      top: 40px;
+      bottom: 20px;
       right: 20px;
-      z-index: 1;
+      animation: float 4s ease-in-out infinite;
+      z-index: 2;
     }
     .profile-wrapper img {
       height: 100px;
       border-radius: 50%;
-      object-fit: cover;
-      filter: brightness(1.1) contrast(1.1);
+      filter: brightness(1.2) contrast(1.2);
     }
     .header-text {
       max-width: 800px;
@@ -173,6 +173,10 @@
       from { text-shadow: 0 0 5px #F8BD33; }
       to { text-shadow: 0 0 20px #F8BD33; }
     }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
   </style>
 </head>
 <body data-theme="dark">
@@ -183,13 +187,13 @@
     <div class="logo-wrapper">
       <img src="logo.png" alt="Logo">
     </div>
-    <div class="profile-wrapper">
-      <img src="mypic.png" alt="My Picture">
-    </div>
     <div class="header-text">
       <h1>PashtunEinstein</h1>
       <p class="typewriter">Empowering Pashtun people through science and technology</p>
       <p class="subtitle">Knowledge is power</p>
+    </div>
+    <div class="profile-wrapper">
+      <img src="mypic.png" alt="My Picture">
     </div>
   </header>
 
