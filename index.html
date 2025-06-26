@@ -110,7 +110,9 @@
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
+      transition: color 0.3s ease;
     }
+    /* Menu item hover color change */
     nav a:hover {
       color: #F8BD33;
     }
@@ -139,6 +141,12 @@
       text-decoration: none;
       display: inline-block;
       margin-top: 10px;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    /* Button click animation */
+    .button:active {
+      transform: scale(0.95);
     }
     footer {
       background-color: rgba(30, 41, 59, 0.85);
