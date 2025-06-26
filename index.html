@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PashtunEinstein | Science & Tech</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"/>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     :root {
@@ -23,106 +23,86 @@
       --button-text: #000000;
       --highlight-color: #0ea5e9;
     }
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Roboto Mono', monospace;
-      margin: 0;
-      padding: 0;
       background: url('bg.jpg') no-repeat center center fixed;
       background-size: cover;
       color: var(--text-color);
       transition: background-color 0.3s ease, color 0.3s ease;
-      overflow-x: hidden;
     }
     body::before {
       content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       background-color: var(--bg-color);
       z-index: -1;
     }
     #stars {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: transparent;
       z-index: 0;
     }
     #stars canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
+      width: 100%; height: 100%;
+    }
+    .toggle-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #F8BD33;
+      z-index: 3;
+      cursor: pointer;
     }
     header {
-      background-color: rgba(30, 41, 59, 0.85);
-      padding: 60px 20px 40px;
       text-align: center;
+      padding: 80px 20px 40px;
       position: relative;
-      z-index: 1;
-    }
-    header h1 {
-      margin: 10px 0 5px;
-      font-size: 2.5rem;
-      color: #F8BD33;
-      text-shadow: 0 0 8px #000;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    header p {
-      margin: 5px 0;
-      font-size: 1.1rem;
-      color: #F8BD33;
-      letter-spacing: 0.5px;
-    }
-    .typewriter {
-      overflow: hidden;
-      border-right: .15em solid #F8BD33;
-      white-space: nowrap;
-      animation: typing 3s steps(30, end), blink-caret .75s step-end infinite;
-      font-size: 1.1rem;
-      color: #F8BD33;
-    }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50% { border-color: #F8BD33; }
+      background-color: rgba(30, 41, 59, 0.85);
     }
     .logo-wrapper {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      text-align: left;
-      z-index: 3;
+      margin: 0 auto 10px;
     }
-    .logo-wrapper img.logo {
+    .logo-wrapper img {
       height: 120px;
       border-radius: 10px;
       filter: brightness(1.5) contrast(1.2);
-      animation: logoFloat 4s ease-in-out infinite;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #F8BD33;
+      animation: glow 2s ease-in-out infinite alternate;
+      margin-top: 10px;
+    }
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 0.15em solid #F8BD33;
+      animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+      color: #F8BD33;
+      font-size: 1.1rem;
+      margin-top: 8px;
+    }
+    .subtitle {
+      color: white;
+      font-weight: bold;
+      margin-top: 10px;
     }
     nav {
-      display: flex;
-      justify-content: center;
-      background-color: rgba(51, 65, 85, 0.85);
+      background: rgba(51, 65, 85, 0.85);
+      text-align: center;
       padding: 10px;
-      z-index: 2;
-      position: relative;
     }
     nav a {
       color: var(--highlight-color);
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
-      transition: color 0.3s ease;
     }
     nav a:hover {
       color: #F8BD33;
@@ -132,20 +112,26 @@
       text-align: center;
     }
     section {
-      margin-bottom: 40px;
       background-color: var(--card-bg);
       padding: 20px;
+      margin-bottom: 40px;
       border-radius: 10px;
       animation: fadeInUp 1.5s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-    #blog ul li {
-      margin: 10px 0;
-      animation: glow 1.5s infinite alternate;
     }
     section h2 {
       color: var(--highlight-color);
       margin-bottom: 10px;
+    }
+    .button {
+      background: var(--button-bg);
+      color: var(--button-text);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
     }
     footer {
       background-color: rgba(30, 41, 59, 0.85);
@@ -153,57 +139,34 @@
       padding: 10px;
       font-size: 0.9rem;
     }
-    .button {
-      background-color: var(--button-bg);
-      color: var(--button-text);
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
     }
-    .button:hover {
-      background-color: #ffd366;
-    }
-    .toggle-btn {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: #F8BD33;
-      z-index: 3;
+    @keyframes blink-caret {
+      50% { border-color: transparent }
     }
     @keyframes fadeInUp {
       from { transform: translateY(20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
     @keyframes glow {
-      from { text-shadow: 0 0 5px #F8BD33, 0 0 10px #F8BD33; }
-      to { text-shadow: 0 0 20px #F8BD33, 0 0 30px #F8BD33; }
-    }
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(5px); }
+      from { text-shadow: 0 0 5px #F8BD33; }
+      to { text-shadow: 0 0 20px #F8BD33; }
     }
   </style>
 </head>
-<body>
-  <div id="stars"></div>
+<body data-theme="dark">
+  <div id="stars"><canvas></canvas></div>
   <button class="toggle-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
 
   <header>
     <div class="logo-wrapper">
-      <img src="logo.png" alt="PashtunEinstein Logo" class="logo">
+      <img src="logo.png" alt="Logo">
     </div>
-    <div>
-      <h1>PashtunEinstein</h1>
-      <p class="typewriter">Empowering Pashtun people through science and technology</p>
-      <p style="margin-top: 10px; font-weight: bold; color: #ffffff;">Knowledge is power</p>
-    </div>
+    <h1>PashtunEinstein</h1>
+    <p class="typewriter">Empowering Pashtun people through science and technology</p>
+    <p class="subtitle">Knowledge is power</p>
   </header>
 
   <nav>
@@ -217,33 +180,28 @@
   <main>
     <section id="about">
       <h2>About Us</h2>
-      <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. We believe every Pashtun has the potential to succeed, just like any other nation. While many in our community are bright and educated, many still lack access to these vital topics. Our goal is to present content in a simple and clear way, so everyone can learn and grow together.</p>
+      <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. Our content is simple and practical so everyone can benefit.</p>
     </section>
-
     <section id="youtube">
-      <h2>My YouTube Channel</h2>
-      <p>Check out my latest videos on tech tutorials, scientific explanations, and DIY projects!</p>
+      <h2>YouTube Channel</h2>
+      <p>Explore my videos on tech tutorials, scientific explanations, and DIY projects.</p>
       <a class="button" href="https://www.youtube.com/@PashtunEinstein" target="_blank">Visit Channel</a>
     </section>
-
     <section id="facebook">
-      <h2>My Facebook Page</h2>
-      <p>Follow me on Facebook for updates, discussions, and more!</p>
+      <h2>Facebook Page</h2>
+      <p>Follow me on Facebook for updates, posts, and discussions.</p>
       <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank">Visit Facebook</a>
     </section>
-
     <section id="blog">
       <h2>Blog</h2>
-      <p>Read my thoughts, guides, and tutorials:</p>
       <ul>
         <li><a href="posts/post1.html">How AI is Changing the World</a></li>
         <li><a href="posts/post2.html">Top 5 Self-Hosting Tools in 2025</a></li>
       </ul>
     </section>
-
     <section id="contact">
       <h2>Contact</h2>
-      <p>For suggestions, collaborations, or questions, feel free to reach out at <strong>haider@haiderkhan.tech</strong>.</p>
+      <p>Email: <strong>haider@haiderkhan.tech</strong></p>
     </section>
   </main>
 
@@ -253,20 +211,18 @@
 
   <script>
     function toggleTheme() {
-      const current = document.body.getAttribute("data-theme") || "dark";
-      document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
+      const current = document.body.getAttribute(\"data-theme\") || \"dark\";
+      document.body.setAttribute(\"data-theme\", current === \"light\" ? \"dark\" : \"light\");
     }
-    document.body.setAttribute("data-theme", "dark");
 
-    const starsContainer = document.createElement('canvas');
-    document.getElementById('stars').appendChild(starsContainer);
-    const ctx = starsContainer.getContext('2d');
+    const canvas = document.querySelector(\"#stars canvas\");
+    const ctx = canvas.getContext(\"2d\");
     let w, h;
     function resize() {
-      w = starsContainer.width = window.innerWidth;
-      h = starsContainer.height = window.innerHeight;
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
     }
-    window.addEventListener('resize', resize);
+    window.addEventListener(\"resize\", resize);
     resize();
 
     const stars = Array.from({length: 100}, () => ({
@@ -279,7 +235,7 @@
 
     function animateStars() {
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "white";
+      ctx.fillStyle = \"white\";
       stars.forEach(star => {
         star.x += star.dx;
         star.y += star.dy;
