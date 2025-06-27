@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,10 +85,185 @@
       font-size: 1.1rem;
       margin-top: 8px;
     }
+    .typewriter .mobile {
+      display: none;
+    }
     .subtitle {
       color: white;
       font-weight: bold;
       margin-top: 10px;
     }
     nav {
-      background: rgba(51, 65, 85, 0
+      background: rgba(51, 65, 85, 0.85);
+      text-align: center;
+      padding: 10px;
+    }
+    nav a {
+      color: var(--highlight-color);
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #F8BD33;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--highlight-color);
+      background: none;
+      border: none;
+    }
+    .menu-items {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    main {
+      padding: 40px;
+      text-align: center;
+    }
+    section {
+      background-color: var(--card-bg);
+      padding: 20px;
+      margin-bottom: 40px;
+      border-radius: 10px;
+    }
+    section h2 {
+      color: var(--highlight-color);
+      margin-bottom: 10px;
+    }
+    .button {
+      background: var(--button-bg);
+      color: var(--button-text);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    footer {
+      background-color: rgba(30, 41, 59, 0.85);
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #F8BD33; }
+      to { text-shadow: 0 0 20px #F8BD33; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 20px;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      .typewriter .desktop {
+        display: none;
+      }
+      .typewriter .mobile {
+        display: inline;
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+      .mypic {
+        position: static;
+        margin: 20px auto 0;
+        display: block;
+      }
+      .menu-toggle {
+        display: block;
+        margin: 10px auto;
+      }
+      .menu-items {
+        display: none;
+        flex-direction: column;
+      }
+      .menu-items.show {
+        display: flex;
+      }
+      nav a {
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="toggle-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+
+  <header>
+    <div class="logo-wrapper">
+      <img src="logo.png" alt="Logo">
+    </div>
+    <div class="header-text">
+      <h1>PashtunEinstein</h1>
+      <p class="typewriter">
+        <span class="desktop">Empowering Pashtun people through science and technology</span>
+        <span class="mobile">Empowering Pashtuns through science & tech</span>
+      </p>
+      <p class="subtitle">Knowledge is power</p>
+    </div>
+    <img src="mypic.png" class="mypic" alt="My Picture" />
+  </header>
+
+  <nav>
+    <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+    <div class="menu-items" id="menu">
+      <a href="#about">About</a>
+      <a href="#youtube">YouTube</a>
+      <a href="#facebook">Facebook</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="about">
+      <h2>About Us</h2>
+      <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. Our content is simple and practical so everyone can benefit.</p>
+    </section>
+    <section id="youtube">
+      <h2>YouTube Channel</h2>
+      <p>Explore my videos on tech tutorials, scientific explanations, and DIY projects.</p>
+      <a class="button" href="https://www.youtube.com/@PashtunEinstein" target="_blank">Visit Channel</a>
+    </section>
+    <section id="facebook">
+      <h2>Facebook Page</h2>
+      <p>Follow me on Facebook for updates, posts, and discussions.</p>
+      <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank">Visit Facebook</a>
+    </section>
+    <section id="blog">
+      <h2>Blog</h2>
+      <ul>
+        <li><a href="posts/post1.html">How AI is Changing the World</a></li>
+        <li><a href="posts/post2.html">Top 5 Self-Hosting Tools in 2025</a></li>
+      </ul>
+    </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email: <strong>haider@haiderkhan.tech</strong></p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 PashtunEinstein. All rights reserved.
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const current = document.body.getAttribute("data-theme") || "dark";
+      document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
+    }
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
