@@ -8,155 +8,142 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     :root {
-      --bg-color: rgba(0, 0, 0, 0.85);
+      --bg-color: rgba(0, 0, 0, 0.75);
       --text-color: #e2e8f0;
-      --card-bg: rgba(15, 23, 42, 0.9);
+      --card-bg: rgba(15, 23, 42, 0.8);
       --button-bg: #F8BD33;
       --button-text: #000000;
       --highlight-color: #22d3ee;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    [data-theme="light"] {
+      --bg-color: rgba(255, 255, 255, 0.85);
+      --text-color: #1e293b;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --button-bg: #F8BD33;
+      --button-text: #000000;
+      --highlight-color: #0ea5e9;
     }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Roboto Mono', monospace;
       background: url('bg.jpg') no-repeat center center fixed;
       background-size: cover;
       color: var(--text-color);
-      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-
     body::before {
       content: "";
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       background-color: var(--bg-color);
       z-index: -1;
     }
-
     #stars {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: transparent;
+      z-index: 0;
+      pointer-events: none;
+    }
+    #stars canvas {
+      width: 100%; height: 100%;
+    }
+    .toggle-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #F8BD33;
+      z-index: 3;
+      cursor: pointer;
     }
 
     header {
-      padding: 50px 20px 80px;
       text-align: center;
+      padding: 40px 20px;
+      background-color: rgba(30, 41, 59, 0.85);
       position: relative;
     }
 
     .logo-wrapper {
-      display: flex;
-      justify-content: center;
+      text-align: center;
       margin-bottom: 10px;
     }
 
     .logo-wrapper img {
-      height: 90px;
+      height: 100px;
+      border-radius: 10px;
       filter: brightness(1.5) contrast(1.2);
     }
 
-    h1 {
+    .header-text h1 {
       font-size: 2.5rem;
       color: #F8BD33;
       animation: glow 2s ease-in-out infinite alternate;
     }
 
-    .subtitle {
-      margin-top: 10px;
-      font-size: 1.2rem;
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 0.15em solid #F8BD33;
+      animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
       color: #F8BD33;
+      font-size: 1.1rem;
+      margin-top: 8px;
     }
 
-    .tagline {
+    .subtitle {
+      color: white;
       font-weight: bold;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .mypic {
       position: absolute;
-      bottom: -40px;
+      bottom: 10px;
       right: 20px;
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       border: 3px solid white;
-      z-index: 2;
-      animation: floatPic 4s ease-in-out infinite;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #F8BD33; }
-      to { text-shadow: 0 0 20px #F8BD33; }
-    }
-
-    @keyframes floatPic {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      object-fit: cover;
+      transition: transform 0.5s ease;
     }
 
     nav {
-      background: rgba(30, 41, 59, 0.95);
+      background: rgba(51, 65, 85, 0.85);
       text-align: center;
-      padding: 15px;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    nav li {
-      margin: 0 15px;
+      padding: 10px;
     }
 
     nav a {
       color: var(--highlight-color);
       text-decoration: none;
+      margin: 0 15px;
       font-weight: bold;
-      transition: color 0.3s ease;
     }
 
     nav a:hover {
       color: #F8BD33;
     }
 
-    .menu-toggle {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      color: #F8BD33;
-      z-index: 3;
-    }
-
     main {
-      padding: 60px 20px 20px;
+      padding: 40px;
       text-align: center;
     }
 
     section {
-      background: var(--card-bg);
-      margin-bottom: 40px;
+      background-color: var(--card-bg);
       padding: 20px;
+      margin-bottom: 40px;
       border-radius: 10px;
+      animation: fadeInUp 1.5s ease;
     }
 
-    h2 {
+    section h2 {
       color: var(--highlight-color);
       margin-bottom: 10px;
     }
@@ -167,69 +154,70 @@
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
-      text-decoration: none;
       font-weight: bold;
-      transition: transform 0.3s ease;
-    }
-
-    .button:hover {
-      background-color: #facc15;
-      transform: scale(1.05);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
     }
 
     footer {
-      background: rgba(30, 41, 59, 0.95);
+      background-color: rgba(30, 41, 59, 0.85);
       text-align: center;
       padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      50% { border-color: transparent }
+    }
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #F8BD33; }
+      to { text-shadow: 0 0 20px #F8BD33; }
     }
 
     @media (max-width: 768px) {
-      nav ul {
-        display: none;
-        flex-direction: column;
-        margin-top: 10px;
-      }
-
-      nav ul.active {
-        display: flex;
-      }
-
-      .menu-toggle {
+      .mypic {
+        position: static;
         display: block;
+        margin: 20px auto 0;
       }
-
-      .subtitle {
+      .typewriter {
         font-size: 1rem;
-      }
-
-      .tagline {
-        font-size: 1rem;
+        white-space: normal;
       }
     }
   </style>
 </head>
-<body>
+<body data-theme="dark">
   <div id="stars"><canvas></canvas></div>
+  <button class="toggle-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
 
   <header>
-    <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     <div class="logo-wrapper">
       <img src="logo.png" alt="Logo">
     </div>
-    <h1>PashtunEinstein</h1>
-    <p class="subtitle">Empowering Pashtuns through science & tech</p>
-    <p class="tagline">Knowledge is power</p>
-    <img src="mypic.png" alt="My Picture" class="mypic" />
+    <div class="header-text">
+      <h1>PashtunEinstein</h1>
+      <p class="typewriter">Empowering Pashtuns through science & tech</p>
+      <p class="subtitle">Knowledge is power</p>
+    </div>
+    <img src="mypic.png" alt="mypic" class="mypic" />
   </header>
 
   <nav>
-    <ul id="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#youtube">YouTube</a></li>
-      <li><a href="#facebook">Facebook</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <a href="#about">About</a>
+    <a href="#youtube">YouTube</a>
+    <a href="#facebook">Facebook</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
   </nav>
 
   <main>
@@ -265,9 +253,9 @@
   </footer>
 
   <script>
-    function toggleMenu() {
-      const links = document.getElementById("nav-links");
-      links.classList.toggle("active");
+    function toggleTheme() {
+      const current = document.body.getAttribute("data-theme") || "dark";
+      document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
     }
 
     const canvas = document.querySelector("#stars canvas");
@@ -280,7 +268,7 @@
     window.addEventListener("resize", resize);
     resize();
 
-    const stars = Array.from({ length: 100 }, () => ({
+    const stars = Array.from({length: 100}, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       r: Math.random() * 1.5 + 0.5,
@@ -302,7 +290,6 @@
       });
       requestAnimationFrame(animateStars);
     }
-
     animateStars();
   </script>
 </body>
