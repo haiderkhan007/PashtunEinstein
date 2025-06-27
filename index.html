@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +38,7 @@
       background-color: var(--bg-color);
       z-index: -1;
     }
+
     #stars {
       position: fixed;
       top: 0; left: 0;
@@ -49,6 +49,7 @@
     #stars canvas {
       width: 100%; height: 100%;
     }
+
     .toggle-btn {
       position: fixed;
       top: 10px;
@@ -60,6 +61,7 @@
       z-index: 3;
       cursor: pointer;
     }
+
     header {
       display: flex;
       align-items: center;
@@ -70,35 +72,48 @@
       position: relative;
       flex-direction: column;
     }
+
     .logo-wrapper {
       position: absolute;
       top: 20px;
       left: 20px;
     }
+
     .logo-wrapper img {
       height: 100px;
       border-radius: 10px;
       filter: brightness(1.5) contrast(1.2);
     }
+
     .mypic-wrapper {
       position: absolute;
-      bottom: 20px;
+      bottom: 10px;
       right: 20px;
+      animation: floatPic 3s ease-in-out infinite;
     }
+
     .mypic-wrapper img {
       height: 100px;
       border-radius: 50%;
-      filter: brightness(1.5) contrast(1.2);
-      animation: float 3s ease-in-out infinite;
+      border: 3px solid #F8BD33;
     }
+
+    @keyframes floatPic {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
     .header-text {
       max-width: 800px;
+      margin-top: 140px;
     }
+
     header h1 {
       font-size: 2.5rem;
       color: #F8BD33;
       animation: glow 2s ease-in-out infinite alternate;
     }
+
     .typewriter {
       overflow: hidden;
       white-space: nowrap;
@@ -108,16 +123,19 @@
       font-size: 1.1rem;
       margin-top: 8px;
     }
+
     .subtitle {
       color: white;
       font-weight: bold;
       margin-top: 10px;
     }
+
     nav {
       background: rgba(51, 65, 85, 0.85);
       text-align: center;
       padding: 10px;
     }
+
     nav a {
       color: var(--highlight-color);
       text-decoration: none;
@@ -125,13 +143,16 @@
       font-weight: bold;
       transition: color 0.3s ease;
     }
+
     nav a:hover {
       color: #F8BD33;
     }
+
     main {
       padding: 40px;
       text-align: center;
     }
+
     section {
       background-color: var(--card-bg);
       padding: 20px;
@@ -139,10 +160,12 @@
       border-radius: 10px;
       animation: fadeInUp 1.5s ease;
     }
+
     section h2 {
       color: var(--highlight-color);
       margin-bottom: 10px;
     }
+
     .button {
       background: var(--button-bg);
       color: var(--button-text);
@@ -153,44 +176,53 @@
       text-decoration: none;
       display: inline-block;
       margin-top: 10px;
-      transition: transform 0.3s ease;
+      cursor: pointer;
+      transition: transform 0.2s ease;
     }
+
     .button:hover {
       transform: scale(1.05);
     }
+
     footer {
       background-color: rgba(30, 41, 59, 0.85);
       text-align: center;
       padding: 10px;
       font-size: 0.9rem;
     }
+
     @keyframes typing {
       from { width: 0 }
       to { width: 100% }
     }
+
     @keyframes blink-caret {
       50% { border-color: transparent }
     }
+
     @keyframes fadeInUp {
       from { transform: translateY(20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
+
     @keyframes glow {
       from { text-shadow: 0 0 5px #F8BD33; }
       to { text-shadow: 0 0 20px #F8BD33; }
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+
     @media (max-width: 768px) {
-      .logo-wrapper, .mypic-wrapper {
-        position: static;
-        text-align: center;
-        margin: 10px auto;
-      }
       header {
-        padding: 20px 10px;
+        padding-top: 100px;
+      }
+      .logo-wrapper img,
+      .mypic-wrapper img {
+        height: 70px;
+      }
+      .header-text {
+        margin-top: 100px;
+      }
+      nav {
+        flex-wrap: wrap;
       }
     }
   </style>
@@ -203,13 +235,13 @@
     <div class="logo-wrapper">
       <img src="logo.png" alt="Logo">
     </div>
+    <div class="mypic-wrapper">
+      <img src="mypic.png" alt="My Pic">
+    </div>
     <div class="header-text">
       <h1>PashtunEinstein</h1>
       <p class="typewriter">Empowering Pashtun people through science and technology</p>
       <p class="subtitle">Knowledge is power</p>
-    </div>
-    <div class="mypic-wrapper">
-      <img src="mypic.png" alt="My Picture">
     </div>
   </header>
 
