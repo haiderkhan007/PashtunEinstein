@@ -99,14 +99,16 @@
       transform: scale(1.05);
     }
 
+    /* Updated nav styles as you requested */
     nav {
       background: rgba(51, 65, 85, 0.9);
       text-align: center;
       padding: 12px;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
       gap: 15px;
+      overflow-x: auto;
     }
 
     nav a {
@@ -114,6 +116,9 @@
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s ease;
+      font-size: 1rem;
+      padding: 6px 10px;
+      white-space: nowrap;
     }
 
     nav a:hover {
@@ -184,10 +189,16 @@
         font-size: 1rem;
         white-space: normal;
       }
+      /* Keep the nav horizontal with scrolling on small screens */
       nav {
-        flex-direction: column;
-        gap: 10px;
+        /* no flex-direction column here, so nav stays horizontal */
+        gap: 12px;
         padding: 10px;
+        overflow-x: auto;
+      }
+      nav a {
+        font-size: 0.85rem;
+        padding: 5px 8px;
       }
     }
   </style>
