@@ -57,21 +57,18 @@
       background-color: rgba(30, 41, 59, 0.85);
       position: relative;
     }
-    .arabic-text {
+    .arabic-top {
       position: absolute;
-      top: 0;
+      top: 15px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: white;
-      margin: 0;
-      padding: 5px 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      direction: rtl;
       z-index: 2;
     }
     .logo-wrapper {
+      margin-top: 30px; /* pushes logo downward */
       margin-bottom: 15px;
     }
     .logo-wrapper img {
@@ -88,7 +85,7 @@
       overflow: hidden;
       white-space: nowrap;
       border-right: 0.15em solid #F8BD33;
-      animation: blink-caret 0.75s step-end infinite; /* caret blinks only */
+      animation: blink-caret 0.75s step-end infinite;
       color: #F8BD33;
       font-size: 1.1rem;
       margin-top: 10px;
@@ -215,7 +212,7 @@
   <button class="toggle-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
 
   <header>
-    <p class="arabic-text">ربِّ زِدْنِي عِلْماً</p>
+    <div class="arabic-top">رَبِّ زِدْنِي عِلْمًا</div>
     <div class="logo-wrapper">
       <img src="logo.png" alt="PashtunEinstein Logo">
     </div>
