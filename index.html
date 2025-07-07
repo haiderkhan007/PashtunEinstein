@@ -57,6 +57,7 @@
       background-color: rgba(30, 41, 59, 0.85);
       position: relative;
     }
+
     .arabic-top {
       position: absolute;
       top: 15px;
@@ -67,17 +68,20 @@
       color: white;
       z-index: 2;
     }
+
     .arabic-translation {
       position: absolute;
       top: 42px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 0.9rem;
-      color: white;
+      font-size: 0.8rem;
       font-style: italic;
-      opacity: 0.9;
+      color: white;
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards, glow 2.5s ease-in-out infinite alternate;
       z-index: 2;
     }
+
     .logo-wrapper {
       margin-top: 30px;
       margin-bottom: 15px;
@@ -192,8 +196,8 @@
       to { transform: translateY(0); opacity: 1; }
     }
     @keyframes glow {
-      from { text-shadow: 0 0 5px #F8BD33; }
-      to { text-shadow: 0 0 20px #F8BD33; }
+      from { text-shadow: 0 0 5px white; }
+      to { text-shadow: 0 0 12px white; }
     }
 
     @media (max-width: 768px) {
