@@ -1,4 +1,4 @@
-<!-- START OF UPDATED HTML -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,9 +179,7 @@
       padding: 15px;
       font-size: 0.9rem;
     }
-    @keyframes blink-caret {
-      50% { border-color: transparent }
-    }
+    @keyframes blink-caret { 50% { border-color: transparent } }
     @keyframes fadeInUp {
       from { transform: translateY(20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
@@ -243,28 +241,23 @@
       <h2>About Us</h2>
       <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. Our content is simple and practical so everyone can benefit.</p>
     </section>
-
     <section id="youtube">
       <h2>YouTube Channel</h2>
       <p>Explore my videos on tech tutorials, scientific explanations, and DIY projects.</p>
       <a class="button" href="https://www.youtube.com/@PashtunEinstein" target="_blank">Visit Channel</a>
     </section>
-
     <section id="facebook">
       <h2>Facebook Page</h2>
       <p>Follow me on Facebook for updates, posts, and discussions.</p>
       <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank">Visit Facebook</a>
     </section>
-
     <section id="blog">
       <h2>Blog</h2>
       <ul>
-        <li><a href="posts/post1.html">How AI is Changing the World</a></li>
-        <li><a href="posts/post2.html">Top 5 Self-Hosting Tools in 2025</a></li>
+        <li><a href="https://blog.pashtuneinstein.com/science-a-tool-to-understand-the-universe-but-not-the-whole-answer/">Science: A Tool to Understand the Universe</a></li>
       </ul>
-      <a class="button" href="https://blog.pashtuneinstein.com" target="_blank">Visit My Blog</a>
+      <a class="button" href="https://blog.pashtuneinstein.com" target="_blank">Visit Full Blog</a>
     </section>
-
     <section id="contact">
       <h2>Contact</h2>
       <p>Email: <strong>info@pashtuneinstein.com</strong></p>
@@ -282,7 +275,6 @@
       const current = document.body.getAttribute("data-theme") || "dark";
       document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
     }
-
     const canvas = document.querySelector("#stars canvas");
     const ctx = canvas.getContext("2d");
     let w, h;
@@ -292,7 +284,6 @@
     }
     window.addEventListener("resize", resize);
     resize();
-
     const stars = Array.from({length: 100}, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -300,7 +291,6 @@
       dx: (Math.random() - 0.5) * 0.5,
       dy: (Math.random() - 0.5) * 0.5
     }));
-
     function animateStars() {
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = "white";
@@ -319,4 +309,3 @@
   </script>
 </body>
 </html>
-<!-- END OF UPDATED HTML -->
