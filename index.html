@@ -4,25 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PashtunEinstein | Science & Tech</title>
-
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="PashtunEinstein empowers Pashtuns through science, technology, and financial education in an easy and fun way.">
-  <meta name="keywords" content="PashtunEinstein, pashtun culture, science in pashto, pashtun people, science, technology, Pashtun, education, self-hosting, AI, tech blog">
-  <meta name="author" content="Haider Khan">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://pashtuneinstein.com/">
-
-  <!-- Open Graph Tags -->
-  <meta property="og:title" content="PashtunEinstein | Science & Tech">
-  <meta property="og:description" content="Empowering Pashtuns through science, tech, and knowledge.">
-  <meta property="og:image" content="https://pashtuneinstein.com/logo.png">
-  <meta property="og:url" content="https://pashtuneinstein.com/">
-  <meta property="og:type" content="website">
-
+  <meta name="description" content="PashtunEinstein: Empowering Pashtuns with science and technology. Tutorials, blog, videos, and more." />
+  <meta name="keywords" content="PashtunEinstein, science, technology, Pashtun, tutorials, blog, education" />
+  <meta name="author" content="PashtunEinstein" />
+  <link rel="canonical" href="https://pashtuneinstein.com/" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"/>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-  <!-- Your existing CSS styles below -->
   <style>
     :root {
       --bg-color: rgba(0, 0, 0, 0.75);
@@ -35,7 +22,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Roboto Mono', monospace;
-      background: url('bg.jpg') no-repeat center center fixed;
+      background: url('bg.webp') no-repeat center center fixed;
       background-size: cover;
       color: var(--text-color);
     }
@@ -195,7 +182,9 @@
       padding: 15px;
       font-size: 0.9rem;
     }
-    @keyframes blink-caret { 50% { border-color: transparent } }
+    @keyframes blink-caret {
+      50% { border-color: transparent }
+    }
     @keyframes fadeInUp {
       from { transform: translateY(20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
@@ -234,21 +223,21 @@
     <div class="arabic-top">رَبِّ زِدْنِي عِلْمًا</div>
     <div class="translation-text">My Lord, increase me in knowledge</div>
     <div class="logo-wrapper">
-      <img src="logo.png" alt="PashtunEinstein Logo">
+      <img src="logo.webp" alt="PashtunEinstein Logo">
     </div>
     <div class="header-text">
       <h1>PashtunEinstein</h1>
       <p class="typewriter">Empowering Pashtuns through science & tech</p>
       <p class="subtitle">Knowledge is power</p>
     </div>
-    <img src="mypic.png" alt="mypic" class="mypic" />
+    <img src="mypic.webp" alt="mypic" class="mypic" />
   </header>
 
   <nav>
     <a href="#about">About</a>
     <a href="#youtube">YouTube</a>
     <a href="#facebook">Facebook</a>
-    <a href="#blog">Blog</a>
+    <a href="https://blog.pashtuneinstein.com/" target="_blank">Blog</a>
     <a href="#contact">Contact</a>
   </nav>
 
@@ -257,23 +246,19 @@
       <h2>About Us</h2>
       <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. Our content is simple and practical so everyone can benefit.</p>
     </section>
+
     <section id="youtube">
       <h2>YouTube Channel</h2>
       <p>Explore my videos on tech tutorials, scientific explanations, and DIY projects.</p>
       <a class="button" href="https://www.youtube.com/@PashtunEinstein" target="_blank">Visit Channel</a>
     </section>
+
     <section id="facebook">
       <h2>Facebook Page</h2>
       <p>Follow me on Facebook for updates, posts, and discussions.</p>
       <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank">Visit Facebook</a>
     </section>
-    <section id="blog">
-      <h2>Blog</h2>
-      <ul>
-        <li><a href="https://blog.pashtuneinstein.com/science-a-tool-to-understand-the-universe-but-not-the-whole-answer/">Science: A Tool to Understand the Universe</a></li>
-      </ul>
-      <a class="button" href="https://blog.pashtuneinstein.com" target="_blank">Visit Full Blog</a>
-    </section>
+
     <section id="contact">
       <h2>Contact</h2>
       <p>Email: <strong>info@pashtuneinstein.com</strong></p>
@@ -291,6 +276,7 @@
       const current = document.body.getAttribute("data-theme") || "dark";
       document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
     }
+
     const canvas = document.querySelector("#stars canvas");
     const ctx = canvas.getContext("2d");
     let w, h;
@@ -300,6 +286,7 @@
     }
     window.addEventListener("resize", resize);
     resize();
+
     const stars = Array.from({length: 100}, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -307,6 +294,7 @@
       dx: (Math.random() - 0.5) * 0.5,
       dy: (Math.random() - 0.5) * 0.5
     }));
+
     function animateStars() {
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = "white";
