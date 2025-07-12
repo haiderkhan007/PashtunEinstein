@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="PashtunEinstein - Empowering Pashtuns through science and technology. Learn about AI, self-hosting, cybersecurity, and more.">
+  <meta http-equiv="Cache-Control" content="public, max-age=31536000" />
   <title>PashtunEinstein | Science & Tech</title>
-  <meta name="description" content="PashtunEinstein: Empowering Pashtuns with science and technology. Tutorials, blog, videos, and more." />
-  <meta name="keywords" content="PashtunEinstein, science, technology, Pashtun, tutorials, blog, education" />
-  <meta name="author" content="PashtunEinstein" />
-  <link rel="canonical" href="https://pashtuneinstein.com/" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"/>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <link rel="preload" as="image" href="logo.webp" type="image/webp">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" />
+  <script defer src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
   <style>
     :root {
       --bg-color: rgba(0, 0, 0, 0.75);
@@ -123,6 +124,7 @@
     .mypic:hover {
       transform: scale(1.05);
     }
+
     nav {
       background: rgba(51, 65, 85, 0.9);
       text-align: center;
@@ -133,6 +135,7 @@
       gap: 15px;
       overflow-x: auto;
     }
+
     nav a {
       color: var(--highlight-color);
       text-decoration: none;
@@ -142,9 +145,11 @@
       padding: 6px 10px;
       white-space: nowrap;
     }
+
     nav a:hover {
       color: #F8BD33;
     }
+
     main {
       padding: 40px 20px;
       text-align: center;
@@ -182,6 +187,7 @@
       padding: 15px;
       font-size: 0.9rem;
     }
+
     @keyframes blink-caret {
       50% { border-color: transparent }
     }
@@ -193,6 +199,7 @@
       from { text-shadow: 0 0 5px #F8BD33; }
       to { text-shadow: 0 0 20px #F8BD33; }
     }
+
     @media (max-width: 768px) {
       .mypic {
         position: static;
@@ -222,6 +229,7 @@
   <header>
     <div class="arabic-top">رَبِّ زِدْنِي عِلْمًا</div>
     <div class="translation-text">My Lord, increase me in knowledge</div>
+
     <div class="logo-wrapper">
       <img src="logo.webp" alt="PashtunEinstein Logo">
     </div>
@@ -230,7 +238,7 @@
       <p class="typewriter">Empowering Pashtuns through science & tech</p>
       <p class="subtitle">Knowledge is power</p>
     </div>
-    <img src="mypic.webp" alt="mypic" class="mypic" />
+    <img src="mypic.webp" alt="mypic" class="mypic" loading="lazy" />
   </header>
 
   <nav>
