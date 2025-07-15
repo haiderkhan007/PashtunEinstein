@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -188,6 +188,40 @@
       font-size: 0.9rem;
     }
 
+    /* Blog section styles */
+    #blog-section {
+      background-color: var(--card-bg);
+      padding: 25px 20px;
+      margin-bottom: 40px;
+      border-radius: 10px;
+      animation: fadeInUp 1.5s ease;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #blog-section h2 {
+      color: var(--highlight-color);
+      margin-bottom: 12px;
+    }
+    #blog-section ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      color: var(--text-color);
+    }
+    #blog-section ul li {
+      margin-bottom: 8px;
+    }
+    #blog-section ul li a {
+      color: var(--highlight-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    #blog-section ul li a:hover {
+      color: #F8BD33;
+      text-decoration: underline;
+    }
+
     @keyframes blink-caret {
       50% { border-color: transparent }
     }
@@ -219,6 +253,10 @@
         font-size: 0.85rem;
         padding: 5px 8px;
       }
+      #blog-section {
+        max-width: 100%;
+        padding: 20px 15px;
+      }
     }
   </style>
 </head>
@@ -249,37 +287,41 @@
     <a href="#contact">Contact</a>
   </nav>
 
- <main>
-  <section id="about">
-    <h2>About Us</h2>
-    <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. Our content is simple and practical so everyone can benefit.</p>
-  </section>
+  <main>
+    <section id="about">
+      <h2>About Us</h2>
+      <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. Our content is simple and practical so everyone can benefit.</p>
+    </section>
 
-  <section id="youtube">
-    <h2>YouTube Channel</h2>
-    <p>Explore my videos on tech tutorials, scientific explanations, and DIY projects.</p>
-    <a class="button" href="https://www.youtube.com/@PashtunEinstein" target="_blank">Visit Channel</a>
-  </section>
+    <section id="youtube">
+      <h2>YouTube Channel</h2>
+      <p>Explore my videos on tech tutorials, scientific explanations, and DIY projects.</p>
+      <a class="button" href="https://www.youtube.com/@PashtunEinstein" target="_blank">Visit Channel</a>
+    </section>
 
-  <section id="facebook">
-    <h2>Facebook Page</h2>
-    <p>Follow me on Facebook for updates, posts, and discussions.</p>
-    <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank">Visit Facebook</a>
-  </section>
+    <section id="facebook">
+      <h2>Facebook Page</h2>
+      <p>Follow me on Facebook for updates, posts, and discussions.</p>
+      <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank">Visit Facebook</a>
+    </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <strong>info@pashtuneinstein.com</strong></p>
-    <p>Contact me on Telegram:</p>
-    <a class="button" href="https://t.me/s/PashtunEinstein" target="_blank">Telegram</a>
-  </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email: <strong>info@pashtuneinstein.com</strong></p>
+      <p>Contact me on Telegram:</p>
+      <a class="button" href="https://t.me/s/PashtunEinstein" target="_blank">Telegram</a>
+    </section>
 
-  <!-- Added blog section here -->
-  <div id="blog-section">
-    <!-- Blog links will be injected below -->
-    {% include "blog-links.html" %}
-  </div>
-</main>
+    <!-- Blog Section inserted below Contact -->
+    <div id="blog-section">
+      <h2>Latest Blog Posts</h2>
+      <ul>
+        <li><a href="blog-post1.html">Understanding AI: The Basics</a></li>
+        <li><a href="blog-post2.html">Getting Started with Self-Hosting</a></li>
+        <li><a href="blog-post3.html">Top 5 Cybersecurity Tips for Beginners</a></li>
+      </ul>
+    </div>
+  </main>
 
   <footer>
     &copy; 2025 PashtunEinstein. All rights reserved.
