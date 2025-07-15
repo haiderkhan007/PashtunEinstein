@@ -252,11 +252,23 @@
       <p>Follow me on Facebook for updates, posts, and discussions.</p>
       <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank">Visit Facebook</a>
     </section>
+
     <section id="contact">
       <h2>Contact</h2>
       <p>Email: <strong>info@pashtuneinstein.com</strong></p>
       <p>Contact me on Telegram:</p>
       <a class="button" href="https://t.me/s/PashtunEinstein" target="_blank">Telegram</a>
+    </section>
+
+    <section id="blog">
+      <h2>Blog</h2>
+      <div id="blog-links">Loading blog posts…</div>
+      <script>
+        // Replace YOUR_GITHUB_USERNAME with your actual GitHub username
+        fetch('https://raw.githubusercontent.com/haiderkhan007/mkdocs-test/master/docs/blog-links.html')
+          .then(response => response.text())
+          .then(html => { document.getElementById('blog-links').innerHTML = html; });
+      </script>
     </section>
   </main>
   <footer>
