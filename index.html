@@ -40,3 +40,284 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
+      z-index: 0;
+    }
+    #stars canvas {
+      width: 100%; height: 100%;
+    }
+    .toggle-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--button-bg);
+      z-index: 3;
+      cursor: pointer;
+    }
+    header {
+      text-align: center;
+      padding: 50px 20px 30px;
+      background-color: rgba(30, 41, 59, 0.85);
+      position: relative;
+    }
+    .arabic-top {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      z-index: 2;
+    }
+    .translation-text {
+      position: absolute;
+      top: 45px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      color: white;
+      text-shadow: 0 0 5px rgba(255,255,255,0.4);
+      z-index: 2;
+    }
+    .logo-wrapper {
+      margin-top: 65px;
+      margin-bottom: 15px;
+    }
+    .logo-wrapper img {
+      height: 100px;
+      border-radius: 12px;
+      filter: brightness(1.8) contrast(1.2);
+    }
+    .header-text h1 {
+      font-size: 2.7rem;
+      color: #F8BD33;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 0.15em solid #F8BD33;
+      animation: blink-caret 0.75s step-end infinite;
+      color: #F8BD33;
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+    .subtitle {
+      color: white;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .mypic {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .mypic:hover {
+      transform: scale(1.05);
+    }
+
+    nav {
+      background: rgba(51, 65, 85, 0.9);
+      text-align: center;
+      padding: 12px;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      gap: 15px;
+      overflow-x: auto;
+    }
+
+    nav a {
+      color: var(--highlight-color);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+      font-size: 1rem;
+      padding: 6px 10px;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      color: #F8BD33;
+    }
+
+    main {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    section {
+      background-color: var(--card-bg);
+      padding: 25px 20px;
+      margin-bottom: 40px;
+      border-radius: 10px;
+      animation: fadeInUp 1.5s ease;
+    }
+    section h2 {
+      color: var(--highlight-color);
+      margin-bottom: 12px;
+    }
+    .button {
+      background: var(--button-bg);
+      color: var(--button-text);
+      padding: 10px 22px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .button:hover {
+      background: #faca15;
+      transform: translateY(-2px);
+    }
+    footer {
+      background-color: rgba(30, 41, 59, 0.85);
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+    }
+
+    @keyframes blink-caret {
+      50% { border-color: transparent }
+    }
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #F8BD33; }
+      to { text-shadow: 0 0 20px #F8BD33; }
+    }
+
+    @media (max-width: 768px) {
+      .mypic {
+        position: static;
+        display: block;
+        margin: 20px auto 0;
+      }
+      .typewriter {
+        font-size: 1rem;
+        white-space: normal;
+      }
+      nav {
+        gap: 12px;
+        padding: 10px;
+        overflow-x: auto;
+      }
+      nav a {
+        font-size: 0.85rem;
+        padding: 5px 8px;
+      }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <div id="stars"><canvas></canvas></div>
+  <button class="toggle-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+
+  <header>
+    <div class="arabic-top">رَبِّ زِدْنِي عِلْمًا</div>
+    <div class="translation-text">My Lord, increase me in knowledge</div>
+
+    <div class="logo-wrapper">
+      <img src="logo.webp" alt="PashtunEinstein Logo">
+    </div>
+    <div class="header-text">
+      <h1>PashtunEinstein</h1>
+      <p class="typewriter">Empowering Pashtuns through science & tech</p>
+      <p class="subtitle">Knowledge is power</p>
+    </div>
+    <img src="mypic.webp" alt="mypic" class="mypic" loading="lazy" />
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#youtube">YouTube</a>
+    <a href="#facebook">Facebook</a>
+    <a href="https://blog.pashtuneinstein.com/" target="_blank">Blog</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main>
+    <section id="about">
+      <h2>About Us</h2>
+      <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. Our content is simple and practical so everyone can benefit.</p>
+    </section>
+
+    <section id="youtube">
+      <h2>YouTube Channel</h2>
+      <p>Explore my videos on tech tutorials, scientific explanations, and DIY projects.</p>
+      <a class="button" href="https://www.youtube.com/@PashtunEinstein" target="_blank">Visit Channel</a>
+    </section>
+
+    <section id="facebook">
+      <h2>Facebook Page</h2>
+      <p>Follow me on Facebook for updates, posts, and discussions.</p>
+      <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank">Visit Facebook</a>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email: <strong>info@pashtuneinstein.com</strong></p>
+      <p>Contact me on Telegram:</p>
+      <a class="button" href="https://t.me/s/PashtunEinstein" target="_blank">Telegram</a>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 PashtunEinstein. All rights reserved.
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const current = document.body.getAttribute("data-theme") || "dark";
+      document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
+    }
+
+    const canvas = document.querySelector("#stars canvas");
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const stars = Array.from({length: 100}, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.5 + 0.5,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: (Math.random() - 0.5) * 0.5
+    }));
+
+    function animateStars() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "white";
+      stars.forEach(star => {
+        star.x += star.dx;
+        star.y += star.dy;
+        if (star.x < 0 || star.x > w) star.dx *= -1;
+        if (star.y < 0 || star.y > h) star.dy *= -1;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+        ctx.fill();
+      });
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+  </script>
+</body>
+</html>
