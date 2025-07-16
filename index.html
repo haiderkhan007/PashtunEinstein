@@ -225,16 +225,17 @@
       <p>Contact me on Telegram:</p>
       <a class="button" href="https://t.me/s/PashtunEinstein" target="_blank">Telegram</a>
     </section>
-    <section id="blog">
-      <h2>Blog</h2>
-      <div id="blog-links">Loading blog posts…</div>
-      <script>
-        fetch('https://blog.pashtuneinstein.com/blog-links.html')
-          .then(response => response.text())
-          .then(html => { document.getElementById('blog-links').innerHTML = html; })
-          .catch(error => { document.getElementById('blog-links').innerHTML = "Failed to load blog posts."; });
-      </script>
-    </section>
+   <section id="blog">
+     <h2>Blog</h2>
+     <div id="blog-links">Loading blog posts…</div>
+     <script>
+       fetch('https://raw.githubusercontent.com/haiderkhan007/mkdocs-test/master/docs/blog-links.html')
+        .then(response => response.text())
+        .then(html => { document.getElementById('blog-links').innerHTML = html; })
+        .catch(error => { document.getElementById('blog-links').innerHTML = "Failed to load blog posts."; });
+     </script>
+   </section>
+
   </main>
   <footer>&copy; 2025 PashtunEinstein. All rights reserved.</footer>
   <script>
