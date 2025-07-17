@@ -260,7 +260,7 @@
       <h2>Blog</h2>
       <div id="blog-links">Loading blog posts…</div>
       <script>
-        fetch('https://blog.pashtuneinstein.com/blog-links.html')
+        fetch('https://raw.githubusercontent.com/haiderkhan007/mkdocs-test/master/docs/blog-links.html')
           .then(response => response.text())
           .then(html => { document.getElementById('blog-links').innerHTML = html; })
           .catch(error => { document.getElementById('blog-links').innerHTML = "Failed to load blog posts."; });
