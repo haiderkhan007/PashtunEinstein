@@ -41,6 +41,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" />
   <script defer src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
+    /* [CSS stays unchanged for brevity, as you didn't ask for changes there] */
     :root {
       --bg-color: rgba(0, 0, 0, 0.75);
       --text-color: #e2e8f0;
@@ -256,16 +257,25 @@
       <p>Contact me on Telegram:</p>
       <a class="button" href="https://t.me/s/PashtunEinstein" target="_blank">Telegram</a>
     </section>
+
+    <!-- ✅ UPDATED BLOG SECTION -->
     <section id="blog">
       <h2>Blog</h2>
-      <div id="blog-links">Loading blog posts…</div>
-      <script>
-        fetch('https://raw.githubusercontent.com/haiderkhan007/mkdocs-test/master/docs/blog-links.html')
-          .then(response => response.text())
-          .then(html => { document.getElementById('blog-links').innerHTML = html; })
-          .catch(error => { document.getElementById('blog-links').innerHTML = "Failed to load blog posts."; });
-      </script>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 10px;">
+          <a href="https://blog.pashtuneinstein.com/4-privacy-checks-you-should-be-doing-but-probably-arent/" target="_blank" style="color: var(--highlight-color); font-weight: bold; font-size: 1.1rem;">
+            4 Privacy Checks You Should Be Doing (But Probably Aren’t)
+          </a>
+        </li>
+        <li style="margin-bottom: 10px;">
+          <a href="https://blog.pashtuneinstein.com/science-a-tool-to-understand-the-universe-but-not-the-whole-answer/" target="_blank" style="color: var(--highlight-color); font-weight: bold; font-size: 1.1rem;">
+            Science: A Tool to Understand the Universe, But Not the Whole Answer
+          </a>
+        </li>
+      </ul>
+      <a class="button" href="https://blog.pashtuneinstein.com/" target="_blank">Visit Full Blog</a>
     </section>
+
   </main>
   <footer>&copy; 2025 PashtunEinstein. All rights reserved.</footer>
   <script>
