@@ -18,7 +18,8 @@
     "sameAs": [
       "https://www.facebook.com/profile.php?id=61550513243090",
       "https://www.youtube.com/@PashtunEinstein",
-      "https://t.me/s/PashtunEinstein"
+      "https://t.me/s/PashtunEinstein",
+      "https://www.tiktok.com/@ikn0w.you"
     ]
   }
   </script>
@@ -137,6 +138,35 @@
       font-weight: bold;
       margin-top: 10px;
     }
+
+    /* New Social Icons Styles */
+    .social-icons {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.4rem;
+      text-decoration: none;
+    }
+    .social-icons a:hover {
+      opacity: 0.8;
+      transform: scale(1.1);
+      transition: 0.3s;
+    }
+    .facebook { background-color: #1877F2; }
+    .youtube { background-color: #FF0000; }
+    .tiktok { background-color: #000000; }
+    .telegram { background-color: #0088cc; }
+
     .mypic {
       position: absolute;
       bottom: 10px;
@@ -225,6 +255,22 @@
       <h1>PashtunEinstein</h1>
       <p class="typewriter">Empowering Pashtuns through science & tech</p>
       <p class="subtitle">Knowledge is power</p>
+
+      <!-- Social Icons Added Here -->
+      <div class="social-icons">
+        <a class="facebook" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a class="youtube" href="https://www.youtube.com/@PashtunEinstein" target="_blank" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a class="tiktok" href="https://www.tiktok.com/@ikn0w.you" target="_blank" aria-label="TikTok">
+          <i class="fab fa-tiktok"></i>
+        </a>
+        <a class="telegram" href="https://t.me/s/PashtunEinstein" target="_blank" aria-label="Telegram">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+      </div>
     </div>
     <img src="mypic.webp" alt="mypic" class="mypic" loading="lazy" />
   </header>
