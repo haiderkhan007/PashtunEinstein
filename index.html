@@ -37,6 +37,15 @@
   }
   </script>
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NEP0E4FHX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6NEP0E4FHX');
+  </script>
+
   <link rel="preload" as="image" href="logo.webp" type="image/webp">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" />
   <script defer src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -307,13 +316,11 @@
   <footer>&copy; 2025 PashtunEinstein. All rights reserved.</footer>
 
   <script>
-    // Theme toggle button
     function toggleTheme() {
       const current = document.body.getAttribute("data-theme") || "dark";
       document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
     }
 
-    // Stars animation canvas setup
     const canvas = document.querySelector("#stars canvas");
     const ctx = canvas.getContext("2d");
     let w, h;
@@ -324,7 +331,6 @@
     window.addEventListener("resize", resize); 
     resize();
 
-    // Create stars array with random properties
     const stars = Array.from({length: 100}, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -333,7 +339,6 @@
       dy: (Math.random() - 0.5) * 0.5
     }));
 
-    // Animate stars moving and bouncing inside viewport
     function animateStars() {
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = "white";
