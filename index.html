@@ -215,11 +215,19 @@
       from { text-shadow: 0 0 5px #F8BD33; }
       to { text-shadow: 0 0 20px #F8BD33; }
     }
+
+    /* ✅ Small screen fixes */
     @media (max-width: 768px) {
       .mypic { position: static; display: block; margin: 20px auto 0; }
       .typewriter { font-size: 1rem; white-space: normal; }
       nav { gap: 12px; padding: 10px; overflow-x: auto; }
-      nav a { font-size: 0.85rem; padding: 5px 8px; }
+      nav a {
+        font-size: 0.8rem;
+        padding: 4px 6px;
+      }
+      .header-text h1 {
+        font-size: 2.2rem;
+      }
     }
   </style>
 </head>
