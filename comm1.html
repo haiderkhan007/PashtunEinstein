@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeakWise - PashtunEinstein Academy</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Urdu/Pashto Font Styling */
+        .font-urdu {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+        }
+        
+        /* Techy Link Animation */
+        .tech-link {
+            background: linear-gradient(90deg, #4f46e5, #9333ea, #ec4899);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Certificate Styles */
+        .certificate-container {
+            background: #fff;
+            border: 10px solid #f97316; /* Orange border */
+            padding: 40px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+        .certificate-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle at 50% 50%, #fff7ed 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 0.5;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 flex flex-col">
+
+    <!-- App Root -->
+    <div id="app" class="flex-grow flex flex-col"></div>
+
+    <script>
+        // --- Configuration & State ---
+        const LESSON_KEYS = ['ethics', 'polite', 'bodyLanguage', 'conflict', 'professional', 'persuasion', 'mistakes', 'success', 'tips'];
+        const TOTAL_QUESTIONS = 15;
+        const PASS_SCORE = 0.70;
+
+        let state = {
+            lang: 'en', 
+            activeTab: 'home',
+            mobileMenuOpen: false,
+            viewedLessons: new Set(),
+            isTestAvailable: false,
+            // Test variables
+            isTesting: false,
+            testLang: 'en',
+            currentQuestionIndex: 0,
+            userAnswers: [],
+            showResults: false,
+            userName: '',
+            finalScore: 0
+        };
+
+        // --- Questions Database ---
+        const testQuestions = {
+            en: [
+                { q: "What percentage of communication is often considered non-verbal?", options: ["~10%", "~30%", "~50%", "~70%"], answer: 3, topic: "Body Language" },
+                { q: "In professional communication, what is the best approach for long emails?", options: ["Include every detail to be thorough.", "Use complex vocabulary to impress.", "Be concise and get straight to the point.", "Start with a joke."], answer: 2, topic: "Professional" },
+                { q: "Which statement is an example of an effective 'I' statement during conflict?", options: ["You always make me angry.", "I am frustrated by the lack of clear direction.", "You never listen to me.", "Why do you do that?"], answer: 1, topic: "Conflict" },
+                { q: "The ethical principle of 'Confidentiality' means:", options: ["Sharing sensitive information only with close friends.", "Keeping private information safe.", "Only discussing secrets in a private setting.", "Using secrets as leverage in negotiations."], answer: 1, topic: "Ethics" },
+                { q: "What is the primary purpose of 'The Pause' in successful communication?", options: ["To find a way to interrupt the speaker.", "To show disinterest.", "To allow time for deep thought and add weight to the answer.", "To check your phone."], answer: 2, topic: "Tips" },
+                { q: "Which habit is listed as a 'Common Mistake to Avoid'?", options: ["Active listening.", "Using 'Thank You'.", "Interrupting the speaker.", "Maintaining open posture."], answer: 2, topic: "Mistakes" },
+                { q: "Effective persuasion begins with understanding:", options: ["Your own goals.", "Your strongest argument.", "The other person's needs or values.", "The time limit for the discussion."], answer: 2, topic: "Persuasion" },
+                { q: "In a formal setting, what is the 'first rule of respect' according to the Professional Etiquette lesson?", options: ["Dressing well.", "Using jargon.", "Being on time.", "Using a firm handshake."], answer: 2, topic: "Professional" },
+                { q: "What does crossing your arms typically signal in non-verbal communication?", options: ["Comfort.", "Defensiveness or closure.", "Aggression.", "Confidence."], answer: 1, topic: "Body Language" },
+                { q: "Successful communicators prioritize which quality in their language?", options: ["Complexity.", "Clarity.", "Jargon.", "Hyperbole."], answer: 1, topic: "Success" },
+                { q: "What should you do before sending an email when you are angry?", options: ["Hit send immediately to vent.", "Write it, save it, and send it the next day.", "Use all capital letters to show emotion.", "Send it to a colleague for approval."], answer: 1, topic: "Professional" },
+                { q: "What shows you value others, according to the 'Politeness Guide'?", options: ["Using 'Magic Words' like Please and Thank You.", "Speaking loudly.", "Dominating the conversation.", "Avoiding eye contact."], answer: 0, topic: "Polite" },
+                { q: "If you cut someone off while they are speaking, what message are you sending?", options: ["I am excited.", "My voice is more important than yours.", "I agree with you.", "I am actively listening."], answer: 1, topic: "Mistakes" },
+                { q: "The goal of de-escalation in conflict resolution is to:", options: ["Match the opponent's anger.", "Lower your voice and calmly manage the situation.", "Win the argument quickly.", "Change the subject completely."], answer: 1, topic: "Conflict" },
+                { q: "Which factor is key to building credibility in persuasion?", options: ["Using baseless claims.", "Backing points with facts and expertise.", "Speaking the fastest.", "Ignoring counter-arguments."], answer: 1, topic: "Persuasion" }
+            ],
+            ur: [
+                { q: "گفتگو کا کتنا فیصد حصہ اکثر غیر لفظی سمجھا جاتا ہے؟", options: ["~10%", "~30%", "~50%", "~70%"], answer: 3, topic: "باڈی لینگویج" },
+                { q: "پیشہ ورانہ گفتگو میں، طویل ای میلز کے لیے بہترین طریقہ کیا ہے؟", options: ["ہر تفصیل کو شامل کریں تاکہ جامع ہو۔", "متاثر کرنے کے لیے پیچیدہ الفاظ استعمال کریں۔", "مختصر رہیں اور سیدھے اصل بات پر آئیں۔", "لطیفہ سے شروع کریں۔"], answer: 2, topic: "پیشہ ورانہ اصول" },
+                { q: "تنازعہ کے دوران مؤثر 'میں' کے بیان کی مثال کون سی ہے؟", options: ["تم ہمیشہ مجھے غصہ دلاتے ہو۔", "میں واضح سمت کی کمی سے مایوس ہوں۔", "تم میری بات کبھی نہیں سنتے۔", "تم ایسا کیوں کرتے ہو؟"], answer: 1, topic: "تنازعات کا حل" },
+                { q: "اخلاقی اصول 'راز داری' کا مطلب کیا ہے؟", options: ["صرف قریبی دوستوں کے ساتھ حساس معلومات شیئر کرنا۔", "نجی معلومات کو محفوظ رکھنا۔", "صرف نجی سیٹنگ میں رازوں پر بات کرنا۔", "مذاکرات میں رازوں کو فائدہ اٹھانے کے لیے استعمال کرنا۔"], answer: 1, topic: "اخلاقیات" },
+                { q: "کامیاب گفتگو میں 'وقفہ' کا بنیادی مقصد کیا ہے؟", options: ["بولنے والے کی بات کاٹنے کا راستہ تلاش کرنا۔", "عدم دلچسپی دکھانا۔", "گہری سوچ بچار کے لیے وقت دینا اور جواب کو وزن دینا۔", "اپنا فون چیک کرنا۔"], answer: 2, topic: "تجاویز و ٹرکس" },
+                { q: "کون سی عادت 'عام غلطیوں سے بچنے' کے طور پر درج ہے؟", options: ["توجہ سے سننا۔", "'شکریہ' کا استعمال کرنا۔", "بولنے والے کی بات کاٹنا۔", "کھلی کرنسی (Posture) برقرار رکھنا۔"], answer: 2, topic: "غلطیاں" },
+                { q: "مؤثر ترغیب کس چیز کو سمجھنے سے شروع ہوتی ہے؟", options: ["آپ کے اپنے مقاصد۔", "آپ کا سب سے مضبوط دلیل۔", "دوسرے شخص کی ضروریات یا قدریں۔", "گفتگو کی وقت کی حد۔"], answer: 2, topic: "ترغیب اور اثر" },
+                { q: "رسمی ماحول میں، 'احترام کا پہلا اصول' پیشہ ورانہ اصول کے مطابق کیا ہے؟", options: ["اچھے کپڑے پہننا۔", "تکنیکی الفاظ استعمال کرنا۔", "وقت پر ہونا۔", "مضبوط ہاتھ ملانا۔"], answer: 2, topic: "پیشہ ورانہ اصول" },
+                { q: "غیر لفظی گفتگو میں بازو باندھنا عام طور پر کس چیز کا اشارہ دیتا ہے؟", options: ["آرام۔", "دفاعی رویہ یا بندش۔", "جارحیت۔", "اعتماد۔"], answer: 1, topic: "باڈی لینگویج" },
+                { q: "کامیاب گفتگو کرنے والے اپنی زبان میں کس معیار کو ترجیح دیتے ہیں؟", options: ["پیچیدگی۔", "وضاحت۔", "تکنیکی الفاظ۔", "مبالغہ آرائی۔"], answer: 1, topic: "کامیابی کے اصول" },
+                { q: "جب آپ غصے میں ہوں تو ای میل بھیجنے سے پہلے آپ کو کیا کرنا چاہیے؟", options: ["فوری طور پر بھیجیں تاکہ جذبات کا اظہار ہو۔", "لکھیں، محفوظ کریں، اور اگلے دن بھیجیں۔", "جذبات ظاہر کرنے کے لیے تمام بڑے حروف استعمال کریں۔", "منظوری کے لیے کسی ساتھی کو بھیجیں۔"], answer: 1, topic: "پیشہ ورانہ اصول" },
+                { q: "'شائستگی گائیڈ' کے مطابق کیا ظاہر کرتا ہے کہ آپ دوسروں کی قدر کرتے ہیں؟", options: ["'جادوئی الفاظ' جیسے براہ کرم اور شکریہ کا استعمال کرنا۔", "اونچی آواز میں بولنا۔", "گفتگو پر حاوی ہونا۔", "نظریں ملانے سے گریز کرنا۔"], answer: 0, topic: "شائستگی" },
+                { q: "اگر آپ کسی کو بولتے ہوئے کاٹ دیتے ہیں، تو آپ کیا پیغام دے رہے ہیں؟", options: ["میں پرجوش ہوں۔", "میری آواز آپ کی آواز سے زیادہ اہم ہے۔", "میں آپ سے متفق ہوں۔", "میں توجہ سے سن رہا ہوں۔"], answer: 1, topic: "غلطیاں" },
+                { q: "تنازعہ کے حل میں غصہ کم کرنے کا مقصد کیا ہے؟", options: ["مخالف کے غصے کا مقابلہ کرنا۔", "اپنی آواز نیچی کرنا اور صورتحال کو پرسکون طور پر سنبھالنا۔", "بحث جلدی جیتنا۔", "موضوع کو مکمل طور پر بدل دینا۔"], answer: 1, topic: "تنازعات کا حل" },
+                { q: "ترغیب میں اعتماد پیدا کرنے کا کلیدی عنصر کیا ہے؟", options: ["بے بنیاد دعوے استعمال کرنا۔", "نکات کو حقائق اور مہارت سے ثابت کرنا۔", "سب سے تیز بولنا۔", "جوابی دلائل کو نظر انداز کرنا۔"], answer: 1, topic: "ترغیب اور اثر" }
+            ],
+            ps: [
+                { q: "د اړیکو څومره سلنه اکثرا غیر لفظي ګڼل کیږي؟", options: ["~10%", "~30%", "~50%", "~70%"], answer: 3, topic: "د بدن ژبه" },
+                { q: "په مسلکي اړیکو کې، د اوږدې بریښنالیکونو لپاره غوره چلند څه دی؟", options: ["د پوره کیدو لپاره هر تفصیل شامل کړئ.", "د اغیزمنتیا لپاره پیچلې کلمې وکاروئ.", "لنډ اوسئ او سمدستي اصل خبرې ته راشئ.", "په ټوکه پیل وکړئ."], answer: 2, topic: "مسلکي چلند" },
+                { q: "په شخړه کې د اغیزمنې 'زه' بیانیې بیلګه کومه ده؟", options: ["تاسو تل ما په غوسه کوئ.", "زه د واضح لارښوونې له نشتوالي څخه ناهیلی یم.", "تاسو هیڅکله ماته غوږ نه نیسئ.", "تاسو ولې دا کار کوئ؟"], answer: 1, topic: "د شخړو حل" },
+                { q: "د 'راز ساتلو' اخلاقي اصول څه معنی لري؟", options: ["یوازې نږدې ملګرو سره حساس معلومات شریکول.", "شخصي معلومات خوندي ساتل.", "یوازې په شخصي ځای کې د رازونو په اړه خبرې کول.", "په خبرو اترو کې د رازونو څخه ګټه پورته کول."], answer: 1, topic: "اخلاق" },
+                { q: "په بریالۍ اړیکه کې د 'وقفې' اصلي موخه څه ده؟", options: ["د وینا کونکي خبرې پرې کولو لاره موندل.", "بې علاقې توب ښودل.", "د ژور فکر لپاره وخت ورکول او ځواب ته وزن ورکول.", "خپل تلیفون کتل."], answer: 2, topic: "لارښوونې" },
+                { q: "کوم عادت د 'عامې غلطیو څخه ډډه کولو' په توګه لیست شوی؟", options: ["په غور اورېدل.", "'مننه' کارول.", "د وینا کونکي خبرې پرې کول.", "خلاص بدن ساتل."], answer: 2, topic: "غلطۍ" },
+                { q: "اغیزمن نفوذ په څه پوهیدلو سره پیل کیږي؟", options: ["ستاسو خپل اهداف.", "ستاسو قوي دلیل.", "د بل چا اړتیاوې یا ارزښتونه.", "د بحث لپاره د وخت محدودیت."], answer: 2, topic: "اغیزمنتوب او نفوذ" },
+                { q: "په رسمي ترتیب کې، د مسلکي چلند له مخې 'د درناوي لومړی اصول' څه دی؟", options: ["ښه جامې اغوستل.", "تخنیکي اصطلاحات کارول.", "په وخت اوسیدل.", "کلک لاسي ورکول."], answer: 2, topic: "مسلکي چلند" },
+                { q: "په غیر لفظي اړیکه کې د لاسونو تړل معمولا څه نښه کوي؟", options: ["آرام.", "دفاع یا بندښت.", "تیری.", "باور."], answer: 1, topic: "د بدن ژبه" },
+                { q: "بریالي اړیکه کوونکي په خپله ژبه کې کوم کیفیت ته لومړیتوب ورکوي؟", options: ["پیچلتیا.", "وضاحت.", "تخنیکي اصطلاحات.", "مبالغه."], answer: 1, topic: "د بریا اصول" },
+                { q: "کله چې تاسو په غوسه یاست، د بریښنالیک لیږلو دمخه باید څه وکړئ؟", options: ["د احساساتو د څرګندولو لپاره سمدستي یې واستوئ.", "ولیکئ، خوندي یې کړئ، او بله ورځ یې واستوئ.", "د احساساتو ښودلو لپاره ټول لوی حروف وکاروئ.", "د تایید لپاره یو همکار ته واستوئ."], answer: 1, topic: "مسلکي چلند" },
+                { q: "د 'ادب لارښود' له مخې څه ښیي چې تاسو نورو ته ارزښت ورکوئ؟", options: ["د 'جادویي کلمو' لکه مهرباني وکړئ او مننه کارول.", "په لوړ غږ خبرې کول.", "په خبرو اترو واکمن کیدل.", "د سترګو اړیکو څخه ډډه کول."], answer: 0, topic: "ادب" },
+                { q: "که تاسو د خبرو پر مهال یو څوک پرې کړئ، تاسو څه پیغام ورکوئ؟", options: ["زه لیواله یم.", "زما غږ ستاسو د غږ څخه ډیر مهم دی.", "زه له تاسو سره موافق یم.", "زه په غور اورم."], answer: 1, topic: "غلطۍ" },
+                { q: "په شخړو کې د غوسې کمولو هدف څه دی؟", options: ["د سیال غوسه سره پرتله کول.", "خپل غږ ټیټول او په ارامه توګه وضعیت سمبالول.", "ژر تر ژره بحث ګټل.", "موضوع په بشپړ ډول بدلول."], answer: 1, topic: "د شخړو حل" },
+                { q: "په نفوذ کې د باور جوړولو کلیدي فکتور کوم دی؟", options: ["بې بنسټه ادعاګانې کارول.", "د حقایقو او تخصص سره د نظرونو ملاتړ کول.", "تر ټولو چټک خبرې کول.", "مقابل دلیلونه له پامه غورځول."], answer: 1, topic: "اغیزمنتوب او نفوذ" }
+            ]
+        };
+
+        // --- Content Dictionary (RESTORED ORIGINAL FULL LENGTH CONTENT) ---
+        const content = {
+            en: {
+                title: "SpeakWise", subtitle: "Master the Art of Communication", welcome: "Your complete guide to ethical, polite, and successful communication skills.",
+                nav: { home: "Home", ethics: "Ethics & Integrity", polite: "Politeness Guide", bodyLanguage: "Body Language", conflict: "Conflict Resolution", professional: "Professionalism", persuasion: "Persuasion & Influence", mistakes: "Avoid Mistakes", success: "Success Habits", tips: "Tips & Tricks", test: "Certification Test" },
+                sections: {
+                    ethics: { title: "Ethics in Communication", desc: "True communication starts with honesty and respect. Without ethics, skills are just manipulation.", icon: "shield", color: "blue", points: [{ title: "Honesty", text: "Always speak the truth, even when it is difficult. Trust is built in drops but lost in buckets." }, { title: "Confidentiality", text: "Keep secrets safe. If someone trusts you with private information, protecting it is your duty." }, { title: "Respect", text: "Value the other person's dignity. Never belittle someone based on their status, race, or opinion." }] },
+                    polite: { title: "How to Talk Nicely", desc: "Politeness costs nothing but buys everything. It is the grease that smooths social friction.", icon: "heart", color: "rose", points: [{ title: "Tone of Voice", text: "It's not just what you say, but how you say it. Keep your volume low and tone calm. A soft voice turns away anger." }, { title: "Magic Words", text: "Never forget 'Please', 'Thank You', and 'Excuse Me'. Use them generously; they show you value others." }, { title: "Active Listening", text: "Listen to understand, not just to reply. Nod, make eye contact, and give the speaker your full attention." }] },
+                    bodyLanguage: { title: "Non-Verbal Communication", desc: "Your body speaks louder than your words. 70% of communication is non-verbal.", icon: "user", color: "purple", points: [{ title: "Eye Contact", text: "Maintain steady eye contact to show confidence and interest. Avoid staring, but don't look at the floor." }, { title: "Open Posture", text: "Keep your arms uncrossed. Crossing arms signals defensiveness or closure. Stand tall to project confidence." }, { title: "Facial Expressions", text: "A genuine smile is a universal language. Ensure your face matches the emotion of your words." }] },
+                    conflict: { title: "Conflict Resolution", desc: "How to handle disagreements without destroying relationships.", icon: "scale", color: "orange", points: [{ title: "De-escalation", text: "When emotions run high, lower your voice. Do not match their anger; calm it down with patience." }, { title: "Use 'I' Statements", text: "Say 'I feel hurt when...' instead of 'You always hurt me...'. This prevents the other person from becoming defensive." }, { title: "Find Common Ground", text: "Start by agreeing on what you both want (e.g., 'We both want this project to succeed'). Build from there." }] },
+                    professional: { title: "Professional Etiquette", desc: "Rules for success in the workplace and formal settings.", icon: "briefcase", color: "slate", points: [{ title: "Punctuality", text: "Being on time is the first rule of respect. It shows you value other people's time." }, { title: "Conciseness", text: "In business, time is money. Get to the point quickly. Don't write 5 paragraphs when 2 sentences will do." }, { title: "Emotional Control", text: "Never send an email when you are angry. Write it, save it, sleep on it, and send it the next day." }] },
+                    persuasion: { title: "Persuasion & Influence", desc: "How to convince others effectively while maintaining integrity.", icon: "lightbulb", color: "teal", points: [{ title: "Understand Needs", text: "Before you persuade, understand what the other person truly needs or values. Tailor your message to their interests." }, { title: "Build Credibility", text: "Show you are knowledgeable and trustworthy. Back your points with facts and demonstrate your expertise." }, { title: "Call to Action", text: "Clearly state what you want the other person to do. Be specific and make it easy for them to agree." }] },
+                    mistakes: { title: "Common Mistakes to Avoid", desc: "These habits ruin relationships and understanding.", icon: "alert-triangle", color: "red", points: [{ title: "Interrupting", text: "Cutting someone off says 'My voice is more important than yours.' Wait for a pause before speaking." }, { title: "Assuming", text: "Don't guess what someone feels. Ask them. Assumptions are the mother of all misunderstandings." }, { title: "Distractedness", text: "Looking at your phone while someone is talking to you is the ultimate insult. Put the phone away." }] },
+                    success: { title: "How Successful People Communicate", desc: "Top leaders use these strategies to win hearts and minds.", icon: "star", color: "green", points: [{ title: "Clarity", text: "They use simple words. They don't try to impress with confusing language. If a 10-year-old can't understand, it's too complex." }, { title: "Empathy", text: "They try to feel what the other person is feeling before they speak. They validate emotions first, then deal with logic." }, { title: "Confidence", text: "They speak slowly and maintain eye contact, showing they believe in their words." }] },
+                    tips: { title: "Tips & Tricks for Success", desc: "Advanced strategies to elevate your communication skills.", icon: "lightbulb", color: "yellow", points: [{ title: "Storytelling", text: "People remember stories more than facts. Use anecdotes to make your points relatable." }, { title: "The Pause", text: "Don't be afraid of silence. Pausing before answering shows you are thinking deeply and adds weight to your answer." }, { title: "Feedback Loop", text: "Ask 'Does that make sense?' to ensure you were understood correctly. Never assume they got it." }] }
+                },
+                scenario: { title: "Scenario Practice Arena", desc: "Test your skills: See the difference between a poor response and a successful one.", badLabel: "❌ Don't say:", goodLabel: "✅ Instead say:", examples: [{ bad: "You are wrong!", good: "I see it differently. Can I explain my point of view?" }, { bad: "I want this done now.", good: "Could you please handle this when you have a moment? It's urgent." }, { bad: "This is a stupid idea.", good: "I have some concerns about this approach. Let's explore alternatives." }, { bad: "Why haven't you finished?", good: "Is there anything blocking your progress on this task?" }, { bad: "You never listen.", good: "I feel unheard right now. Can we take a moment to discuss this?" }, { bad: "That's not my job.", good: "I'm not the best person for this, but I can direct you to who is." }, { bad: "Calm down.", good: "I can see you're upset. I want to understand why." }, { bad: "I don't have time.", good: "I am fully booked right now, but I can schedule this for 2 PM." }, { bad: "Just do it my way.", good: "I've found this method effective; could we try it for this task?" }, { bad: "Your presentation was terrible.", good: "I have some feedback on your presentation that I think could help improve future ones." }] },
+                test: {
+                    title: "Certification Test", start: "Start Test", lang: "Test Language:", instruction: "The test consists of 15 multiple-choice questions. A passing score is 70% (11/15). Good luck!",
+                    locked: { title: "Test Locked", text: `You must complete all 9 core lessons (${LESSON_KEYS.length - state.viewedLessons.size} remaining) before attempting the certification test. Go through the list on the left to unlock this section.` },
+                    results: { passed: "Congratulations! You passed the Certification Test!", failed: "You did not pass the test. Your score was {score}%. Please review the lessons and try again.", certificatePrompt: "Enter your full name to receive your certificate:" },
+                    questions: testQuestions.en,
+                    academy: "PashtunEinstein Academy", certified: "Certified Communicator", issueDate: "Issued On: {date}"
+                }
+            },
+            ur: {
+                title: "فنِ گفتگو", subtitle: "گفتگو کا فن سیکھیں", welcome: "اخلاقی، شائستہ اور کامیاب گفتگو کے لیے آپ کا مکمل رہنما۔",
+                nav: { home: "ہوم", ethics: "اخلاقیات", polite: "شائستگی", bodyLanguage: "باڈی لینگویج", conflict: "تنازعات کا حل", professional: "پیشہ ورانہ اصول", persuasion: "ترغیب اور اثر", mistakes: "غلطیاں", success: "کامیابی کے اصول", tips: "تجاویز و ٹرکس", test: "سرٹیفیکیشن ٹیسٹ" },
+                sections: {
+                    ethics: { title: "گفتگو میں اخلاقیات", desc: "حقیقی گفتگو کا آغاز ایمانداری اور احترام سے ہوتا ہے۔ اخلاقیات کے بغیر، مہارت صرف دھوکہ ہے۔", icon: "shield", color: "blue", points: [{ title: "سچائی", text: "ہمیشہ سچ بولیں، چاہے وہ مشکل ہی کیوں نہ ہو۔ اعتماد قطروں میں بنتا ہے لیکن بالٹیوں میں ضائع ہوتا ہے۔" }, { title: "راز داری", text: "رازوں کی حفاظت کریں۔ اگر کوئی آپ پر اعتماد کرتا ہے تو اس کی پاسداری کرنا آپ کا فرض ہے۔" }, { title: "احترام", text: "دوسرے شخص کی عزت کریں، چاہے ان کا مقام، نسل یا رائے کچھ بھی ہو۔" }] },
+                    polite: { title: "اچھے طریقے سے بات کرنا", desc: "نرمی کی کوئی قیمت نہیں لگتی لیکن یہ سب کچھ خرید لیتی ہے۔", icon: "heart", color: "rose", points: [{ title: "لہجہ", text: "اہم یہ نہیں کہ آپ کیا کہتے ہیں، بلکہ یہ کہ آپ کیسے کہتے ہیں۔ اپنی آواز دھیمی رکھیں۔ نرم آواز غصے کو ختم کر دیتی ہے۔" }, { title: "جادوئی الفاظ", text: "'براہ کرم'، 'شکریہ' اور 'معاف کیجئے' کو کبھی نہ بھولیں۔ ان کا استعمال کثرت سے کریں؛ یہ ظاہر کرتے ہیں کہ آپ دوسروں کی قدر کرتے ہیں۔" }, { title: "توجہ سے سننا", text: "صرف جواب دینے کے لیے نہ سنیں، سمجھنے کے لیے سنیں۔ آنکھیں ملائیں اور بولنے والے کو پوری توجہ دیں۔" }] },
+                    bodyLanguage: { title: "غیر لفظی گفتگو (باڈی لینگویج)", desc: "آپ کا جسم آپ کے الفاظ سے زیادہ بولتا ہے۔ 70٪ مواصلات غیر لفظی ہے۔", icon: "user", color: "purple", points: [{ title: "نظر ملانا", text: "اعتماد ظاہر کرنے کے لیے نظریں ملا کر بات کریں۔ گھورنے سے گریز کریں، لیکن فرش کو نہ دیکھیں۔" }, { title: "کھلی کرنسی (Posture)", text: "اپنے بازو نہ باندھیں۔ بازو باندھنا دفاعی رویے کی علامت ہے۔ اعتماد ظاہر کرنے کے لیے سیدھے کھڑے ہوں۔" }, { title: "چہرے کے تاثرات", text: "حقیقی مسکراہٹ ایک عالمی زبان ہے۔ یقینی بنائیں کہ آپ کا چہرہ آپ کے الفاظ کے جذبات سے میل کھاتا ہے۔" }] },
+                    conflict: { title: "تنازعات کا حل", desc: "تعلقات کو تباہ کیے بغیر اختلافات کو کیسے حل کیا جائے۔", icon: "scale", color: "orange", points: [{ title: "غصہ کم کرنا", text: "جب جذبات زیادہ ہوں تو اپنی آواز نیچی کریں۔ ان کے غصے کا مقابلہ غصے سے نہ کریں؛ صبر سے اسے ٹھنڈا کریں۔" }, { title: "'میں' کا استعمال", text: "'تم ہمیشہ مجھے تکلیف دیتے ہو' کے بجائے 'مجھے تکلیف ہوتی ہے جب...' کہیں۔ اس سے دوسرا شخص دفاعی نہیں ہوتا۔" }, { title: "مشترک بات تلاش کریں", text: "اس بات پر اتفاق سے شروع کریں جو آپ دونوں چاہتے ہیں (مثلاً 'ہم دونوں چاہتے ہیں کہ یہ پروجیکٹ کامیاب ہو')۔" }] },
+                    professional: { title: "پیشہ ورانہ اصول", desc: "کام کی جگہ اور رسمی ترتیبات میں کامیابی کے قواعد۔", icon: "briefcase", color: "slate", points: [{ title: "وقت کی پابندی", text: "وقت پر ہونا احترام کا پہلا اصول ہے۔ یہ ظاہر کرتا ہے کہ آپ دوسرے لوگوں کے وقت کی قدر کرتے ہیں۔" }, { title: "مختصر بات", text: "کاروبار میں، وقت پیسہ ہے۔ بات کو جلدی مکمل کریں۔ 5 پیراگراف نہ لکھیں جب 2 جملے کافی ہوں۔" }, { title: "جذباتی کنٹرول", text: "جب آپ غصے میں ہوں تو کبھی ای میل نہ بھیجیں۔ اسے لکھیں، محفوظ کریں، سو جائیں، اور اگلے دن بھیجیں۔" }] },
+                    persuasion: { title: "ترغیب اور اثر", desc: "اخلاقیات کو برقرار رکھتے ہوئے دوسروں کو مؤثر طریقے سے کیسے قائل کیا جائے۔", icon: "lightbulb-off", color: "teal", points: [{ title: "ضروریات کو سمجھیں", text: "قائل کرنے سے پہلے، سمجھیں کہ دوسرا شخص واقعی کیا چاہتا ہے یا کس چیز کی قدر کرتا ہے۔ اپنے پیغام کو ان کی دلچسپیوں کے مطابق بنائیں۔" }, { title: "اعتماد پیدا کریں", text: "دکھائیں کہ آپ باخبر اور قابل اعتماد ہیں۔ اپنے نکات کو حقائق سے ثابت کریں اور اپنی مہارت کا مظاہرہ کریں۔" }, { title: "کارروائی کی دعوت", text: "واضح طور پر بتائیں کہ آپ دوسرے شخص سے کیا چاہتے ہیں۔ مخصوص رہیں اور ان کے لیے متفق ہونا آسان بنائیں۔" }] },
+                    mistakes: { title: "عام غلطیاں", desc: "یہ عادتیں تعلقات اور سمجھ بوجھ کو تباہ کر دیتی ہیں۔", icon: "alert-triangle", color: "red", points: [{ title: "بات کاٹنا", text: "کسی کی بات کاٹنا یہ ظاہر کرتا ہے کہ 'میری آواز آپ سے زیادہ اہم ہے۔' بولنے سے پہلے وقفے کا انتظار کریں۔" }, { title: "مفروضے قائم کرنا", text: "اندازہ نہ لگائیں کہ کوئی کیا محسوس کر رہا ہے۔ ان سے پوچھیں۔ مفروضے تمام غلط فہمیوں کی ماں ہیں۔" }, { title: "توجہ ہٹانا", text: "جب کوئی آپ سے بات کر رہا ہو تو اپنے فون کو دیکھنا سب سے بڑی توہین ہے۔ فون کو دور رکھیں۔" }] },
+                    success: { title: "کامیاب لوگ کیسے بات کرتے ہیں", desc: "بڑے رہنما دل و دماغ جیتنے کے لیے ان حکمت عملیوں کا استعمال کرتے ہیں۔", icon: "star", color: "green", points: [{ title: "وضاحت", text: "وہ سادہ الفاظ استعمال کرتے ہیں۔ وہ پیچیدہ زبان سے متاثر کرنے کی کوشش نہیں کرتے۔" }, { title: "ہمدردی", text: "وہ بولنے سے پہلے یہ محسوس کرنے کی کوشش کرتے ہیں کہ دوسرا شخص کیا محسوس کر رہا ہے۔ وہ پہلے جذبات کی تصدیق کرتے ہیں۔" }, { title: "اعتماد", text: "وہ آہستہ بولتے ہیں اور نظریں ملا کر بات کرتے ہیں، جو ظاہر کرتا ہے کہ انہیں اپنی بات پر یقین ہے۔" }] },
+                    tips: { title: "کامیاب گفتگو کے لیے تجاویز", desc: "آپ کی گفتگو کی مہارت کو بڑھانے کے لیے جدید حکمت عملی۔", icon: "lightbulb", color: "yellow", points: [{ title: "کہانی سنانا", text: "لوگ حقائق سے زیادہ کہانیاں یاد رکھتے ہیں۔ اپنے نقطہ نظر کو قابل فہم بنانے کے لیے قصے سنائیں۔" }, { title: "وقفہ (The Pause)", text: "خاموشی سے نہ گھبرائیں۔ جواب دینے سے پہلے وقفہ کرنا یہ ظاہر کرتا ہے کہ آپ گہری سوچ بچار کر رہے ہیں۔" }, { title: "فیڈ بیک لوپ", text: "پوچھیں 'کیا یہ سمجھ میں آیا؟' تاکہ یقینی بنایا جا سکے کہ آپ کو صحیح سمجھا گیا ہے۔ کبھی فرض نہ کریں کہ وہ سمجھ گئے۔" }] }
+                },
+                scenario: { title: "مشق کا میدان", desc: "اپنی صلاحیتوں کی جانچ کریں: خراب جواب اور کامیاب جواب کے درمیان فرق دیکھیں۔", badLabel: "❌ یہ مت کہیں:", goodLabel: "✅ اس کے بجائے یہ کہیں:", examples: [{ bad: "تم غلط ہو!", good: "میرا نظریہ مختلف ہے۔ کیا میں وضاحت کر سکتا ہوں؟" }, { bad: "مجھے یہ ابھی چاہیے۔", good: "کیا آپ براہ کرم وقت ملنے پر یہ کر سکتے ہیں؟ یہ ضروری ہے۔" }, { bad: "یہ ایک فضول خیال ہے۔", good: "مجھے اس طریقہ کار کے بارے میں کچھ تحفظات ہیں۔ آئیے متبادل تلاش کرتے ہیں۔" }, { bad: "آپ نے یہ ابھی تک ختم کیوں نہیں کیا؟", good: "کیا کوئی چیز اس کام میں آپ کی پیشرفت کو روک رہی ہے؟" }, { bad: "آپ کبھی میری نہیں سنتے۔", good: "جب ایسا ہوتا ہے تو مجھے لگتا ہے کہ میری بات نہیں سنی گئی۔ کیا ہم اس پر بات کر سکتے ہیں؟" }, { bad: "یہ میرا کام نہیں ہے۔", good: "میں اس کے لیے بہترین شخص نہیں ہوں، لیکن میں آپ کو بتا سکتا ہوں کہ کون ہے۔" }, { bad: "پرسکون ہو جاؤ۔", good: "میں دیکھ سکتا ہوں کہ آپ پریشان ہیں۔ میں سمجھنا چاہتا ہوں کہ کیوں۔" }, { bad: "میرے پاس وقت نہیں ہے۔", good: "میں ابھی مکمل طور پر مصروف ہوں، لیکن میں اسے 2 بجے کے لیے شیڈول کر سکتا ہوں۔" }, { bad: "بس میرا طریقہ اپناؤ۔", good: "میں نے اس طریقے کو مؤثر پایا ہے؛ کیا ہم اسے اس کام کے لیے آزما سکتے ہیں؟" }, { bad: "آپ کی پیشکش خوفناک تھی۔", good: "مجھے آپ کی پیشکش پر کچھ رائے ہے جو میرے خیال میں مستقبل کی پیشکشوں کو بہتر بنانے میں مدد کر سکتی ہے۔" }] },
+                test: {
+                    title: "سرٹیفیکیشن ٹیسٹ", start: "ٹیسٹ شروع کریں", lang: "ٹیسٹ کی زبان:", instruction: "ٹیسٹ 15 کثیر انتخابی سوالات پر مشتمل ہے۔ پاسنگ سکور 70% (11/15) ہے۔ گڈ لک!",
+                    locked: { title: "ٹیسٹ مقفل", text: `سرٹیفیکیشن ٹیسٹ شروع کرنے سے پہلے آپ کو تمام 9 بنیادی اسباق مکمل کرنے ہوں گے (${LESSON_KEYS.length - state.viewedLessons.size} باقی ہیں)۔ اس سیکشن کو کھولنے کے لیے بائیں جانب کی فہرست سے گزریں۔` },
+                    results: { passed: "مبارک ہو! آپ نے سرٹیفیکیشن ٹیسٹ پاس کر لیا!", failed: "آپ ٹیسٹ میں کامیاب نہیں ہو سکے۔ آپ کا سکور {score}% تھا۔ براہ کرم اسباق کا جائزہ لیں اور دوبارہ کوشش کریں۔", certificatePrompt: "اپنا سرٹیفکیٹ حاصل کرنے کے لیے اپنا پورا نام درج کریں:" },
+                    questions: testQuestions.ur,
+                    academy: "پښتون آئنسٹائن اکیڈمی", certified: "تصدیق شدہ بات چیت کرنے والا", issueDate: "جاری ہونے کی تاریخ: {date}"
+                }
+            },
+            ps: {
+                title: "د خبرو هنر", subtitle: "د خبرو اترو هنر زده کړئ", welcome: "د اخلاقي، مؤدبانه او بریالي اړیکو لپاره ستاسو بشپړ لارښود.",
+                nav: { home: "کور", ethics: "اخلاق", polite: "ادب", bodyLanguage: "د بدن ژبه", conflict: "د شخړو حل", professional: "مسلکي چلند", persuasion: "اغیزمنتوب او نفوذ", mistakes: "غلطۍ", success: "د بریا اصول", tips: "لارښوونې", test: "د سند ازموینه" },
+                sections: {
+                    ethics: { title: "په خبرو کې اخلاق", desc: "ریښتیني خبرې له ایماندارۍ او درناوي پیل کیږي. له اخلاقو پرته، مهارت یوازې دوکه ده.", icon: "shield", color: "blue", points: [{ title: "ریښتینولۍ", text: "تل رښتیا وایاست، حتی که ګران وي. باور په څاڅکو جوړیږي خو په بالټیو ضایع کیږي." }, { title: "راز ساتل", text: "رازونه وساتئ. که څوک پر تاسو باور وکړي، د هغوی د باور ساتنه ستاسو دنده ده." }, { title: "درناوی", text: "د بل چا درناوی وکړئ، پرته له دې چې د هغوی مقام، نسل یا نظر څه وي." }] },
+                    polite: { title: "په ښه توګه خبرې کول", desc: "نرمي قیمت نه لري خو هر څه پېرلی شي. دا ټولنیز ژوند اسانه کوي.", icon: "heart", color: "rose", points: [{ title: "د غږ انداز", text: "مهمه نده چې تاسو څه وایئ، مهمه دا ده چې څنګه یې وایئ. خپل غږ ټیټ او ارامه وساتئ." }, { title: "جادویي کلمې", text: "'مهرباني وکړئ'، 'مننه' او 'بخښنه غواړم' هېڅکله مه هېروئ. دا خورا ډیر وکاروئ." }, { title: "په غور اورېدل", text: "یوازې د ځواب ورکولو لپاره مه اورئ، د پوهېدو لپاره اورئ. سترګې ولګوئ او پوره پام وکړئ." }] },
+                    bodyLanguage: { title: "غیر لفظي اړیکه (د بدن ژبه)", desc: "ستاسو بدن ستاسو د الفاظو څخه ډیر څه وايي. 70٪ اړیکه غیر لفظي ده.", icon: "user", color: "purple", points: [{ title: "د سترګو اړیکه", text: "د باور ښودلو لپاره د سترګو اړیکه وساتئ. مه ګورئ، مګر ځمکې ته هم مه ګورئ." }, { title: "خلاص بدن (Posture)", text: "لاسونه مه وتړئ. د لاسونو تړل د دفاع نښه ده. د باور ښودلو لپاره نیغ ودریږئ." }, { title: "د مخ تاثرات", text: "ریښتینې مسکا یوه نړیواله ژبه ده. ډاډ ترلاسه کړئ چې ستاسو مخ ستاسو د خبرو له احساساتو سره سمون لري." }] },
+                    conflict: { title: "د شخړو حل", desc: "د اړیکو ویجاړولو پرته د اختلافاتو حل کولو څرنګوالی.", icon: "scale", color: "orange", points: [{ title: "غوسه کمول", text: "کله چې احساسات لوړ وي، خپل غږ ټیټ کړئ. د غوسې ځواب په غوسه مه ورکوئ؛ په صبر سره یې ارام کړئ." }, { title: "د 'زه' کارول", text: "د 'تاسو تل ما ځوروئ' پرځای ووایاست 'زه خفه کیږم کله چې...'. دا بل کس د دفاع کولو مخه نیسي." }, { title: "ګډ ټکی موندل", text: "په هغه څه پیل وکړئ چې تاسو دواړه یې غواړئ (مثلاً 'موږ دواړه غواړو چې دا پروژه بریالۍ شي')." }] },
+                    professional: { title: "مسلکي چلند", desc: "په کاري ځای او رسمي ځایونو کې د بریا اصول.", icon: "briefcase", color: "slate", points: [{ title: "د وخت پابندي", text: "په وخت اوسیدل د درناوي لومړی اصول دی. دا ښیې چې تاسو د نورو خلکو وخت ته ارزښت ورکوئ." }, { title: "لنډیز", text: "په سوداګرۍ کې، وخت پیسې دي. خبره ژر پای ته ورسوئ. 5 پراګرافه مه لیکئ کله چې 2 جملے کافي وي." }, { title: "احساساتي کنټرول", text: "کله چې تاسو په غوسه یاست هیڅکله بریښنالیک مه لیږئ. ولیکئ، خوندي یې کړئ، ویده شئ، او بله ورځ یې واستوئ." }] },
+                    persuasion: { title: "اغیزمنتوب او نفوذ", desc: "د اخلاقیاتو په پام کې نیولو سره نور خلک په اغیزمنه توګه قانع کول.", icon: "lightbulb-off", color: "teal", points: [{ title: "ضرورتونه پوهیدل", text: "مخکې له دې چې قانع کړئ، پوه شئ چې بل څوک واقعیا څه غواړي یا څه ته ارزښت ورکوي. خپل پیغام د هغوی ګټو ته ورته کړئ." }, { title: "باور جوړول", text: "وښایاست چې تاسو پوه او د باور وړ یاست. خپل ټکي د حقایقو سره ملاتړ کړئ او خپله تخصص وښایاست." }, { title: "د عمل غوښتنه", text: "په واضح ډول ووایاست چې تاسو له بل کس څخه څه غواړئ. مشخص اوسئ او د هغوی لپاره موافقه اسانه کړئ." }] },
+                    mistakes: { title: "عامې تېروتنې", desc: "دا عادتونه اړیکې او پوهاوی له منځه وړي.", icon: "alert-triangle", color: "red", points: [{ title: "خبرې پرې کول", text: "د چا خبرې پرې کول دا ښيي چې 'زما غږ ستاسو تر غږ ډېر مهم دی.' د خبرو کولو دمخه وقفه وکړئ." }, { title: "ګومان کول", text: "ګومان مه کوئ چې څوک څه احساسوي. له هغوی پوښتنه وکړئ. ګومانونه د غلط فهمۍ مور ده." }, { title: "پام اړول", text: "کله چې څوک تاسو سره خبرې کوي تلیفون ته کتل ترټولو لوی سپکاوی دی. تلیفون لرې وساتئ." }] },
+                    success: { title: "بریالي خلک څنګه خبرې کوي", desc: "لوی مشران د زړونو ګټلو لپاره دا تګلارې کاروي.", icon: "star", color: "green", points: [{ title: "وضاحت", text: "هغوی ساده کلمې کاروي. هغوی هڅه نه کوي چې په پیچلو خبرو څوک اغیزمن کړي." }, { title: "خواخوږي", text: "هغوی د خبرو کولو دمخه هڅه کوي پوه شي چې بل کس څه احساسوي. لومړی احساسات تایید کړئ." }, { title: "باور", text: "هغوی ورو خبرې کوي او سترګو ته ګوري، چې ښيي هغوی په خپلو خبرو باور لري." }] },
+                    tips: { title: "د بریا لپاره لارښوونې", desc: "ستاسو د اړیکو مهارتونو لوړولو لپاره پرمختللې تګلارې.", icon: "lightbulb", color: "yellow", points: [{ title: "کیسه ویل", text: "خلک د حقایقو په پرتله کیسې ډیر یاد ساتي. د خپل نظر د پوهولو لپاره کیسې وکاروئ." }, { title: "وقفه (The Pause)", text: "له چوپتیا مه ډاریږئ. د ځواب ورکولو دمخه وقفه کول ښیې چې تاسو ژور فکر کوئ." }, { title: "فیډبیک لوپ", text: "پوښتنه وکړئ 'ایا دا معنی لري؟' ترڅو ډاډ ترلاسه کړئ چې تاسو سم پوهیدلي یاست." }] }
+                },
+                scenario: { title: "عملي تمرین", desc: "خپل مهارتونه وڅیړئ: د غلط ځواب او بریالي ځواب ترمینځ توپیر وګورئ.", badLabel: "❌ دا مه وایئ:", goodLabel: "✅ پرځای یې دا وایئ:", examples: [{ bad: "ته غلط یې!", good: "زه بل نظر لرم. ایا زه توضیح ورکولی شم؟" }, { bad: "زه دا اوس غواړم.", good: "ایا تاسو مهرباني کولی شئ کله چې وخت ولرئ دا وکړئ؟ دا بیړنی دی." }, { bad: "دا یو بې مانا نظر دی.", good: "زه د دې طریقې په اړه ځینې اندیښنې لرم. راځئ چې بدیل لارې ولټوو." }, { bad: "تاسو دا تر اوسه ولې نه دي بشپړ کړي؟", good: "ایا کوم شی ستاسو په دې دنده کې پرمختګ خنډ کوي؟" }, { bad: "تاسو هیڅکله ماته غوږ نه نیسئ.", good: "زه احساس کوم چې کله دا پیښیږي زما خبره نه اوریدل کیږي. ایا موږ پدې اړه خبرې کولی شو؟" }, { bad: "دا زما دنده نه ده.", good: "زه د دې لپاره غوره کس نه یم، مګر زه کولی شم تاسو ته سم کس وښیم." }, { bad: "ارام شه.", good: "زه وینم چې تاسو خفه یاست. زه غواړم پوه شم چې ولې." }, { bad: "زه وخت نه لرم.", good: "زه اوس بوخت یم، مګر زه کولی شم دا د ماسپښین په 2 بجو مهالویش کړم." }, { bad: "بس زما په څیر یې وکړه.", good: "ما دا طریقه مؤثره موندلې ده؛ ایا موږ کولی شو د دې دندې لپاره هڅه وکړو؟" }, { bad: "ستاسو پریزنټیشن ډیر بد و.", good: "زه ستاسو په پریزنټیشن کې ځینې نظریات لرم چې فکر کوم راتلونکي کې د ښه والي لپاره مرسته کولی شي." }] },
+                test: {
+                    title: "د سند ازموینه", start: "ازموینه پیل کړئ", lang: "د ازموینې ژبه:", instruction: "ازموینه 15 څو انتخابي پوښتنو څخه جوړه ده. د بریالیتوب نمره 70% (11/15) ده. بریالی اوسئ!",
+                    locked: { title: "ازموینه بنده ده", text: `د سند ازموینې پیل کولو دمخه تاسو باید ټول 9 اصلي درسونه بشپړ کړئ (${LESSON_KEYS.length - state.viewedLessons.size} پاتې دي). د دې برخې خلاصولو لپاره په کیڼ اړخ کې لیست وګورئ.` },
+                    results: { passed: "مبارک شه! تاسو د سند ازموینه پاس کړه!", failed: "تاسو په ازموینه کې بریالي نشئ. ستاسو نمره {score}% وه. مهرباني وکړئ درسونه بیا وګورئ او بیا هڅه وکړئ.", certificatePrompt: "خپل سند ترلاسه کولو لپاره خپل بشپړ نوم دننه کړئ:" },
+                    questions: testQuestions.ps,
+                    academy: "پښتون آئنسٹائن اکاډمي", certified: "تایید شوی اړیکه کوونکی", issueDate: "د خپرولو نیټه: {date}"
+                }
+            }
+        };
+
+        // --- Application Logic ---
+
+        // Initialization
+        function init() {
+            lucide.createIcons();
+            render();
+        }
+
+        // Core Render Function
+        function render() {
+            const app = document.getElementById('app');
+            const t = content[state.lang];
+            const isRtl = state.lang === 'ur' || state.lang === 'ps';
+            
+            // Apply direction
+            document.body.dir = isRtl ? 'rtl' : 'ltr';
+            if(state.lang === 'ur') document.body.classList.add('font-urdu');
+            else document.body.classList.remove('font-urdu');
+
+            let mainHTML = '';
+
+            // Router Logic
+            if (state.activeTab === 'home') mainHTML = renderHome(t, isRtl);
+            else if (state.activeTab === 'test') mainHTML = renderTestSection(t, isRtl);
+            else if (state.activeTab === 'certificate') mainHTML = renderCertificateView(t, isRtl);
+            else mainHTML = renderLesson(t, state.activeTab, isRtl);
+
+            app.innerHTML = `
+                ${renderHeader(t, isRtl)}
+                <div class="flex-grow flex flex-col md:flex-row max-w-7xl mx-auto w-full">
+                    ${renderSidebar(t, isRtl)}
+                    <main class="flex-grow p-6 custom-scrollbar overflow-y-auto h-[calc(100vh-80px)]">
+                        ${mainHTML}
+                    </main>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // --- Components ---
+
+        function renderHeader(t, isRtl) {
+            // Logo Logic: Tries 'logo.png', falls back to 'PE' circle if missing.
+            const logoHtml = `
+                <div class="relative">
+                    <img src="logo.png" alt="PashtunEinstein" class="h-16 w-auto object-contain transition-transform hover:scale-105" 
+                         onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex'">
+                    <div id="fallback-logo" class="hidden h-16 w-16 bg-blue-600 rounded-full items-center justify-center text-white font-bold text-xl shadow-lg border-2 border-white">PE</div>
+                </div>`;
+
+            const langLabels = { en: 'English', ur: 'اردو', ps: 'پښتو' };
+
+            return `
+            <header class="bg-white shadow-md z-50 sticky top-0">
+                <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        ${logoHtml}
+                        <h1 class="text-2xl font-bold text-slate-800 hidden md:block">${t.title}</h1>
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
+                        <!-- Techy Link -->
+                        <a href="https://pashtuneinstein.com/" target="_blank" class="tech-link text-white px-4 py-2 rounded-full font-mono font-bold text-sm tracking-widest shadow-lg transform hover:scale-105 transition-transform duration-300 flex items-center gap-2 group">
+                            <span>VISIT PASHTUNEINSTEIN</span>
+                            <i data-lucide="external-link" class="w-4 h-4 group-hover:animate-bounce"></i>
+                        </a>
+
+                        <!-- Lang Switcher -->
+                        <div class="hidden md:flex bg-slate-100 rounded-lg p-1">
+                            ${['en', 'ur', 'ps'].map(l => `
+                                <button onclick="setLang('${l}')" class="px-3 py-1 rounded-md text-sm font-medium transition-colors ${l !== 'en' ? 'font-urdu' : ''} ${state.lang === l ? 'bg-white text-blue-600 shadow' : 'text-slate-500 hover:text-slate-800'}">
+                                    ${langLabels[l]}
+                                </button>
+                            `).join('')}
+                        </div>
+                        
+                        <!-- Mobile Menu Toggle -->
+                        <button onclick="toggleMenu()" class="md:hidden p-2 text-slate-600">
+                            <i data-lucide="${state.mobileMenuOpen ? 'x' : 'menu'}"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu -->
+                ${state.mobileMenuOpen ? `
+                <div class="md:hidden bg-white border-t p-4 space-y-4 animate-fadeIn">
+                    <div class="flex justify-center gap-2">
+                         ${['en', 'ur', 'ps'].map(l => `
+                            <button onclick="setLang('${l}')" class="flex-1 py-2 rounded bg-slate-100 ${l !== 'en' ? 'font-urdu' : ''} ${state.lang === l ? 'ring-2 ring-blue-500' : ''}">${langLabels[l]}</button>
+                        `).join('')}
+                    </div>
+                </div>` : ''}
+            </header>`;
+        }
+
+        function renderSidebar(t, isRtl) {
+            const items = LESSON_KEYS.map(k => {
+                const sec = t.sections[k];
+                const active = state.activeTab === k;
+                const done = state.viewedLessons.has(k);
+                return `<button onclick="setTab('${k}')" class="w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all ${active ? 'bg-blue-600 text-white shadow-lg' : 'hover:bg-slate-100 text-slate-700'}">
+                    <i data-lucide="${done ? 'check-circle' : sec.icon}" class="w-5 h-5 ${done && !active ? 'text-green-500' : ''}"></i>
+                    <span class="flex-grow ${isRtl ? 'text-right' : ''}">${t.nav[k]}</span>
+                </button>`;
+            }).join('');
+
+            return `
+            <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex-shrink-0 ${state.mobileMenuOpen ? 'block' : 'hidden md:block'}">
+                <div class="p-4 space-y-2">
+                    <button onclick="setTab('home')" class="w-full flex items-center gap-3 p-3 rounded-xl ${state.activeTab === 'home' ? 'bg-blue-600 text-white' : 'hover:bg-slate-100'}">
+                        <i data-lucide="home" class="w-5 h-5"></i>
+                        <span class="flex-grow ${isRtl ? 'text-right' : ''}">${t.nav.home}</span>
+                    </button>
+                    <div class="h-px bg-slate-200 my-2"></div>
+                    ${items}
+                    <div class="h-px bg-slate-200 my-2"></div>
+                    <button onclick="setTab('test')" class="w-full flex items-center gap-3 p-3 rounded-xl ${state.activeTab === 'test' ? 'bg-orange-500 text-white' : 'hover:bg-orange-50 text-orange-600'}">
+                        <i data-lucide="award" class="w-5 h-5"></i>
+                        <span class="flex-grow ${isRtl ? 'text-right' : ''}">${t.nav.test}</span>
+                        ${state.isTestAvailable ? '' : '<i data-lucide="lock" class="w-4 h-4"></i>'}
+                    </button>
+                </div>
+            </aside>`;
+        }
+
+        function renderHome(t, isRtl) {
+            return `
+            <div class="max-w-3xl mx-auto space-y-8 animate-fadeIn text-center">
+                <div class="bg-gradient-to-br from-blue-600 to-indigo-800 text-white p-10 rounded-3xl shadow-xl">
+                    <h1 class="text-4xl font-bold mb-4">${t.title}</h1>
+                    <p class="text-xl text-blue-100">${t.subtitle}</p>
+                    <p class="mt-4 opacity-90">${t.welcome}</p>
+                    <button onclick="setTab('ethics')" class="mt-8 bg-white text-blue-700 px-8 py-3 rounded-full font-bold hover:bg-blue-50 transition-transform hover:scale-105 shadow-lg">
+                        ${isRtl ? 'شروع کریں' : 'Start Learning'}
+                    </button>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 text-left">
+                    ${t.scenario.examples.map(ex => `
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                            <div class="text-red-500 font-bold text-sm mb-1">${t.scenario.badLabel}</div>
+                            <div class="text-slate-600 mb-4">"${ex.bad}"</div>
+                            <div class="text-green-600 font-bold text-sm mb-1">${t.scenario.goodLabel}</div>
+                            <div class="text-slate-800 font-medium">"${ex.good}"</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+        }
+
+        function renderLesson(t, key, isRtl) {
+            const sec = t.sections[key];
+            markLessonViewed(key); // Mark as viewed
+            
+            return `
+            <div class="max-w-3xl mx-auto animate-fadeIn">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 mb-8">
+                    <div class="flex items-center gap-4 mb-6 ${isRtl ? 'flex-row-reverse' : ''}">
+                        <div class="w-12 h-12 rounded-2xl bg-${sec.color}-100 text-${sec.color}-600 flex items-center justify-center">
+                            <i data-lucide="${sec.icon}" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-800">${sec.title}</h2>
+                            <p class="text-slate-500">${sec.desc}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid gap-4">
+                        ${sec.points.map((p, i) => `
+                            <div class="p-4 rounded-xl bg-slate-50 border-l-4 border-${sec.color}-500 hover:bg-white hover:shadow-sm transition-all">
+                                <h3 class="font-bold text-slate-800 text-lg mb-1">${p.title}</h3>
+                                <p class="text-slate-600">${p.text}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="flex justify-between">
+                    <button onclick="setTab('home')" class="text-slate-500 hover:text-slate-800">Back Home</button>
+                    ${state.isTestAvailable ? 
+                        `<button onclick="setTab('test')" class="bg-orange-500 text-white px-6 py-2 rounded-full shadow hover:bg-orange-600 transition-colors">
+                            ${t.nav.test} <i data-lucide="arrow-right" class="inline w-4 h-4 ml-2"></i>
+                        </button>` : ''}
+                </div>
+            </div>`;
+        }
+
+        function renderTestSection(t, isRtl) {
+            if (!state.isTestAvailable) {
+                return `
+                <div class="flex flex-col items-center justify-center h-full text-center animate-fadeIn">
+                    <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-6 text-slate-400">
+                        <i data-lucide="lock" class="w-10 h-10"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">${t.test.title}</h2>
+                    <p class="text-slate-500 max-w-md">${t.test.locked}</p>
+                    <p class="mt-4 text-sm font-mono bg-slate-100 px-3 py-1 rounded text-slate-600">
+                        Progress: ${state.viewedLessons.size} / ${LESSON_KEYS.length}
+                    </p>
+                </div>`;
+            }
+
+            if (state.showResults) {
+                const passed = state.finalScore >= PASS_SCORE;
+                return `
+                <div class="max-w-2xl mx-auto text-center animate-fadeIn bg-white p-10 rounded-3xl shadow-lg">
+                    <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-6 ${passed ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}">
+                        <i data-lucide="${passed ? 'trophy' : 'frown'}" class="w-10 h-10"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold mb-2">${passed ? t.test.passed : t.test.failed}</h2>
+                    <p class="text-xl text-slate-600 mb-8">Score: ${Math.round(state.finalScore * 100)}%</p>
+                    
+                    ${passed ? `
+                        <div class="max-w-sm mx-auto space-y-4">
+                            <p class="text-sm text-slate-500">${t.test.prompt}</p>
+                            <input id="cert-name" type="text" placeholder="Full Name" class="w-full p-3 border rounded-lg text-center focus:ring-2 ring-blue-500 outline-none">
+                            <button onclick="generateCertificate()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-lg">
+                                ${t.test.getCert}
+                            </button>
+                        </div>
+                    ` : `
+                        <button onclick="startTest()" class="bg-slate-800 text-white px-8 py-3 rounded-full hover:bg-black transition-colors">Try Again</button>
+                    `}
+                </div>`;
+            }
+
+            if (state.isTesting) {
+                const q = testQuestions[state.testLang][state.currentQuestionIndex];
+                return `
+                <div class="max-w-2xl mx-auto animate-fadeIn">
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border-t-8 border-blue-500">
+                        <div class="flex justify-between text-sm text-slate-400 mb-4">
+                            <span>Question ${state.currentQuestionIndex + 1} / ${TOTAL_QUESTIONS}</span>
+                            <span>${q.topic}</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-8 leading-relaxed">${q.q}</h3>
+                        <div class="space-y-3">
+                            ${q.options.map((opt, i) => `
+                                <button onclick="submitAnswer(${i})" class="w-full text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all font-medium text-slate-700">
+                                    ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>`;
+            }
+
+            // Start Screen
+            return `
+            <div class="max-w-2xl mx-auto text-center animate-fadeIn pt-10">
+                <div class="bg-orange-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center text-orange-600 mb-6">
+                    <i data-lucide="award" class="w-10 h-10"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">${t.test.title}</h2>
+                
+                <div class="bg-slate-50 p-6 rounded-xl mb-8 max-w-md mx-auto">
+                    <label class="block text-sm text-slate-500 mb-2">Select Test Language / د ازموینې ژبه / ٹیسٹ کی زبان</label>
+                    <div class="flex gap-2 justify-center">
+                        ${['en', 'ur', 'ps'].map(l => `
+                            <button onclick="selectTestLang('${l}')" class="px-4 py-2 rounded-lg border ${state.testLang === l ? 'bg-slate-800 text-white' : 'bg-white text-slate-600'}">${l.toUpperCase()}</button>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <button onclick="startTest()" class="bg-orange-500 text-white px-10 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-orange-600 transform hover:scale-105 transition-all">
+                    ${t.test.btn}
+                </button>
+            </div>`;
+        }
+
+        function renderCertificateView(t, isRtl) {
+            const date = new Date().toLocaleDateString();
+            return `
+            <div class="flex flex-col items-center justify-center min-h-full p-4 animate-fadeIn">
+                <div class="certificate-container text-center w-full">
+                    <div class="absolute top-0 left-0 w-32 h-32 bg-yellow-400 opacity-20 rounded-full -translate-x-16 -translate-y-16"></div>
+                    <div class="absolute bottom-0 right-0 w-32 h-32 bg-blue-400 opacity-20 rounded-full translate-x-16 translate-y-16"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="text-4xl font-serif text-slate-800 mb-2 uppercase tracking-widest">Certificate</div>
+                        <div class="text-xl text-slate-500 mb-8 tracking-widest uppercase">Of Achievement</div>
+                        
+                        <p class="text-slate-600 italic mb-4">This certificate is proudly presented to</p>
+                        <h1 class="text-5xl md:text-6xl font-bold text-blue-700 mb-6 font-serif border-b-2 border-slate-200 inline-block pb-2 px-8">${state.userName}</h1>
+                        
+                        <p class="text-slate-600 max-w-lg mx-auto mb-8 leading-relaxed">
+                            For successfully demonstrating excellence in communication skills and passing the comprehensive assessment at <strong>${t.test.academy}</strong>.
+                        </p>
+                        
+                        <div class="flex justify-between items-end mt-12 border-t pt-8 max-w-2xl mx-auto">
+                            <div class="text-left">
+                                <div class="text-slate-800 font-bold text-lg">${date}</div>
+                                <div class="text-xs text-slate-400 uppercase tracking-wider">Date</div>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-lg mx-auto">
+                                    <i data-lucide="award" class="w-8 h-8"></i>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <div class="font-signature text-2xl text-blue-600">PashtunEinstein</div>
+                                <div class="text-xs text-slate-400 uppercase tracking-wider">Signature</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="setTab('home')" class="mt-8 text-slate-500 hover:text-slate-800 underline">Exit</button>
+            </div>`;
+        }
+
+        // --- Actions ---
+
+        function setLang(l) {
+            state.lang = l;
+            render();
+        }
+
+        function setTab(t) {
+            state.activeTab = t;
+            state.mobileMenuOpen = false;
+            render();
+        }
+
+        function toggleMenu() {
+            state.mobileMenuOpen = !state.mobileMenuOpen;
+            render();
+        }
+
+        function markLessonViewed(k) {
+            if (!state.viewedLessons.has(k)) {
+                state.viewedLessons.add(k);
+                if (state.viewedLessons.size >= LESSON_KEYS.length) state.isTestAvailable = true;
+                // Don't re-render here to avoid flicker, update state silently until next render
+            }
+        }
+
+        function selectTestLang(l) {
+            state.testLang = l;
+            render();
+        }
+
+        function startTest() {
+            state.isTesting = true;
+            state.currentQuestionIndex = 0;
+            state.userAnswers = [];
+            render();
+        }
+
+        function submitAnswer(idx) {
+            state.userAnswers.push(idx);
+            if (state.currentQuestionIndex < TOTAL_QUESTIONS - 1) {
+                state.currentQuestionIndex++;
+                render();
+            } else {
+                finishTest();
+            }
+        }
+
+        function finishTest() {
+            let score = 0;
+            const questions = testQuestions[state.testLang];
+            state.userAnswers.forEach((ans, i) => {
+                if (ans === questions[i].answer) score++;
+            });
+            state.finalScore = score / TOTAL_QUESTIONS;
+            state.isTesting = false;
+            state.showResults = true;
+            render();
+        }
+
+        function generateCertificate() {
+            const nameInput = document.getElementById('cert-name');
+            if (nameInput && nameInput.value.trim() !== "") {
+                state.userName = nameInput.value;
+                state.activeTab = 'certificate';
+                render();
+            } else {
+                alert("Please enter your name.");
+            }
+        }
+
+        // Boot
+        init();
+
+    </script>
+</body>
+</html>

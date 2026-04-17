@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PashtunEinstein Academy</title>
+
+<style>
+/* --------------------------------------------------
+  MATRIX / HOLOGRAM BACKGROUND (slightly faded)
+-------------------------------------------------- */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: black;
+    overflow-x: hidden;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.35;
+    z-index: -1;
+}
+
+/* --------------------------------------------------
+  HOLOGRAM STYLE LOGO
+-------------------------------------------------- */
+.logo-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.logo-container img {
+    width: 130px;
+    filter: drop-shadow(0 0 20px #F8BD33) brightness(1.4);
+}
+
+/* --------------------------------------------------
+  PAGE TITLE + SUBTITLE
+-------------------------------------------------- */
+h1 {
+    text-align: center;
+    font-size: 2.4rem;
+    color: #F8BD33;
+    margin-top: 20px;
+    text-shadow: 0 0 20px #F8BD33;
+}
+
+.subtitle {
+    text-align: center;
+    max-width: 700px;
+    margin: 10px auto 30px;
+    font-size: 1.1rem;
+    opacity: 0.85;
+    padding: 0 15px;
+}
+
+/* --------------------------------------------------
+  GRID LAYOUT (3 Columns x 2 Rows)
+-------------------------------------------------- */
+.app-grid {
+    display: grid;
+    /* Default to 1 column for mobile */
+    grid-template-columns: 1fr;
+    gap: 50px; /* Increased spacing */
+    padding: 30px;
+    max-width: 1200px;
+    margin: auto;
+    flex: 1; /* Pushes footer down */
+}
+
+/* Tablet: 2 Columns */
+@media (min-width: 600px) {
+    .app-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop: 3 Columns (Creates the 3x2 layout for 6 items) */
+@media (min-width: 992px) {
+    .app-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* --------------------------------------------------
+  HOLOGRAM CARDS
+-------------------------------------------------- */
+.app-card {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(248, 189, 51, 0.4);
+    border-radius: 18px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 25px rgba(248, 189, 51, 0.25);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.app-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 40px rgba(248, 189, 51, 0.45);
+}
+
+.app-icon {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+/* --------------------------------------------------
+  TITLES + BUTTONS
+-------------------------------------------------- */
+.app-title {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    color: #F8BD33;
+    text-shadow: 0 0 12px #F8BD33;
+}
+
+.app-desc {
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+.app-btn {
+    display: inline-block;
+    margin-top: auto;
+    padding: 10px 20px;
+    background: #F8BD33;
+    color: black;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.25s;
+}
+
+.app-btn:hover {
+    background: #ffc24d;
+}
+
+/* --------------------------------------------------
+  TRANSLATE BUTTONS
+-------------------------------------------------- */
+.lang-toggle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.lang-toggle button {
+    padding: 8px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 5px;
+    background: #F8BD33;
+    color: black;
+    font-weight: bold;
+    transition: 0.25s;
+}
+
+.lang-toggle button:hover {
+    background: #ffd677;
+}
+
+/* --------------------------------------------------
+  FOOTER
+-------------------------------------------------- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #888;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(248, 189, 51, 0.2);
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrixCanvas"></canvas>
+
+<!-- LOGO -->
+<div class="logo-container">
+    <img src="logo.png" alt="PashtunEinstein Logo">
+</div>
+
+<h1>PashtunEinstein Academy</h1>
+
+<p class="subtitle">
+    All your learning tools and smart apps in one simple portal. These apps help
+    you learn in easy and advanced ways — and soon you can take a quiz and earn
+    a stunning certificate from PashtunEinstein.
+</p>
+
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-toggle">
+    <button onclick="setLang('en')">English</button>
+    <button onclick="setLang('ur')">اردو</button>
+    <button onclick="setLang('ps')">پښتو</button>
+</div>
+
+<!-- GRID OF APPS -->
+<div class="app-grid">
+
+    <div class="app-card">
+        <div>
+            <div class="app-icon">💬</div>
+            <div class="app-title">Communication Mastery</div>
+            <p id="desc1" class="app-desc">Master the art of ethical and successful communication.</p>
+        </div>
+        <a href="comm1.html" class="app-btn">Open App</a>
+    </div>
+
+    <div class="app-card">
+        <div>
+            <div class="app-icon">🔐</div>
+            <div class="app-title">AES Encryption</div>
+            <p id="desc2" class="app-desc">Encrypt and secure your text & documents instantly.</p>
+        </div>
+        <a href="encryptdoc.html" class="app-btn">Open App</a>
+    </div>
+
+    <div class="app-card">
+        <div>
+            <div class="app-icon">🤖</div>
+            <div class="app-title">AI Academy</div>
+            <p id="desc3" class="app-desc">Learn AI the easy way with simple tutorials.</p>
+        </div>
+        <a href="ai.html" class="app-btn">Open App</a>
+    </div>
+
+    <div class="app-card">
+        <div>
+            <div class="app-icon">📋</div>
+            <div class="app-title">AI Job Checker</div>
+            <p id="desc4" class="app-desc">Will AI take your job? Find out instantly.</p>
+        </div>
+        <a href="aijobchecker.html" class="app-btn">Open App</a>
+    </div>
+
+    <div class="app-card">
+        <div>
+            <div class="app-icon">🧪</div>
+            <div class="app-title">Science Explorer</div>
+            <p id="desc5" class="app-desc">Learn science in Pashto, Urdu & English.</p>
+        </div>
+        <a href="webscience.html" class="app-btn">Open App</a>
+    </div>
+
+    <div class="app-card">
+        <div>
+            <div class="app-icon">🌍</div>
+            <div class="app-title">Language Tutor</div>
+            <p id="desc6" class="app-desc">Pashto–Urdu tutor to build vocabulary fast.</p>
+        </div>
+        <a href="language_tutor.html" class="app-btn">Open App</a>
+    </div>
+
+</div>
+
+<!-- LINKS -->
+<div style="text-align:center; margin:40px 0;">
+    <a href="https://pashtuneinstein.com" class="app-btn" style="background: transparent; border: 1px solid #F8BD33; color: #F8BD33;">Main Website</a>
+    <a href="https://blog.pashtuneinstein.com" class="app-btn" style="background: transparent; border: 1px solid #F8BD33; color: #F8BD33;">Blog</a>
+    <a href="https://www.facebook.com/profile.php?id=61550513243090" class="app-btn" style="background: transparent; border: 1px solid #F8BD33; color: #F8BD33;">Facebook</a>
+    <a href="https://www.youtube.com/@PashtunEinstein" class="app-btn" style="background: transparent; border: 1px solid #F8BD33; color: #F8BD33;">YouTube</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    &copy; 2025 PashtunEinstein. All rights reserved.
+</footer>
+
+<script>
+/* --------------------------------------------------
+   TRANSLATION SYSTEM
+-------------------------------------------------- */
+const translations = {
+    en: [
+        "Master the art of ethical and successful communication.",
+        "Encrypt and secure your text & documents instantly.",
+        "Learn AI the easy way with simple tutorials.",
+        "Will AI take your job? Find out instantly.",
+        "Learn science in Pashto, Urdu & English.",
+        "Pashto–Urdu tutor to build vocabulary fast."
+    ],
+    ur: [
+        "اخلاقی اور کامیاب رابطے کی مہارت حاصل کریں۔",
+        "اپنے ٹیکسٹ اور دستاویزات کو فوراً انکرپٹ کریں۔",
+        "آسان طریقے سے اے آئی سیکھیں۔",
+        "کیا اے آئی آپ کی نوکری لے لے گی؟ فوراً جانیں۔",
+        "سائنس کو آسان زبان میں سیکھیں۔",
+        "لفظوں کا ذخیرہ بڑھانے کے لیے پشتو اُردو ٹیوٹر۔"
+    ],
+    ps: [
+        "د اخلاقي او بريالي اړيکو هنر زده کړئ.",
+        "خپل متن او اسناد سمدستي کوډ کړئ.",
+        "په اسانه طریقه مصنوعي ذهانت زده کړئ.",
+        "ايا AI به ستاسو دندې واخلي؟ ژر معلومه کړئ.",
+        "ساینس په ساده ژبه زده کړئ.",
+        "د پښتو-اردو ژبې ښوونکی د ټکو یادولو لپاره."
+    ]
+};
+
+function setLang(lang) {
+    const ids = ["desc1", "desc2", "desc3", "desc4", "desc5", "desc6"];
+    ids.forEach((id, i) => {
+        document.getElementById(id).innerText = translations[lang][i];
+    });
+}
+
+/* --------------------------------------------------
+   MATRIX ANIMATION
+-------------------------------------------------- */
+const canvas = document.getElementById("matrixCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = "01";
+const fontSize = 16;
+const columns = canvas.width / fontSize;
+const drops = new Array(Math.floor(columns)).fill(1);
+
+function drawMatrix() {
+    ctx.fillStyle = "rgba(0,0,0,0.12)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#0F0";
+    ctx.font = fontSize + "px monospace";
+
+    drops.forEach((y, x) => {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, x * fontSize, y * fontSize);
+
+        if (y * fontSize > canvas.height && Math.random() > 0.975) drops[x] = 0;
+        drops[x]++;
+    });
+}
+
+setInterval(drawMatrix, 50);
+
+// Handle window resize for matrix background
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>

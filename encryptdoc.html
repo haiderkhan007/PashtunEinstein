@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureText AES Cipher Tool</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Crypto-JS for AES encryption -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Matrix Background Canvas */
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Stays strictly behind everything */
+            opacity: 0.15; /* Subtle visibility */
+        }
+
+        .card {
+            background-color: rgba(22, 27, 34, 0.95); /* Slight transparency to see effect behind */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Divider styling */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #4b5563;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #374151;
+        }
+        .divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+        .divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The Matrix Background -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- Header & Navigation -->
+    <header class="p-4 border-b border-gray-700 relative z-10 bg-opacity-90 bg-[#0d1117]">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <!-- Logo Area -->
+                <a href="https://pashtuneinstein.com/" target="_blank" class="flex items-center space-x-4 hover:opacity-90 transition-opacity">
+                    <!-- Updated Logo: Bigger and White Background -->
+                    <img src="logo.png" alt="PashtunEinstein Logo" class="h-16 w-16 rounded-full bg-white p-1 shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/64x64/ffffff/1e40af?text=PE'" title="PashtunEinstein Logo">
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-bold text-blue-400 leading-none">SecureText</span>
+                        <span class="text-sm text-gray-400 font-medium mt-1">PashtunEinstein</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="space-x-4 hidden md:flex">
+                <a href="https://pashtuneinstein.com/" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors">Website</a>
+                <a href="https://blog.pashtuneinstein.com/" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors">Blog</a>
+                <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors">YouTube</a>
+                <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors">Facebook</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8 relative z-10">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-center mt-6 mb-10 text-white">
+            Advanced Encryption Standard (AES) Tool
+        </h1>
+        <p class="text-center mb-10 text-gray-400 max-w-2xl mx-auto">
+            Securely encrypt text and files (PDF, Doc, Images) directly in your browser. 
+            <br>
+            **Decryption is impossible without the exact key.**
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Encryption Panel -->
+            <div class="card p-6 rounded-xl border border-gray-700">
+                <h2 class="text-2xl font-semibold mb-4 text-white border-b border-gray-700 pb-2 flex items-center">
+                    <span>🔒 Encrypt</span>
+                </h2>
+                
+                <div class="mb-6">
+                    <label for="encryptionKey" class="block text-sm font-medium text-blue-400 mb-2">1. Create a Secret Password</label>
+                    <input type="text" id="encryptionKey" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:ring-blue-500 focus:border-blue-500 text-gray-200 placeholder-gray-500" placeholder="e.g., MySecretKey2025">
+                </div>
+
+                <!-- Text Encryption Section -->
+                <label for="plaintext" class="block text-sm font-medium text-gray-300 mb-2">Option A: Encrypt Text</label>
+                <textarea id="plaintext" rows="3" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:ring-blue-500 focus:border-blue-500 text-gray-200 placeholder-gray-500" placeholder="Write message..."></textarea>
+                <button id="encryptBtn" class="mt-3 btn-primary w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 shadow-lg shadow-blue-900/20">
+                    Encrypt Text
+                </button>
+                <textarea id="ciphertextOutput" rows="2" readonly class="mt-3 w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-green-400 font-mono text-xs" placeholder="Encrypted text result..."></textarea>
+
+                <div class="divider">OR</div>
+
+                <!-- File Encryption Section -->
+                <label class="block text-sm font-medium text-gray-300 mb-2">Option B: Encrypt a File (PDF, IMG, etc.)</label>
+                <div class="flex flex-col space-y-3">
+                    <input type="file" id="fileInputEncrypt" class="block w-full text-sm text-gray-400
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-full file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-blue-600 file:text-white
+                        hover:file:bg-blue-700 cursor-pointer bg-gray-800 rounded-lg p-2
+                    "/>
+                    <button id="encryptFileBtn" class="btn-primary w-full px-4 py-2 bg-blue-800 text-white font-semibold rounded-lg hover:bg-blue-900 shadow-lg border border-blue-600">
+                        Download Encrypted File
+                    </button>
+                    <p class="text-xs text-gray-500 text-center">Max size: 5MB. File will be downloaded as .encrypted</p>
+                </div>
+            </div>
+
+            <!-- Decryption Panel -->
+            <div class="card p-6 rounded-xl border border-gray-700">
+                <h2 class="text-2xl font-semibold mb-4 text-white border-b border-gray-700 pb-2 flex items-center">
+                    <span>🔓 Decrypt</span>
+                </h2>
+                
+                <div class="mb-6">
+                    <label for="decryptionKey" class="block text-sm font-medium text-indigo-400 mb-2">1. Enter the Secret Password</label>
+                    <input type="text" id="decryptionKey" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:ring-indigo-500 focus:border-indigo-500 text-gray-200 placeholder-gray-500" placeholder="Must match encryption password">
+                </div>
+
+                <!-- Text Decryption Section -->
+                <label for="ciphertext" class="block text-sm font-medium text-gray-300 mb-2">Option A: Decrypt Text</label>
+                <textarea id="ciphertext" rows="3" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:ring-indigo-500 focus:border-indigo-500 text-gray-200 placeholder-gray-500" placeholder="Paste encrypted text..."></textarea>
+                <button id="decryptBtn" class="mt-3 btn-primary w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 shadow-lg shadow-indigo-900/20">
+                    Decrypt Text
+                </button>
+                <textarea id="plaintextOutput" rows="2" readonly class="mt-3 w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-green-400 font-mono text-xs" placeholder="Original message result..."></textarea>
+
+                <div class="divider">OR</div>
+
+                <!-- File Decryption Section -->
+                <label class="block text-sm font-medium text-gray-300 mb-2">Option B: Decrypt a File</label>
+                <div class="flex flex-col space-y-3">
+                    <input type="file" id="fileInputDecrypt" accept=".encrypted" class="block w-full text-sm text-gray-400
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-full file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-indigo-600 file:text-white
+                        hover:file:bg-indigo-700 cursor-pointer bg-gray-800 rounded-lg p-2
+                    "/>
+                    <button id="decryptFileBtn" class="btn-primary w-full px-4 py-2 bg-indigo-800 text-white font-semibold rounded-lg hover:bg-indigo-900 shadow-lg border border-indigo-600">
+                        Decrypt & Download File
+                    </button>
+                    <p class="text-xs text-gray-500 text-center">Upload the .encrypted file to restore original</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 p-6 border-t border-gray-800 text-center text-gray-500 relative z-10 bg-[#0d1117]">
+        <div class="max-w-7xl mx-auto">
+            <p class="mb-3 font-semibold">&copy; 2025 PashtunEinstein. All rights reserved.</p>
+            <div class="md:hidden flex justify-center space-x-4 text-sm mb-4">
+                <a href="https://pashtuneinstein.com/" target="_blank" class="hover:text-blue-400">Website</a>
+                <a href="https://blog.pashtuneinstein.com/" target="_blank" class="hover:text-blue-400">Blog</a>
+                <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" class="hover:text-blue-400">YouTube</a>
+                <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" class="hover:text-blue-400">Facebook</a>
+            </div>
+            <p class="text-xs opacity-50">Powered by AES-256 Encryption</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Matrix Background Animation Script ---
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const characters = '01';
+        const fontSize = 14;
+        let columns = 0; 
+        let drops = [];
+
+        function initMatrix() {
+            columns = canvas.width / fontSize;
+            drops = [];
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+        }
+        initMatrix();
+        window.addEventListener('resize', initMatrix);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#1a4d31'; // Matrix Green/Teal
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 33);
+
+
+        // --- Core Text Encryption/Decryption Logic (AES) ---
+
+        function encryptAES(plaintext, key) {
+            try {
+                return CryptoJS.AES.encrypt(plaintext, key).toString();
+            } catch (e) { return "Encryption Error"; }
+        }
+
+        function decryptAES(ciphertext, key) {
+            try {
+                const decrypted = CryptoJS.AES.decrypt(ciphertext, key);
+                const str = decrypted.toString(CryptoJS.enc.Utf8);
+                if (!str) return "Decryption failed. Wrong Password?";
+                return str;
+            } catch (error) {
+                return "Invalid Ciphertext or Wrong Password";
+            }
+        }
+
+        // --- UI Text Logic ---
+        document.getElementById('encryptBtn').addEventListener('click', () => {
+            const pText = document.getElementById('plaintext').value;
+            const key = document.getElementById('encryptionKey').value;
+            if(!pText || !key) { alert("Please enter both a message and a password."); return; }
+            
+            const encrypted = encryptAES(pText, key);
+            document.getElementById('ciphertextOutput').value = encrypted;
+            document.getElementById('ciphertext').value = encrypted;
+            document.getElementById('decryptionKey').value = key;
+        });
+
+        document.getElementById('decryptBtn').addEventListener('click', () => {
+            const cText = document.getElementById('ciphertext').value;
+            const key = document.getElementById('decryptionKey').value;
+            if(!cText || !key) { alert("Please enter the ciphertext and the password."); return; }
+
+            const decrypted = decryptAES(cText, key);
+            document.getElementById('plaintextOutput').value = decrypted;
+        });
+
+        // --- File Encryption/Decryption Logic ---
+        
+        // Helper to download data
+        function downloadFile(content, fileName, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 0);
+        }
+
+        // Encrypt File
+        document.getElementById('encryptFileBtn').addEventListener('click', () => {
+            const fileInput = document.getElementById('fileInputEncrypt');
+            const key = document.getElementById('encryptionKey').value;
+
+            if (!fileInput.files.length) { alert("Please select a file first."); return; }
+            if (!key) { alert("Please enter a password."); return; }
+            
+            const file = fileInput.files[0];
+            if (file.size > 5 * 1024 * 1024) { alert("File is too large! Maximum size is 5MB to prevent browser freezing."); return; }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // We create a package containing metadata + file data
+                const filePackage = {
+                    name: file.name,
+                    type: file.type,
+                    data: e.target.result // Base64 Data URL
+                };
+                
+                try {
+                    const jsonString = JSON.stringify(filePackage);
+                    const encryptedContent = CryptoJS.AES.encrypt(jsonString, key).toString();
+                    // Save as .encrypted file
+                    downloadFile(encryptedContent, file.name + ".encrypted", "text/plain");
+                } catch (err) {
+                    alert("Encryption failed. Try a smaller file.");
+                }
+            };
+            reader.onerror = () => alert("Error reading file.");
+            reader.readAsDataURL(file); // Read file as Data URL string
+        });
+
+        // Decrypt File
+        document.getElementById('decryptFileBtn').addEventListener('click', () => {
+            const fileInput = document.getElementById('fileInputDecrypt');
+            const key = document.getElementById('decryptionKey').value;
+
+            if (!fileInput.files.length) { alert("Please select an .encrypted file."); return; }
+            if (!key) { alert("Please enter the password."); return; }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const encryptedContent = e.target.result;
+                    const decryptedBytes = CryptoJS.AES.decrypt(encryptedContent, key);
+                    const decryptedString = decryptedBytes.toString(CryptoJS.enc.Utf8);
+                    
+                    if (!decryptedString) throw new Error("Decryption returned empty");
+
+                    const filePackage = JSON.parse(decryptedString);
+                    
+                    // Trigger download of the reconstructed file
+                    // filePackage.data is the Base64 Data URL
+                    // filePackage.name is original filename
+                    
+                    // Create a link element to trigger the download from the Data URL
+                    const a = document.createElement('a');
+                    a.href = filePackage.data;
+                    a.download = "decrypted_" + filePackage.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    
+                } catch (err) {
+                    alert("Decryption Failed! Either the password is wrong or the file is corrupted.");
+                    console.error(err);
+                }
+            };
+            reader.readAsText(file);
+        });
+
+    </script>
+</body>
+</html>

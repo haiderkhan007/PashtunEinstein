@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://pashtuneinstein.com/</loc>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://pashtuneinstein.com/acdamy.html</loc>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://pashtuneinstein.com/comm1.html</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://pashtuneinstein.com/ai.html</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://pashtuneinstein.com/webscience.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pashtuneinstein.com/encryptdoc.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pashtuneinstein.com/language_tutor.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pashtuneinstein.com/aijobchecker.html</loc>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.pashtuneinstein.com/</loc>
+    <priority>0.85</priority>
+  </url>
+</urlset>
