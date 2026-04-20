@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About AES Encryption Tool</title>
+    <meta name="description" content="Learn how the PashtunEinstein AES encryption tool helps protect messages and documents with password-based encryption.">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PashtunEinstein">
+    <meta property="og:title" content="About AES Encryption Tool">
+    <meta property="og:description" content="Learn how the PashtunEinstein AES encryption tool helps protect messages and documents with password-based encryption.">
+    <meta property="og:url" content="https://pashtuneinstein.com/about/">
+    <meta property="og:image" content="https://pashtuneinstein.com/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About AES Encryption Tool">
+    <meta name="twitter:description" content="Learn how the PashtunEinstein AES encryption tool helps protect messages and documents with password-based encryption.">
+    <meta name="twitter:image" content="https://pashtuneinstein.com/logo.png">
+    <meta name="theme-color" content="#020617">
+    <link rel="canonical" href="https://pashtuneinstein.com/about/">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/logo.png">
+    <script defer src="/pwa.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #0a0f1f, #000);
+            color: #d7e3ff;
+            overflow-x: hidden;
+        }
+
+        /* Soft glow animation */
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #00c6ff; }
+            50% { text-shadow: 0 0 20px #008cff; }
+            100% { text-shadow: 0 0 10px #00c6ff; }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.2s ease;
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.2);
+        }
+
+        .logo {
+            display: block;
+            width: 140px;
+            margin: 25px auto 10px;
+            filter: brightness(1.8) drop-shadow(0 0 18px #00d2ff);
+            animation: glow 3s infinite ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            color: #73c7ff;
+            animation: glow 2s infinite ease-in-out;
+        }
+
+        /* Back and Visit Section Layout */
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 25px;
+        }
+
+        .back-btn {
+            background: #00aaff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #00aaff;
+            white-space: nowrap; /* Prevents line break */
+        }
+
+        .back-btn:hover {
+            background: #0088cc;
+            box-shadow: 0 0 15px #0099ff;
+        }
+
+        .visit-text {
+            text-align: center;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .visit-text a {
+            color: #00cfff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .visit-text a:hover {
+            text-shadow: 0 0 10px #00cfff;
+        }
+
+        p, li {
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .steps {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #00c6ff;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 22px;
+            }
+
+            .nav-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .back-btn {
+                text-align: center;
+            }
+
+            .visit-text {
+                text-align: center;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Logo -->
+    <img src="/logo.png" alt="Logo" class="logo">
+
+    <div class="container">
+        <h1>About the AES Encryption Tool</h1>
+
+        <p>
+            The internet is not always safe. When your data is moving from one place to another (in transit),
+            hackers, systems, or trackers may try to read it. This AES Encryption Tool protects your communication
+            by converting your message into <strong>ciphertext</strong> — a coded form that looks like random text.
+        </p>
+
+        <p>
+            Only someone with the correct <strong>key (password)</strong> can turn the ciphertext back into the
+            original readable message. This keeps your private communication safe even if someone intercepts your data.
+        </p>
+
+        <div class="steps">
+            <h2>How to Use</h2>
+            <ol>
+                <li>Type your message in the text box.</li>
+                <li>Create a strong secret key (password).</li>
+                <li>Press <strong>Encrypt</strong> to convert your message into ciphertext.</li>
+                <li>Send the encrypted text to anyone using email, WhatsApp, Messenger, etc.</li>
+                <li><strong>Important:</strong> Do NOT send the key with the encrypted message. Share the key separately (for example: phone call).</li>
+            </ol>
+        </div>
+
+        <p>
+            When the other person receives the ciphertext, they can paste it into this tool and enter the correct key to
+            decrypt it. The tool will then return the original message.
+        </p>
+
+        <p>
+            You can also use this tool to encrypt PDFs, documents, notes, or any text-based file.
+            It is extremely useful for privacy-conscious users, journalists, professionals, and anyone who wants secure communication.
+        </p>
+
+        <!-- Visit + Back Row -->
+        <div class="nav-row">
+            <a class="back-btn" href="/encryptdoc">⬅ Back to Encryption App</a>
+
+            <div class="visit-text">
+                Visit: <a href="https://pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">PashtunEinstein.com</a>
+            </div>
+        </div>
+
+        <footer>
+            © PashtunEinstein 2025
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

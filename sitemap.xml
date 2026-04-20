@@ -6,33 +6,45 @@
   </url>
 
   <url>
-    <loc>https://pashtuneinstein.com/acdamy.html</loc>
+    <loc>https://pashtuneinstein.com/academy/</loc>
     <priority>0.90</priority>
   </url>
 
   <url>
-    <loc>https://pashtuneinstein.com/comm1.html</loc>
+    <loc>https://pashtuneinstein.com/about/</loc>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://pashtuneinstein.com/comm1/</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://pashtuneinstein.com/ai.html</loc>
+    <loc>https://pashtuneinstein.com/ai/</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://pashtuneinstein.com/webscience.html</loc>
+    <loc>https://pashtuneinstein.com/webscience/</loc>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://pashtuneinstein.com/encryptdoc.html</loc>
+    <loc>https://pashtuneinstein.com/encryptdoc/</loc>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://pashtuneinstein.com/language_tutor.html</loc>
+    <loc>https://pashtuneinstein.com/language_tutor/</loc>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://pashtuneinstein.com/aijobchecker.html</loc>
+    <loc>https://pashtuneinstein.com/aijobchecker/</loc>
     <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pashtuneinstein.com/quiz/</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pashtuneinstein.com/privacy_policy/</loc>
+    <priority>0.40</priority>
   </url>
 
   <url>

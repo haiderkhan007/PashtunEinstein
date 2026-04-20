@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PashtunEinstein AI Academy</title>
+    <meta name="description" content="Explore PashtunEinstein AI Academy for practical AI lessons, concepts, and tools in a simple format.">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PashtunEinstein">
+    <meta property="og:title" content="PashtunEinstein AI Academy">
+    <meta property="og:description" content="Explore PashtunEinstein AI Academy for practical AI lessons, concepts, and tools in a simple format.">
+    <meta property="og:url" content="https://pashtuneinstein.com/ai/">
+    <meta property="og:image" content="https://pashtuneinstein.com/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PashtunEinstein AI Academy">
+    <meta name="twitter:description" content="Explore PashtunEinstein AI Academy for practical AI lessons, concepts, and tools in a simple format.">
+    <meta name="twitter:image" content="https://pashtuneinstein.com/logo.png">
+    <meta name="theme-color" content="#020617">
+    <link rel="canonical" href="https://pashtuneinstein.com/ai/">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/logo.png">
+    <script defer src="/pwa.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Sans (Eng) and Noto Naskh Arabic (Urdu/Pashto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Sans:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        .rtl-text {
+            direction: rtl;
+            font-family: 'Noto Naskh Arabic', serif;
+        }
+        .brand-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+        .lesson-card:hover {
+            transform: translateY(-5px);
+        }
+        .lang-btn.active {
+            background-color: #fbbf24; /* Yellow-400 */
+            color: #312e81; /* Indigo-900 */
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-indigo-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo Section -->
+                <div class="flex items-center gap-3 cursor-pointer hover:opacity-90 transition" onclick="goHome()">
+                    <img src="/logo.png" alt="PashtunEinstein Logo" class="h-12 w-12 rounded-full border-2 border-yellow-400 object-cover" onerror="this.src='https://placehold.co/100x100?text=PE'"> 
+                    <div class="flex flex-col">
+                        <span class="brand-font text-xl font-bold tracking-wider leading-none">PashtunEinstein</span>
+                        <span class="text-xs text-yellow-400 font-light tracking-widest">AI ACADEMY</span>
+                    </div>
+                </div>
+
+                <!-- Middle Section: Social Icons -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="https://pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition transform hover:scale-110" title="Website">
+                        <i class="fa-solid fa-globe text-xl"></i>
+                    </a>
+                    <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition transform hover:scale-110" title="Blog">
+                        <i class="fa-solid fa-blog text-xl"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" rel="noopener noreferrer" class="text-white hover:text-red-500 transition transform hover:scale-110" title="YouTube">
+                        <i class="fa-brands fa-youtube text-xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" rel="noopener noreferrer" class="text-white hover:text-blue-500 transition transform hover:scale-110" title="Facebook">
+                        <i class="fa-brands fa-facebook text-xl"></i>
+                    </a>
+                </div>
+
+                <!-- Improved Language Switcher -->
+                <div class="flex bg-indigo-800 rounded-full p-1 shadow-inner">
+                    <button onclick="changeLang('en')" id="btn-en" class="lang-btn px-4 py-1 rounded-full text-sm font-bold transition active">ENG</button>
+                    <button onclick="changeLang('ur')" id="btn-ur" class="lang-btn px-4 py-1 rounded-full text-sm font-bold font-serif transition">اردو</button>
+                    <button onclick="changeLang('ps')" id="btn-ps" class="lang-btn px-4 py-1 rounded-full text-sm font-bold font-serif transition">پښتو</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="app-container" class="flex-grow container mx-auto px-4 py-8">
+        <!-- Content injected via JS -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-300 py-8 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-6 text-sm font-medium">
+                <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition flex items-center gap-2 px-4 py-2 bg-slate-700 rounded-full">
+                    <i class="fa-solid fa-blog"></i> <span id="footer-blog">My Blog</span>
+                </a>
+                <a href="https://pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition flex items-center gap-2 px-4 py-2 bg-slate-700 rounded-full">
+                    <i class="fa-solid fa-globe"></i> <span id="footer-web">My Website</span>
+                </a>
+                 <a href="/privacy_policy" class="hover:text-yellow-400 transition flex items-center gap-2 px-4 py-2 bg-slate-700 rounded-full">
+                    <i class="fa-solid fa-shield-halved"></i> <span id="footer-privacy">Privacy Policy</span>
+                </a>
+            </div>
+            <div class="text-center border-t border-slate-700 pt-6">
+                <p class="text-sm opacity-70">© 2024 PashtunEinstein. Empowering minds through Science & AI.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hidden Canvas for Certificate Generation -->
+    <canvas id="certCanvas" width="1000" height="700" style="display:none;"></canvas>
+
+    <script>
+        // --- DATA STORE ---
+        const translations = {
+            en: {
+                welcome: "Welcome to AI Academy",
+                subtitle: "Master Artificial Intelligence in 50 easy & fun lessons!",
+                startBtn: "Start Learning",
+                modules: "Course Modules",
+                next: "Next",
+                prev: "Previous",
+                finish: "Finish Lesson",
+                quizTitle: "Final AI Quiz",
+                quizIntro: "Answer 15 questions correctly to earn your certificate.",
+                submitQuiz: "Submit Answers",
+                scoreMsg: "You scored",
+                passMsg: "Congratulations! You are an AI Master.",
+                failMsg: "Don't give up! Review the lessons and try again.",
+                getCert: "Get Certificate",
+                namePrompt: "Enter your First and Last Name for the certificate:",
+                blog: "My Blog",
+                web: "My Website",
+                privacy: "Privacy Policy",
+                categories: ["Basics of AI", "Machine Learning Magic", "Deep Learning & Brains", "Generative AI & Creativity", "Future, Ethics & You"]
+            },
+            ur: {
+                welcome: "AI اکیڈمی میں خوش آمدید",
+                subtitle: "مصنوعی ذہانت کو 50 آسان اور دلچسپ اسباق میں سیکھیں!",
+                startBtn: "سیکھنا شروع کریں",
+                modules: "کورس کے ماڈیولز",
+                next: "اگلا",
+                prev: "پچھلا",
+                finish: "سبق مکمل",
+                quizTitle: "آخری AI کوئز",
+                quizIntro: "سرٹیفکیٹ حاصل کرنے کے لیے 15 سوالات کے صحیح جواب دیں۔",
+                submitQuiz: "جوابات جمع کروائیں",
+                scoreMsg: "آپ کا اسکور",
+                passMsg: "مبارک ہو! آپ AI ماسٹر ہیں۔",
+                failMsg: "ہمت نہ ہاریں! اسباق کا جائزہ لیں اور دوبارہ کوشش کریں۔",
+                getCert: "سرٹیفکیٹ حاصل کریں",
+                namePrompt: "سرٹیفکیٹ کے لیے اپنا پہلا اور آخری نام درج کریں:",
+                blog: "میرا بلاگ",
+                web: "میری ویب سائٹ",
+                privacy: "پرائیویسی پالیسی",
+                categories: ["AI کی بنیادی باتیں", "مشین لرننگ کا جادو", "ڈیپ لرننگ اور دماغ", "جنریٹو AI اور تخلیقی صلاحیت", "مستقبل، اخلاقیات اور آپ"]
+            },
+            ps: {
+                welcome: "د AI اکاډمۍ ته ښه راغلاست",
+                subtitle: "مصنوعي ذہانت په 50 اسانه او په زړه پوري درسونو کې زده کړئ!",
+                startBtn: "زده کړه پیل کړئ",
+                modules: "د کورس برخې",
+                next: "راتلونکی",
+                prev: "شاته",
+                finish: "درس پوره شو",
+                quizTitle: "وروستۍ AI ازموینه",
+                quizIntro: "د سند ترلاسه کولو لپاره 15 پوښتنو ته سم ځواب ورکړئ.",
+                submitQuiz: "ځوابونه وسپارئ",
+                scoreMsg: "ستاسو نمرې",
+                passMsg: "مبارک مو شه! تاسو د AI ماسټر یاست.",
+                failMsg: "همت مه بایلوئ! درسونه بیا وګورئ او هڅه وکړئ.",
+                getCert: "سند ترلاسه کړئ",
+                namePrompt: "د سند لپاره خپل لومړی او وروستی نوم ولیکئ:",
+                blog: "زما بلاګ",
+                web: "زما ویب پاڼه",
+                privacy: "د محرمیت تګلاره",
+                categories: ["د AI بنسټونه", "د ماشین زده کړې جادو", "ډیپ لرننگ او دماغ", "تولیدي AI او خلاقیت", "راتلونکی، اخلاق او تاسو"]
+            }
+        };
+
+        // Core Lessons Data - Expanded with unique content
+        const lessonsData = [
+            // MODULE 1: BASICS
+            { id: 1, cat: 0, icon: "fa-robot", 
+              en: { t: "What is AI?", c: "Imagine teaching a computer to think like a human. That is Artificial Intelligence (AI)! Traditionally, computers are dumb; they only do exactly what we tell them step-by-step. But AI allows computers to observe the world, learn from examples, and solve problems on their own. It's like the difference between a remote-controlled car (traditional) and a self-driving car (AI)." },
+              ur: { t: "AI کیا ہے؟", c: "تصور کریں کہ آپ کمپیوٹر کو انسان کی طرح سوچنا سکھا رہے ہیں۔ اسے مصنوعی ذہانت (AI) کہتے ہیں! روایتی طور پر، کمپیوٹر صرف وہی کرتے ہیں جو ہم انہیں بتاتے ہیں۔ لیکن AI کمپیوٹرز کو دنیا کا مشاہدہ کرنے، مثالوں سے سیکھنے اور خود مسائل حل کرنے کی اجازت دیتا ہے۔ یہ ریموٹ کنٹرول کار اور خودکار کار کے درمیان فرق جیسا ہے۔" },
+              ps: { t: "AI څه شی دی؟", c: "تاسو تصور وکړئ چې کمپیوټر ته د انسان په څیر فکر کول ور زده کوئ. دې ته مصنوعي استخبارات (AI) ویل کیږي! په دودیز ډول، کمپیوټر یوازې هغه څه کوي چې موږ یې ورته وایو. مګر AI کمپیوټر ته اجازه ورکوي چې نړۍ وګوري، له مثالونو زده کړي او ستونزې پخپله حل کړي. دا د ریموټ کنټرول موټر او پخپله چلونکي موټر ترمنځ توپیر په څیر دی." }
+            },
+            { id: 2, cat: 0, icon: "fa-calculator",
+              en: { t: "Traditional Code vs AI", c: "In traditional coding, a programmer writes specific rules: 'IF it is raining, THEN take an umbrella.' But in AI, we don't write rules. We show the computer data—thousands of pictures of rainy days and sunny days. The AI figures out the rules itself! It learns to recognize rain clouds without being told exactly what a cloud looks like." },
+              ur: { t: "روایتی کوڈ بمقابلہ AI", c: "روایتی کوڈنگ میں، ہم اصول لکھتے ہیں: 'اگر بارش ہو رہی ہے، تو چھتری لو۔' لیکن AI میں، ہم اصول نہیں لکھتے۔ ہم کمپیوٹر کو ڈیٹا دکھاتے ہیں—ہزاروں بارش اور دھوپ کے دنوں کی تصاویر۔ AI خود اصول معلوم کرتا ہے! یہ خود بادلوں کو پہچاننا سیکھتا ہے۔" },
+              ps: { t: "دودیز کوډ vs AI", c: "په دودیز کوډینګ کې، موږ قواعد لیکو: 'که باران وي، نو چترۍ واخلئ.' مګر په AI کې، موږ قواعد نه لیکو. موږ کمپیوټر ته ډیټا ښیو — د باران او لمر ورځو زرګونه عکسونه. AI پخپله قواعد پیدا کوي! دا پخپله د ورېځو پیژندل زده کوي." }
+            },
+            { id: 3, cat: 0, icon: "fa-database",
+              en: { t: "Data is Fuel", c: "You cannot have AI without Data. Think of AI as a car engine; Data is the petrol. If you want an AI to recognize cats, you must feed it thousands of cat photos. The more quality data you give it, the smarter it becomes. This is why companies like Google and Facebook are so powerful—they have the most data." },
+              ur: { t: "ڈیٹا ایندھن ہے", c: "آپ ڈیٹا کے بغیر AI نہیں بنا سکتے۔ AI کو کار کا انجن سمجھیں؛ ڈیٹا اس کا پیٹرول ہے۔ اگر آپ چاہتے ہیں کہ AI بلیوں کو پہچانے، تو آپ کو اسے بلیوں کی ہزاروں تصاویر دینی ہوں گی۔ جتنا زیادہ اچھا ڈیٹا آپ دیں گے، وہ اتنا ہی ہوشیار ہو جائے گا۔" },
+              ps: { t: "معلومات تیل دي", c: "تاسو د معلوماتو (ډیټا) پرته AI نشئ جوړولی. AI د موټر انجن په څیر دی؛ معلومات یې پټرول دي. که تاسو غواړئ AI پیشوګانې وپیژني، نو تاسو باید ورته د پیشوګانو زرګونه عکسونه ورکړئ. څومره چې تاسو ډیر ښه معلومات ورکوئ، هغومره به هوښیار شي." }
+            },
+            { id: 4, cat: 0, icon: "fa-eye",
+              en: { t: "Computer Vision", c: "How do computers 'see'? To a computer, a picture is just a grid of numbers representing colors. Computer Vision is the science of teaching AI to understand these numbers as shapes, objects, and faces. This technology is used in unlocking phones with your face and in self-driving cars to spot pedestrians." },
+              ur: { t: "کمپیوٹر ویژن", c: "کمپیوٹر کیسے 'دیکھتے' ہیں؟ کمپیوٹر کے لیے، تصویر صرف نمبروں کا ایک جال ہے۔ کمپیوٹر ویژن AI کو یہ سکھانے کی سائنس ہے کہ ان نمبروں کو شکلوں، چیزوں اور چہروں کے طور پر کیسے سمجھنا ہے۔ یہ ٹیکنالوجی چہرے سے فون ان لاک کرنے میں استعمال ہوتی ہے۔" },
+              ps: { t: "د کمپیوټر لید", c: "کمپیوټر څنګه 'ویني'؟ د کمپیوټر لپاره، یو انځور یوازې د شمیرو یو جال دی. د کمپیوټر لید هغه ساینس دی چې AI ته د دې شمیرو د شکلونو او شیانو په توګه پیژندل ور زده کوي. دا ټیکنالوژي ستاسو په مخ د تلیفون خلاصولو لپاره کارول کیږي." }
+            },
+            { id: 5, cat: 0, icon: "fa-language",
+              en: { t: "NLP (Language)", c: "Natural Language Processing (NLP) allows computers to understand, speak, and write human languages. It's incredibly difficult because human language is messy—we use sarcasm, idioms, and slang. NLP models like ChatGPT break down sentences into math to understand the meaning and context behind the words." },
+              ur: { t: "NLP (زبان)", c: "نیچرل لینگویج پروسیسنگ (NLP) کمپیوٹرز کو انسانی زبانیں سمجھنے اور بولنے کی اجازت دیتا ہے۔ یہ مشکل ہے کیونکہ انسانی زبان پیچیدہ ہے—ہم محاورے اور طنز استعمال کرتے ہیں۔ ChatGPT جیسے ماڈل جملوں کو ریاضی میں توڑ کر ان کا مطلب سمجھتے ہیں۔" },
+              ps: { t: "NLP (ژبه)", c: "د طبیعي ژبې پروسس کول (NLP) کمپیوټر ته اجازه ورکوي چې د انسان په ژبو پوه شي او خبرې وکړي. دا خورا ګران دی ځکه چې انساني ژبه پیچلې ده. د ChatGPT په څیر موډلونه جملې په ریاضیاتو ماتوي ترڅو د کلمو تر شا معنی پوه شي." }
+            },
+            { id: 6, cat: 0, icon: "fa-layer-group",
+              en: { t: "Weak vs Strong AI", c: "Currently, we only have 'Weak AI' (or Narrow AI). It is super smart at ONE specific task, like playing Chess or recommending movies, but it cannot cook dinner or feel emotions. 'Strong AI' (AGI) is a futuristic concept where a machine would be as smart and versatile as a human brain in every way." },
+              ur: { t: "کمزور بمقابلہ مضبوط AI", c: "فی الحال، ہمارے پاس صرف 'کمزور AI' ہے۔ یہ کسی ایک کام میں بہت ہوشیار ہے، جیسے شطرنج کھیلنا، لیکن یہ کھانا نہیں پکا سکتا۔ 'مضبوط AI' (AGI) ایک مستقبل کا تصور ہے جہاں مشین ہر لحاظ سے انسانی دماغ کی طرح ہوشیار ہوگی۔" },
+              ps: { t: "کمزوری vs قوي AI", c: "اوس مهال، موږ یوازې 'کمزوری AI' لرو. دا په یو ځانګړي کار کې خورا هوښیار دی، لکه د شطرنج لوبه، مګر دا نشي کولی ډوډۍ پخه کړي. 'قوي AI' یو راتلونکی تصور دی چیرې چې ماشین به په هر ډول د انسان دماغ په څیر هوښیار وي." }
+            },
+            { id: 7, cat: 0, icon: "fa-check",
+              en: { t: "Algorithms", c: "An algorithm is simply a step-by-step procedure to solve a problem. A recipe for baking a cake is an algorithm. In AI, algorithms are much more complex. They involve advanced math that adjusts itself automatically as it processes more data, constantly refining the 'recipe' to get the best result." },
+              ur: { t: "الگورتھم", c: "الگورتھم کسی مسئلے کو حل کرنے کا ایک طریقہ کار ہے۔ کیک بنانے کی ترکیب ایک الگورتھم ہے۔ AI میں، الگورتھم بہت پیچیدہ ہوتے ہیں۔ یہ خود کو ایڈجسٹ کرتے ہیں جیسے جیسے وہ مزید ڈیٹا پروسیس کرتے ہیں، تاکہ بہترین نتیجہ حاصل کیا جا سکے۔" },
+              ps: { t: "الګوریتمونه", c: "الګوریتم د یوې ستونزې حل کولو لپاره ګام په ګام لاره ده. د کیک پخولو لارښوونه یو الګوریتم دی. په AI کې، الګوریتمونه خورا پیچلي دي. دوی پرمختللي ریاضی کاروي چې په اتوماتيک ډول ځان سموي." }
+            },
+            { id: 8, cat: 0, icon: "fa-chart-line",
+              en: { t: "Prediction Machines", c: "At its core, AI is a prediction machine. It takes what it knows about the past to guess the future. When Netflix recommends a movie, it's predicting: 'Because you liked Action movies before, you will probably like this new Action movie.' It fills in the blanks based on patterns." },
+              ur: { t: "پیش گوئی کرنے والی مشینیں", c: "بنیادی طور پر، AI ایک پیش گوئی کرنے والی مشین ہے۔ یہ ماضی کے علم کا استعمال کرتے ہوئے مستقبل کا اندازہ لگاتی ہے۔ جب Netflix کوئی فلم تجویز کرتا ہے، تو یہ پیش گوئی کر رہا ہوتا ہے کہ آپ کو یہ پسند آئے گی۔" },
+              ps: { t: "د وړاندوینې ماشینونه", c: "په اصل کې، AI د وړاندوینې ماشین دی. دا د راتلونکي اټکل کولو لپاره د تیر وخت معلومات کاروي. کله چې Netflix د فلم وړاندیز کوي، دا وړاندوینه کوي چې تاسو به یې خوښ کړئ ځکه چې تاسو پخوا ورته فلمونه خوښ کړي وو." }
+            },
+            { id: 9, cat: 0, icon: "fa-gamepad",
+              en: { t: "AI in Games", c: "Video games were some of the first places AI was used. The enemies you fight in games aren't controlled by humans; they are controlled by AI scripts that tell them where to hide and when to shoot. Modern game AI can even adapt to your playstyle, making the game harder if you are playing too well!" },
+              ur: { t: "کھیلوں میں AI", c: "ویڈیو گیمز میں AI کا استعمال بہت پہلے سے ہو رہا ہے۔ گیمز میں جن دشمنوں سے آپ لڑتے ہیں وہ AI کے ذریعے کنٹرول ہوتے ہیں۔ جدید گیم AI آپ کے کھیلنے کے انداز کے مطابق خود کو بدل سکتا ہے، اگر آپ اچھا کھیل رہے ہیں تو گیم مشکل ہو جائے گی!" },
+              ps: { t: "په لوبو کې AI", c: "ویډیو لوبې د لومړیو ځایونو څخه وې چیرې چې AI کارول کیده. په لوبو کې دښمنان د انسانانو لخوا نه کنټرول کیږي؛ دوی د AI لخوا کنټرول کیږي. عصري AI کولی شي ستاسو د لوبې سټایل سره ځان عیار کړي." }
+            },
+            { id: 10, cat: 0, icon: "fa-history",
+              en: { t: "History of AI", c: "AI isn't new! The term was coined in 1956. However, for decades, computers weren't fast enough to make it work well. This period of failure was called the 'AI Winter.' Today, thanks to super-fast chips and the internet providing massive data, AI has finally 'thawed' and is changing the world." },
+              ur: { t: "AI کی تاریخ", c: "AI نیا نہیں ہے! یہ اصطلاح 1956 میں بنائی گئی تھی۔ تاہم، دہائیوں تک، کمپیوٹر اتنے تیز نہیں تھے کہ اسے چلا سکیں۔ ناکامی کے اس دور کو 'AI Winter' کہا جاتا تھا۔ آج، تیز رفتار چپس اور انٹرنیٹ کی بدولت، AI دنیا کو بدل رہا ہے۔" },
+              ps: { t: "د AI تاریخ", c: "AI نوی نه دی! دا اصطلاح په 1956 کې رامینځته شوې. په هرصورت، د لسیزو لپاره، کمپیوټر دومره ګړندي نه وو چې دا کار وکړي. د ناکامۍ دې دورې ته 'AI ژمی' ویل کیده. نن ورځ، د چټک کمپیوټرونو څخه مننه، AI نړۍ بدلوي." }
+            },
+
+            // MODULE 2: MACHINE LEARNING
+            { id: 11, cat: 1, icon: "fa-graduation-cap",
+              en: { t: "Machine Learning (ML)", c: "Machine Learning is a subset of AI. It is the specific technique where we don't program the computer with rules. Instead, we program it to LEARN. It's like teaching a dog: you don't move its legs for it; you give it a treat when it sits, and it learns the command on its own." },
+              ur: { t: "مشین لرننگ (ML)", c: "مشین لرننگ AI کا ایک حصہ ہے۔ یہ وہ تکنیک ہے جہاں ہم کمپیوٹر کو اصول نہیں سکھاتے، بلکہ ہم اسے سیکھنا سکھاتے ہیں۔ یہ کتے کو سکھانے جیسا ہے: آپ اس کی ٹانگیں نہیں ہلاتے؛ جب وہ بیٹھتا ہے تو آپ اسے انعام دیتے ہیں، اور وہ خود سیکھ جاتا ہے۔" },
+              ps: { t: "د ماشین زده کړه (ML)", c: "د ماشین زده کړه د AI یوه برخه ده. دا هغه تخنیک دی چیرې چې موږ کمپیوټر ته اصول نه ورکوو، بلکې موږ ورته د زده کړې پروګرام ورکوو. دا د سپي روزلو په څیر دی: کله چې هغه کښیني نو تاسو ورته انعام ورکوئ، او هغه پخپله زده کوي." }
+            },
+            { id: 12, cat: 1, icon: "fa-tags",
+              en: { t: "Supervised Learning", c: "This is the most common way AI learns. Humans act as teachers. We show the AI an image and tell it, 'This is a Cat.' We do this a million times with different images. Eventually, when we show a new image without a label, the AI can confidently say, 'That is a Cat!'" },
+              ur: { t: "زیر نگرانی تعلیم", c: "یہ AI کے سیکھنے کا سب سے عام طریقہ ہے۔ انسان استاد کا کردار ادا کرتے ہیں۔ ہم AI کو ایک تصویر دکھاتے ہیں اور کہتے ہیں، 'یہ بلی ہے۔' ہم ایسا لاکھوں بار کرتے ہیں۔ آخرکار، جب ہم کوئی نئی تصویر دکھاتے ہیں، تو AI خود بتا سکتا ہے کہ یہ بلی ہے۔" },
+              ps: { t: "نظارت شوې زده کړه", c: "دا د AI د زده کړې ترټولو عامه لاره ده. انسانان د ښوونکو په توګه کار کوي. موږ AI ته یو انځور ښیو او ورته وایو، 'دا یوه پیشو ده.' موږ دا ملیونونه ځله کوو. په پای کې، AI کولی شي پخپله پیشو وپیژني." }
+            },
+            { id: 13, cat: 1, icon: "fa-question",
+              en: { t: "Unsupervised Learning", c: "Here, there is no teacher. We throw a messy pile of data at the AI and say, 'Organize this.' The AI looks for similarities. For example, if you gave it a list of grocery items, it might figure out that 'Apples' and 'Bananas' belong in one group (Fruits) and 'Milk' and 'Cheese' in another (Dairy) without knowing the names of the groups." },
+              ur: { t: "بغیر نگرانی تعلیم", c: "یہاں کوئی استاد نہیں ہوتا۔ ہم AI کو ڈیٹا کا ڈھیر دیتے ہیں اور کہتے ہیں، 'اسے ترتیب دو۔' AI مماثلتیں تلاش کرتا ہے۔ مثال کے طور پر، یہ سیب اور کیلے کو ایک گروپ میں اور دودھ اور پنیر کو دوسرے گروپ میں خود الگ کر سکتا ہے۔" },
+              ps: { t: "غیر نظارت شوې زده کړه", c: "دلته هیڅ ښوونکی نشته. موږ AI ته ډیټا ورکوو او ورته وایو چې 'دا تنظیم کړه.' AI ورته والی لټوي. د مثال په توګه، دا کولی شي مڼې او کیلې په یوه ګروپ کې او شیدې او پنیر په بل ګروپ کې جلا کړي." }
+            },
+            { id: 14, cat: 1, icon: "fa-bone",
+              en: { t: "Reinforcement Learning", c: "This is learning by trial and error. Imagine a robot mouse in a maze. If it hits a wall, it gets negative points (pain). If it finds cheese, it gets positive points (reward). Over thousands of tries, the robot learns the perfect path to the cheese to maximize its score. This is how AIs learn to play video games." },
+              ur: { t: "ری انفورسمنٹ لرننگ", c: "یہ کوشش اور غلطی سے سیکھنا ہے۔ ایک بھول بھلیوں میں روبوٹ چوہے کا تصور کریں۔ اگر وہ دیوار سے ٹکراتا ہے تو اسے منفی پوائنٹس ملتے ہیں۔ اگر اسے پنیر ملتا ہے تو مثبت پوائنٹس۔ ہزاروں کوششوں کے بعد، وہ بہترین راستہ سیکھ جاتا ہے۔" },
+              ps: { t: "د پیاوړتیا زده کړه", c: "دا د آزموینې او غلطۍ له لارې زده کړه ده. په یو ګرداب کې د روبوټ موږک تصور وکړئ. که دا دیوال ووهي، منفي نمرې ترلاسه کوي. که پنیر ومومي، مثبت نمرې. د زرګونو هڅو وروسته، دا غوره لاره زده کوي." }
+            },
+            { id: 15, cat: 1, icon: "fa-filter",
+              en: { t: "Classification", c: "Classification is a type of Machine Learning problem where the answer is a category. 'Is this email SPAM or NOT SPAM?' 'Is this tumor BENIGN or MALIGNANT?' The AI draws a line through the data to separate the different types of items clearly." },
+              ur: { t: "درجہ بندی (Classification)", c: "یہ مشین لرننگ کی ایک قسم ہے جہاں جواب ایک زمرہ ہوتا ہے۔ 'کیا یہ ای میل سپیم ہے یا نہیں؟' AI ڈیٹا کے ذریعے ایک لکیر کھینچتا ہے تاکہ مختلف قسم کی چیزوں کو واضح طور پر الگ کیا جا سکے۔" },
+              ps: { t: "طبقه بندي", c: "دا د ماشین زده کړې یو ډول دی چیرې چې ځواب یوه کټګوري ده. 'ایا دا بریښنالیک سپیم دی که نه؟' AI د معلوماتو له لارې کرښه راښکته کوي ترڅو مختلف ډوله توکي په واضح ډول جلا کړي." }
+            },
+            { id: 16, cat: 1, icon: "fa-ruler",
+              en: { t: "Regression", c: "Regression is when the AI needs to predict a specific number, not a category. For example: 'Based on the size of the house, number of bedrooms, and location, what is the Price?' The AI tries to find a mathematical formula that fits all the data points." },
+              ur: { t: "ریگریشن", c: "ریگریشن تب ہوتا ہے جب AI کو کسی خاص نمبر کی پیش گوئی کرنی ہوتی ہے۔ مثال کے طور پر: 'گھر کے سائز اور مقام کی بنیاد پر، اس کی قیمت کیا ہے؟' AI ایک ریاضیاتی فارمولا تلاش کرنے کی کوشش کرتا ہے۔" },
+              ps: { t: "ریګریشن", c: "ریګریشن هغه وخت دی کله چې AI د یوې ځانګړې شمیرې وړاندوینه کوي. د مثال په توګه: 'د کور د اندازې او موقعیت پراساس، د هغې قیمت څومره دی؟' AI د ریاضي فارمول موندلو هڅه کوي." }
+            },
+            { id: 17, cat: 1, icon: "fa-border-all",
+              en: { t: "Training vs Testing", c: "When building AI, we split our data. We use 80% of it for 'Training' (teaching the AI). We hide the other 20% for 'Testing'. Once the AI is trained, we give it the Test data to see if it actually learned or if it just memorized the answers. It's like a teacher not putting the exact homework questions on the final exam." },
+              ur: { t: "ٹریننگ اور ٹیسٹنگ", c: "AI بناتے وقت، ہم اپنے ڈیٹا کو تقسیم کرتے ہیں۔ ہم 80% 'ٹریننگ' (سیکھانے) کے لیے استعمال کرتے ہیں۔ باقی 20% ہم 'ٹیسٹ' کے لیے چھپا لیتے ہیں۔ یہ دیکھنے کے لیے کہ کیا AI نے واقعی سیکھا ہے یا صرف جوابات رٹ لیے ہیں۔" },
+              ps: { t: "روزنه او ازموینه", c: "د AI جوړولو پرمهال، موږ خپل ډیټا ویشو. موږ 80٪ د 'روزنې' لپاره کاروو. پاتې 20٪ موږ د 'ازموینې' لپاره پټوو. ترڅو وګورو چې ایا AI واقعیا زده کړي دي که یوازې ځوابونه یې یاد کړي دي." }
+            },
+            { id: 18, cat: 1, icon: "fa-exclamation-triangle",
+              en: { t: "Overfitting", c: "Imagine a student who memorizes the textbook word-for-word but doesn't understand the concepts. If you ask a slightly different question, they fail. This is Overfitting in AI. The model learns the training data TOO well, including the noise and errors, so it fails when it sees new, real-world data." },
+              ur: { t: "اوور فٹنگ", c: "ایک ایسے طالب علم کا تصور کریں جو نصابی کتاب کو رٹ لیتا ہے لیکن تصورات کو نہیں سمجھتا۔ اگر آپ تھوڑا سا مختلف سوال پوچھیں تو وہ فیل ہو جاتا ہے۔ AI میں اسے اوور فٹنگ کہتے ہیں۔ ماڈل ٹریننگ ڈیٹا کو بہت زیادہ یاد کر لیتا ہے اور نئی چیزوں پر فیل ہو جاتا ہے۔" },
+              ps: { t: "اوور فټینګ", c: "یو زده کونکی تصور کړئ چې کتاب لفظ په لفظ یادوي مګر په مفهوم نه پوهیږي. که تاسو لږه مختلف پوښتنه وکړئ، هغه ناکامیږي. دا په AI کې اوور فټینګ دی. ماډل د روزنې ډیټا ډیر یادوي او په نوي معلوماتو کې ناکامیږي." }
+            },
+            { id: 19, cat: 1, icon: "fa-th-large",
+              en: { t: "Features", c: "Features are the specific pieces of information the AI looks at. If you want AI to estimate the price of a car, the 'Features' might be: Year, Mileage, Brand, and Color. Choosing the right features is crucial; if you choose irrelevant features (like the name of the owner), the AI will be confused." },
+              ur: { t: "خصوصیات (Features)", c: "یہ وہ مخصوص معلومات ہیں جنہیں AI دیکھتا ہے۔ اگر آپ کار کی قیمت کا اندازہ لگانا چاہتے ہیں، تو خصوصیات یہ ہو سکتی ہیں: سال، مائلیج، برانڈ، اور رنگ۔ صحیح خصوصیات کا انتخاب بہت اہم ہے۔" },
+              ps: { t: "ځانګړتیاوې", c: "دا هغه ځانګړي معلومات دي چې AI ورته ګوري. که تاسو غواړئ د موټر قیمت اټکل کړئ، نو ځانګړتیاوې کیدی شي: کال، مائلیج، برانډ او رنګ. د سمو ځانګړتیاو غوره کول خورا مهم دي." }
+            },
+            { id: 20, cat: 1, icon: "fa-project-diagram",
+              en: { t: "Decision Trees", c: "A Decision Tree is a simple AI model that looks like a flowchart. It asks a sequence of questions to reach an answer. 'Is this fruit red?' > YES > 'Is it round?' > YES > 'It is an Apple'. It breaks down complex decisions into small, simple yes/no choices." },
+              ur: { t: "فیصلہ سازی کے درخت", c: "یہ ایک سادہ AI ماڈل ہے جو فلو چارٹ کی طرح لگتا ہے۔ یہ جواب تک پہنچنے کے لیے سوالات پوچھتا ہے۔ 'کیا یہ پھل لال ہے؟' > ہاں > 'کیا یہ گول ہے؟' > ہاں > 'یہ ایک سیب ہے'۔ یہ پیچیدہ فیصلوں کو چھوٹے حصوں میں تقسیم کرتا ہے۔" },
+              ps: { t: "د پریکړې ونې", c: "دا یو ساده AI ماډل دی چې د فلوچارټ په څیر ښکاري. دا د ځواب ترلاسه کولو لپاره پوښتنې کوي. 'ایا دا میوه سره ده؟' > هو > 'ایا دا ګرد دی؟' > هو > 'دا یوه مڼه ده'. دا پیچلې پریکړې په کوچنیو برخو ویشي." }
+            },
+
+            // MODULE 3: DEEP LEARNING (21-30)
+            { id: 21, cat: 2, icon: "fa-network-wired",
+              en: { t: "Neural Networks", c: "This is the 'secret sauce' behind modern AI. Scientists looked at the human brain and saw billions of neurons connected by webs. They tried to recreate this digitally. A Neural Network is layers of math equations that pass data to each other, mimicking how our brain processes information." },
+              ur: { t: "نیورل نیٹ ورکس", c: "یہ جدید AI کے پیچھے کا راز ہے۔ سائنسدانوں نے انسانی دماغ کو دیکھا اور اسے ڈیجیٹل طور پر دوبارہ بنانے کی کوشش کی۔ نیورل نیٹ ورک ریاضی کی مساوات کی تہیں ہیں جو ایک دوسرے کو ڈیٹا منتقل کرتی ہیں، بالکل اسی طرح جیسے ہمارا دماغ معلومات کو پروسیس کرتا ہے۔" },
+              ps: { t: "نیورل شبکې", c: "دا د عصري AI ترشا راز دی. ساینس پوهانو د انسان دماغ ته وکتل او هڅه یې وکړه چې دا په ډیجیټل ډول جوړ کړي. نیورل شبکه د ریاضیاتو پرتونه دي چې یو بل ته ډیټا لیږدوي، لکه څنګه چې زموږ دماغ معلومات پروسیس کوي." }
+            },
+            { id: 22, cat: 2, icon: "fa-layer-group",
+              en: { t: "Neurons & Layers", c: "Think of a Neural Network like a factory line. The input (raw material) comes in the first layer. It passes through hidden layers (workers) where different features are analyzed. Finally, it reaches the output layer (finished product). The more layers you have (Deep Learning), the more complex things the AI can understand." },
+              ur: { t: "نیوران اور تہیں", c: "نیورل نیٹ ورک کو فیکٹری لائن کی طرح سمجھیں۔ ان پٹ پہلی پرت میں آتا ہے۔ یہ چھپی ہوئی تہوں سے گزرتا ہے جہاں مختلف خصوصیات کا تجزیہ کیا جاتا ہے۔ آخر میں، یہ آؤٹ پٹ پرت تک پہنچتا ہے۔ جتنی زیادہ تہیں ہوں گی، AI اتنا ہی زیادہ پیچیدہ چیزیں سمجھ سکے گا۔" },
+              ps: { t: "نیورون او پرتونه", c: "نیورل شبکه د فابریکې لاین په څیر فکر وکړئ. معلومات په لومړي پرت کې راځي. دا د پټو پرتونو څخه تیریږي چیرې چې مختلف ځانګړتیاوې تحلیل کیږي. په پای کې، دا وروستي پرت ته رسیږي. څومره چې پرتونه ډیر وي، AI ډیر پیچلي شیان پوهیدلی شي." }
+            },
+            { id: 23, cat: 2, icon: "fa-sliders",
+              en: { t: "Weights & Biases", c: "Inside the AI's brain, there are billions of tiny adjustments called Weights and Biases. Think of them like the volume knobs on a soundboard. When the AI makes a mistake, it tweaks these knobs slightly. Over time, after seeing millions of examples, the knobs are tuned perfectly to give the right answer." },
+              ur: { t: "Weights اور Biases", c: "AI کے دماغ کے اندر اربوں چھوٹی تبدیلیاں ہوتی ہیں جنہیں Weights اور Biases کہتے ہیں۔ انہیں والیوم نوبس کی طرح سمجھیں۔ جب AI غلطی کرتا ہے، تو وہ ان نوبس کو تھوڑا سا گھماتا ہے۔ لاکھوں مثالوں کے بعد، یہ نوبس بالکل صحیح جواب دینے کے لیے سیٹ ہو جاتے ہیں۔" },
+              ps: { t: "وزن او تعصب", c: "د AI دماغ دننه ملیاردونه کوچني تنظیمات شتون لري چې ورته Weights او Biases ویل کیږي. دوی د غږ کنټرولونو په څیر فکر وکړئ. کله چې AI غلطي کوي، نو دا کنټرولونه یو څه بدلوي. د وخت په تیریدو سره، دوی د سم ځواب ورکولو لپاره په بشپړ ډول تنظیم کیږي." }
+            },
+             { id: 24, cat: 2, icon: "fa-image",
+              en: { t: "CNN (For Images)", c: "Convolutional Neural Networks (CNNs) are special networks designed to see. They look at an image in small chunks. First, they find lines and edges. Then, they combine lines to find shapes (circles, squares). Finally, they combine shapes to find objects (eyes, ears, faces). This hierarchy makes them amazing at recognizing things." },
+              ur: { t: "CNN (تصاویر کے لیے)", c: "یہ نیٹ ورکس دیکھنے کے لیے بنائے گئے ہیں۔ یہ تصویر کو چھوٹے ٹکڑوں میں دیکھتے ہیں۔ پہلے، یہ لکیریں اور کنارے تلاش کرتے ہیں۔ پھر، یہ شکلیں تلاش کرتے ہیں۔ آخر میں، یہ چیزیں (آنکھیں، چہرے) پہچانتے ہیں۔" },
+              ps: { t: "CNN (د انځورونو لپاره)", c: "دا شبکې د لیدلو لپاره ډیزاین شوي. دوی یو انځور په کوچنیو ټوټو کې ګوري. لومړی، دوی کرښې لټوي. بیا، دوی شکلونه لټوي. په پای کې، دوی شیان (سترګې، مخونه) پیژني." }
+            },
+            { id: 25, cat: 2, icon: "fa-align-left",
+              en: { t: "RNN (Text)", c: "Recurrent Neural Networks (RNNs) are designed for things that happen in a sequence, like sentences or music. They have a short-term memory that remembers the previous word to help understand the current one. This is crucial for language because the meaning of a word often depends on what came before it." },
+              ur: { t: "RNN (متن)", c: "یہ نیٹ ورکس ترتیب والی چیزوں کے لیے بنائے گئے ہیں، جیسے جملے یا موسیقی۔ ان کے پاس مختصر مدت کی یادداشت ہوتی ہے جو پچھلے لفظ کو یاد رکھتی ہے تاکہ موجودہ لفظ کو سمجھ سکے۔ یہ زبان کے لیے اہم ہے کیونکہ لفظ کا مطلب اکثر پچھلے الفاظ پر منحصر ہوتا ہے۔" },
+              ps: { t: "RNN (متن)", c: "دا شبکې د ترتیب لرونکو شیانو لپاره ډیزاین شوي، لکه جملې یا موسیقی. دوی لنډمهاله حافظه لري چې پخوانۍ کلمه یاد ساتي ترڅو اوسنۍ کلمه پوه شي. دا د ژبې لپاره خورا مهم دی." }
+            },
+            { id: 26, cat: 2, icon: "fa-box",
+              en: { t: "Black Box Problem", c: "Modern AI is so complex that even its creators don't always know *how* it arrives at an answer. It's like a magic box: you put a question in, and an answer comes out, but you can't see the thinking process inside. This is called the 'Black Box' problem, and it makes it hard to trust AI for critical decisions." },
+              ur: { t: "بلیک باکس کا مسئلہ", c: "جدید AI اتنا پیچیدہ ہے کہ اس کے بنانے والے بھی نہیں جانتے کہ یہ جواب تک کیسے پہنچا۔ یہ ایک جادوئی باکس کی طرح ہے: آپ سوال ڈالتے ہیں، جواب نکل آتا ہے، لیکن اندر کا عمل نظر نہیں آتا۔ اسے 'بلیک باکس' مسئلہ کہتے ہیں۔" },
+              ps: { t: "د تور بکس ستونزه", c: "عصري AI دومره پیچلی دی چې جوړونکي یې هم نه پوهیږي چې ځواب څنګه ترلاسه شو. دا د جادو بکس په څیر دی: تاسو پوښتنه کوئ، ځواب راځي، مګر د فکر کولو پروسه نه لیدل کیږي. دې ته د 'تور بکس' ستونزه ویل کیږي." }
+            },
+            { id: 27, cat: 2, icon: "fa-server",
+              en: { t: "Big Data", c: "AI is hungry! It needs massive amounts of information to learn. This is called Big Data. Imagine trying to learn a language by reading just one page of a book—it's impossible. But if you read the entire library, you learn patterns. The internet provides the 'library' for AI to learn about our world." },
+              ur: { t: "بگ ڈیٹا", c: "AI بھوکا ہے! اسے سیکھنے کے لیے بہت زیادہ معلومات کی ضرورت ہوتی ہے۔ اسے بگ ڈیٹا کہتے ہیں۔ صرف ایک صفحہ پڑھ کر زبان سیکھنا ناممکن ہے۔ لیکن اگر آپ پوری لائبریری پڑھ لیں تو آپ سیکھ جاتے ہیں۔ انٹرنیٹ AI کے لیے وہ لائبریری ہے۔" },
+              ps: { t: "لوی ډیټا", c: "AI وږی دی! دا د زده کړې لپاره ډیرو معلوماتو ته اړتیا لري. دې ته لوی ډیټا ویل کیږي. یوازې د یوې پاڼې په لوستلو سره د ژبې زده کول ناممکن دي. مګر که تاسو ټول کتابتون ولولئ، تاسو زده کوئ. انټرنیټ د AI لپاره هغه کتابتون دی." }
+            },
+            { id: 28, cat: 2, icon: "fa-microchip",
+              en: { t: "GPU Power", c: "Why did AI suddenly get so good? Video Games! It turns out the computer chips used to render 3D graphics (GPUs) are also perfect for doing the math needed for AI. They can do thousands of calculations at the same time. Without these powerful gaming chips, modern AI would not exist." },
+              ur: { t: "GPU کی طاقت", c: "AI اچانک اتنا اچھا کیوں ہو گیا؟ ویڈیو گیمز کی وجہ سے! جو چپس 3D گرافکس کے لیے استعمال ہوتی ہیں (GPUs)، وہ AI کے ریاضی کے لیے بہترین ہیں۔ وہ ایک ساتھ ہزاروں حساب کر سکتی ہیں۔ ان گیمنگ چپس کے بغیر جدید AI ممکن نہیں تھا۔" },
+              ps: { t: "د GPU ځواک", c: "AI ولې ناڅاپه دومره ښه شو؟ ویډیو لوبې! هغه چپس چې د 3D ګرافیک لپاره کارول کیږي (GPUs)، د AI ریاضی لپاره مناسب دي. دوی کولی شي په ورته وخت کې زرګونه محاسبې وکړي. د دې لوبو چپس پرته، عصري AI به شتون ونلري." }
+            },
+            { id: 29, cat: 2, icon: "fa-undo",
+              en: { t: "Backpropagation", c: "This is a fancy word for 'Learning from Mistakes'. When an AI guesses wrong during training, it calculates how far off it was. Then, it sends a signal *backwards* through its brain to adjust its connections. It's like a coach watching a player miss a goal and immediately correcting their posture." },
+              ur: { t: "بیک پروپیگیشن", c: "یہ 'غلطیوں سے سیکھنے' کا نام ہے۔ جب AI غلط اندازہ لگاتا ہے، تو یہ حساب لگاتا ہے کہ غلطی کتنی بڑی تھی۔ پھر یہ اپنے دماغ میں پیچھے کی طرف سگنل بھیجتا ہے تاکہ کنکشنز کو درست کر سکے۔ یہ کوچ کی طرح ہے جو کھلاڑی کی غلطی فوراً سدھارتا ہے۔" },
+              ps: { t: "بیک پروپیګیشن", c: "دا د 'غلطیو څخه زده کړې' نوم دی. کله چې AI غلط اټکل کوي، نو دا حساب کوي چې غلطی څومره لویه وه. بیا دا بیرته خپل دماغ ته سیګنال لیږي ترڅو اړیکې سمې کړي. دا د کوچ په څیر دی چې د لوبغاړي غلطي سمدستي اصلاح کوي." }
+            },
+            { id: 30, cat: 2, icon: "fa-toggle-on",
+              en: { t: "Activation Function", c: "In our brains, neurons either fire or they don't. In AI, the Activation Function is the decision maker. It looks at the data coming into a neuron and decides, 'Is this important?' If yes, it passes the signal to the next layer. If no, it stops it. It filters out noise so the AI focuses on what matters." },
+              ur: { t: "ایکٹیویشن فنکشن", c: "ہمارے دماغ میں نیوران یا تو چلتے ہیں یا نہیں۔ AI میں، ایکٹیویشن فنکشن فیصلہ ساز ہے۔ یہ ڈیٹا کو دیکھتا ہے اور فیصلہ کرتا ہے کہ 'کیا یہ اہم ہے؟' اگر ہاں، تو یہ سگنل آگے بھیجتا ہے۔ یہ شور کو فلٹر کرتا ہے تاکہ AI اہم چیزوں پر توجہ دے سکے۔" },
+              ps: { t: "د فعالیت فعالیت", c: "زموږ په دماغ کې، نیورون یا کار کوي یا نه. په AI کې، د فعالیت فعالیت پریکړه کونکی دی. دا ډیټا ګوري او پریکړه کوي چې 'ایا دا مهم دی؟' که هو، نو دا سیګنال مخکې لیږي. دا شور فلټر کوي ترڅو AI په مهمو شیانو تمرکز وکړي." }
+            },
+
+            // MODULE 4: GENERATIVE AI (31-40)
+            { id: 31, cat: 3, icon: "fa-wand-magic-sparkles",
+              en: { t: "Generative AI", c: "Traditional AI analyzes things (classifies emails, finds faces). Generative AI *creates* things. It learns the patterns of existing art, music, or text, and then uses those rules to build something brand new that has never existed before. It's the difference between a critic (Traditional) and an artist (Generative)." },
+              ur: { t: "جنریٹو AI", c: "روایتی AI چیزوں کا تجزیہ کرتا ہے۔ جنریٹو AI چیزیں *بناتا* ہے۔ یہ موجودہ آرٹ یا موسیقی کے پیٹرن سیکھتا ہے، اور پھر ان اصولوں کو استعمال کرتے ہوئے کچھ نیا بناتا ہے جو پہلے کبھی نہیں تھا۔ یہ نقاد اور فنکار کے درمیان فرق جیسا ہے۔" },
+              ps: { t: "تولیدي AI", c: "دودیز AI شیان تحلیلوي. تولیدي AI شیان *جوړوي*. دا د موجوده هنر یا موسیقی نمونې زده کوي، او بیا د نوي څه جوړولو لپاره دا قواعد کاروي. دا د نیوکه کونکي او هنرمند ترمنځ توپیر دی." }
+            },
+            { id: 32, cat: 3, icon: "fa-comments",
+              en: { t: "LLMs (Large Language Models)", c: "LLMs like ChatGPT are trained on nearly all the text on the internet. They are basically 'next-word predictors.' If you type 'The cat sat on the...', the LLM calculates that 'mat' is the most likely next word based on everything it has ever read. It does this over and over to write essays and code." },
+              ur: { t: "بڑے زبان کے ماڈلز (LLMs)", c: "LLMs جیسے ChatGPT کو انٹرنیٹ پر موجود تقریباً تمام متن پر تربیت دی گئی ہے۔ یہ بنیادی طور پر 'اگلے لفظ کی پیش گوئی کرنے والے' ہیں۔ اگر آپ لکھتے ہیں 'بلی بیٹھی ہے...'، تو LLM حساب لگاتا ہے کہ اگلا لفظ کیا ہوگا۔" },
+              ps: { t: "د لوی ژبې ماډلونه (LLMs)", c: "LLMs لکه ChatGPT په انټرنیټ کې په ټولو متنونو روزل شوي. دوی د راتلونکې کلمې وړاندوینه کوي. که تاسو ولیکئ 'پیشو ناسته ده...'، نو LLM حساب کوي چې بله کلمه به څه وي." }
+            },
+            { id: 33, cat: 3, icon: "fa-cubes-stacked",
+              en: { t: "Transformers", c: "Transformers are the engine behind ChatGPT. Unlike older models that read word-by-word, Transformers can look at an entire paragraph at once. They use 'Self-Attention' to understand how words relate to each other, even if they are far apart. This allows them to understand context and humor much better than older AI." },
+              ur: { t: "ٹرانسفارمرز", c: "ٹرانسفارمرز ChatGPT کے پیچھے انجن ہیں۔ پرانے ماڈلز کے برعکس جو لفظ بہ لفظ پڑھتے تھے، ٹرانسفارمرز پورا پیراگراف ایک ساتھ دیکھ سکتے ہیں۔ یہ الفاظ کے تعلق کو سمجھنے کے لیے 'Self-Attention' استعمال کرتے ہیں، جس سے یہ سیاق و سباق کو بہتر سمجھتے ہیں۔" },
+              ps: { t: "ټرانسفارمرز", c: "ټرانسفارمرز د ChatGPT ترشا انجن دي. د پخوانیو ماډلونو برعکس، ټرانسفارمر کولی شي بشپړ پاراګراف په یوځل وګوري. دوی د کلمو اړیکو پوهیدو لپاره 'Self-Attention' کاروي، چې دوی ته اجازه ورکوي شرایط ښه پوه شي." }
+            },
+            { id: 34, cat: 3, icon: "fa-terminal",
+              en: { t: "Prompt Engineering", c: "Since AI models are so smart, talking to them is a skill. Prompt Engineering is the art of crafting the perfect question to get the best answer. It involves giving the AI a persona ('Act like a teacher'), context ('Explain to a 5-year-old'), and constraints ('Use only 50 words')." },
+              ur: { t: "پرومپٹ انجینئرنگ", c: "چونکہ AI ماڈلز بہت ہوشیار ہیں، ان سے بات کرنا ایک ہنر ہے۔ پرومپٹ انجینئرنگ بہترین جواب حاصل کرنے کے لیے بہترین سوال بنانے کا فن ہے۔ اس میں AI کو کردار ('استاد کی طرح بنو') اور سیاق و سباق دینا شامل ہے۔" },
+              ps: { t: "پرامپټ انجینري", c: "څرنګه چې AI ماډلونه ډیر هوښیار دي، له دوی سره خبرې کول یو مهارت دی. پرامپټ انجینري د غوره ځواب ترلاسه کولو لپاره د غوره پوښتنې کولو هنر دی. پدې کې AI ته رول ورکول ('د ښوونکي په څیر عمل وکړئ') شامل دي." }
+            },
+            { id: 35, cat: 3, icon: "fa-palette",
+              en: { t: "Image Generation", c: "How does AI draw? It uses a process called Diffusion. Imagine a clear photo slowly getting covered in static (noise) until it's just gray dots. The AI learns to reverse this process. It starts with static and slowly refines it, removing the noise until a clear image appears that matches your description." },
+              ur: { t: "تصویر سازی", c: "AI تصویر کیسے بناتا ہے؟ یہ 'ڈیفیوژن' کا عمل استعمال کرتا ہے۔ تصور کریں کہ ایک صاف تصویر آہستہ آہستہ دھندلی ہو رہی ہے۔ AI اس عمل کو الٹنا سیکھتا ہے۔ یہ شور سے شروع کرتا ہے اور اسے صاف کرتا ہے جب تک کہ ایک واضح تصویر نہ بن جائے۔" },
+              ps: { t: "د انځور جوړول", c: "AI څنګه انځور جوړوي؟ دا د 'ډیفیوژن' پروسه کاروي. تصور وکړئ چې یو روښانه عکس ورو ورو تیاره کیږي. AI دا پروسه بیرته کول زده کوي. دا د شور څخه پیل کیږي او پاکوي یې ترڅو یو روښانه انځور رامینځته شي." }
+            },
+            { id: 36, cat: 3, icon: "fa-bug",
+              en: { t: "Hallucinations", c: "Because LLMs are just guessing the next word, they sometimes guess WRONG. They might confidently say that 'The moon is made of green cheese' if that sentence fits the pattern. We call this 'Hallucination.' It is why you must always double-check facts given by AI." },
+              ur: { t: "وہم (Hallucinations)", c: "چونکہ LLMs صرف اگلے لفظ کا اندازہ لگا رہے ہوتے ہیں، اس لیے وہ کبھی کبھی غلط اندازہ لگاتے ہیں۔ وہ اعتماد کے ساتھ غلط بات کہہ سکتے ہیں۔ اسے ہم 'Hallucination' کہتے ہیں۔ اسی لیے آپ کو ہمیشہ AI کے حقائق کی جانچ کرنی چاہیے۔" },
+              ps: { t: "وهم (Hallucinations)", c: "څرنګه چې LLMs یوازې د راتلونکې کلمې اټکل کوي، دوی ځینې وختونه غلط اټکل کوي. دوی ممکن په ډاډ سره غلط شیان ووایی. له همدې امله تاسو باید تل د AI حقایق چیک کړئ." }
+            },
+            { id: 37, cat: 3, icon: "fa-user-secret",
+              en: { t: "Deepfakes", c: "AI can now generate hyper-realistic videos of people saying things they never said. It studies a person's face and voice and clones them. This is dangerous because it can be used to spread fake news or frame people. We need new tools to detect these AI fakes." },
+              ur: { t: "ڈیپ فیکس", c: "AI اب لوگوں کی ایسی ویڈیوز بنا سکتا ہے جو بالکل اصلی لگتی ہیں، حالانکہ وہ نقلی ہوتی ہیں۔ یہ خطرناک ہے کیونکہ اس سے جعلی خبریں پھیلائی جا سکتی ہیں۔ ہمیں ان جعلی ویڈیوز کو پہچاننے کے لیے نئے ٹولز کی ضرورت ہے۔" },
+              ps: { t: "ډیپ فیکس", c: "AI اوس د خلکو خورا ریښتیني ویډیوګانې رامینځته کولی شي چې جعلي وي. دا خطرناک دی ځکه چې دا د جعلي خبرونو خپرولو لپاره کارول کیدی شي. موږ نوي وسایلو ته اړتیا لرو ترڅو دا جعلي ویډیوګانې وپیژنو." }
+            },
+             { id: 38, cat: 3, icon: "fa-code",
+              en: { t: "AI Coding", c: "AI has learned the languages of computers (Python, Java, C++). It can write code, find bugs, and explain complex scripts. This doesn't mean programmers are obsolete; it means they have a super-powered assistant. A single programmer using AI can now do the work that used to take three people." },
+              ur: { t: "AI کوڈنگ", c: "AI نے کمپیوٹر کی زبانیں (Python, Java) سیکھ لی ہیں۔ یہ کوڈ لکھ سکتا ہے اور غلطیاں تلاش کر سکتا ہے۔ اس کا مطلب یہ نہیں کہ پروگرامرز کی ضرورت نہیں رہی؛ اس کا مطلب ہے کہ ان کے پاس ایک طاقتور اسسٹنٹ ہے۔" },
+              ps: { t: "AI کوډ کول", c: "AI د کمپیوټر ژبې (Python, Java) زده کړې دي. دا کولی شي کوډ ولیکي او غلطۍ ومومي. دا پدې معنی ندي چې پروګرام کونکو ته اړتیا نشته؛ دا پدې مانا ده چې دوی یو پیاوړی مرستندوی لري." }
+            },
+            { id: 39, cat: 3, icon: "fa-music",
+              en: { t: "AI Music & Voice", c: "Sound is just a wave. AI can analyze these waves to learn what a piano sounds like or what *your* voice sounds like. It can then generate new waves that sound exactly like a symphony or a celebrity speaking. This opens up amazing creativity but also risks regarding voice cloning." },
+              ur: { t: "AI موسیقی اور آواز", c: "آواز صرف ایک لہر ہے۔ AI ان لہروں کا تجزیہ کر کے سیکھ سکتا ہے کہ پیانو کی آواز کیسی ہوتی ہے یا آپ کی آواز کیسی ہے۔ پھر یہ نئی لہریں بنا سکتا ہے جو بالکل اصلی لگتی ہیں۔ یہ تخلیقی صلاحیتوں کے لیے اچھا ہے لیکن وائس کلوننگ کا خطرہ بھی ہے۔" },
+              ps: { t: "AI موسیقی او غږ", c: "غږ یوازې یوه څپې ده. AI کولی شي دا موجونه تحلیل کړي ترڅو پوه شي چې پیانو څنګه غږیږي. بیا دا نوي موجونه رامینځته کولی شي چې بالکل ریښتیني ښکاري. دا د خلاقیت لپاره ښه دی مګر د غږ کاپي کولو خطر هم لري." }
+            },
+            { id: 40, cat: 3, icon: "fa-handshake",
+              en: { t: "Co-pilot", c: "The best future isn't AI replacing humans, but AI *augmenting* humans. We call this the Co-pilot model. The AI handles the boring, repetitive, or data-heavy tasks, freeing up the human to be creative, strategic, and empathetic. Together, the Human + AI team is stronger than either one alone." },
+              ur: { t: "کو-پائلٹ", c: "بہترین مستقبل AI کا انسانوں کی جگہ لینا نہیں، بلکہ ان کی مدد کرنا ہے۔ اسے کو-پائلٹ ماڈل کہتے ہیں۔ AI بورنگ کام سنبھالتا ہے، جس سے انسان تخلیقی کاموں کے لیے آزاد ہو جاتا ہے۔ انسان اور AI کی ٹیم اکیلے سے زیادہ مضبوط ہے۔" },
+              ps: { t: "مرستندوی پیلوټ", c: "غوره راتلونکی د AI لخوا د انسانانو ځای نیول ندي، بلکې د دوی سره مرسته کول دي. دې ته د کو-پائلټ ماډل ویل کیږي. AI ستړي کونکي کارونه ترسره کوي، انسان د تخلیقي کارونو لپاره آزادوي." }
+            },
+
+            // MODULE 5: FUTURE & ETHICS (41-50)
+            { id: 41, cat: 4, icon: "fa-balance-scale",
+              en: { t: "Bias in AI", c: "AI learns from human data, and humans are biased. If an AI learns from history books that mostly mention male doctors, it might wrongly learn that 'Doctor' is a job only for men. Programmers have to work very hard to remove these prejudices so AI treats everyone fairly." },
+              ur: { t: "AI میں تعصب", c: "AI انسانی ڈیٹا سے سیکھتا ہے، اور انسان متعصب ہوتے ہیں۔ اگر AI ایسی کتابوں سے سیکھتا ہے جن میں زیادہ تر مرد ڈاکٹر ہیں، تو وہ غلطی سے یہ سیکھ سکتا ہے کہ ڈاکٹر صرف مردوں کا کام ہے۔ ہمیں اس تعصب کو ختم کرنے کی ضرورت ہے۔" },
+              ps: { t: "په AI کې تعصب", c: "AI د انساني معلوماتو څخه زده کوي، او انسانان تعصب لري. که AI له داسې کتابونو زده کړي چې ډیری نارینه ډاکټران پکې وي، نو دا به غلط زده کړي چې ډاکټر یوازې د نارینه وو کار دی. موږ باید دا تعصب لرې کړو." }
+            },
+            { id: 42, cat: 4, icon: "fa-lock",
+              en: { t: "Privacy", c: "If AI learns from data, and that data comes from us, does the AI know our secrets? Privacy is a huge concern. Companies are working on ways to train AI without exposing personal emails or private photos. We must be careful about what we share with public AI tools." },
+              ur: { t: "رازداری", c: "اگر AI ڈیٹا سے سیکھتا ہے، تو کیا وہ ہمارے راز جانتا ہے؟ رازداری ایک بڑی فکر ہے۔ کمپنیاں کوشش کر رہی ہیں کہ AI کو ذاتی ای میلز یا تصاویر دکھائے بغیر تربیت دیں۔ ہمیں محتاط رہنا چاہیے کہ ہم AI کے ساتھ کیا شیئر کرتے ہیں۔" },
+              ps: { t: "محرمیت", c: "که AI له ډیټا څخه زده کړه وکړي، نو ایا دا زموږ رازونه پوهیږي؟ محرمیت یوه لویه اندیښنه ده. شرکتونه هڅه کوي چې AI ته د شخصي بریښنالیکونو یا عکسونو ښودلو پرته روزنه ورکړي. موږ باید پام وکړو چې موږ د AI سره څه شریکوو." }
+            },
+            { id: 43, cat: 4, icon: "fa-briefcase",
+              en: { t: "Jobs and AI", c: "Will AI take our jobs? Yes and No. AI will replace repetitive, boring jobs (like data entry). But it will create NEW jobs (like AI Ethics Officer, Robot Repair). The most successful people will be those who learn to use AI as a tool to work faster." },
+              ur: { t: "ملازمتیں اور AI", c: "کیا AI ہماری نوکریاں لے لے گا؟ ہاں اور نہیں۔ AI بورنگ کاموں کی جگہ لے لے گا۔ لیکن یہ نئی نوکریاں بھی پیدا کرے گا۔ کامیاب لوگ وہ ہوں گے جو AI کو ایک آلے کے طور پر استعمال کرنا سیکھیں گے۔" },
+              ps: { t: "دندې او AI", c: "ایا AI به زموږ دندې واخلي؟ هو او نه. AI به ستړي کونکي کارونه واخلي. مګر دا به نوې دندې رامینځته کړي. بریالي خلک به هغه وي چې AI د یوې وسیلې په توګه کارول زده کړي." }
+            },
+            { id: 44, cat: 4, icon: "fa-car",
+              en: { t: "Self-Driving Cars", c: "These cars use cameras, radar, and AI to navigate. They have to make split-second decisions: 'Is that a plastic bag or a rock on the road?' While they don't get tired or drunk like humans, they can be confused by bad weather. We are still teaching them to be 100% safe." },
+              ur: { t: "خودکار گاڑیاں", c: "یہ کاریں کیمرے اور AI کا استعمال کرتی ہیں۔ انہیں فوری فیصلے کرنے ہوتے ہیں: 'کیا یہ سڑک پر پتھر ہے؟' اگرچہ یہ انسانوں کی طرح تھکتی نہیں ہیں، لیکن خراب موسم میں الجھ سکتی ہیں۔ ہم اب بھی انہیں مکمل محفوظ بنانا سکھا رہے ہیں۔" },
+              ps: { t: "پخپله چلونکي موټرونه", c: "دا موټرې کیمرې او AI کاروي. دوی باید ګړندي پریکړې وکړي: 'ایا دا په سړک کې ډبره ده؟' که څه هم دوی د انسانانو په څیر نه ستړي کیږي، مګر په خراب موسم کې ګډوډ کیدی شي. موږ لاهم دوی ته د خوندي کیدو درس ورکوو." }
+            },
+            { id: 45, cat: 4, icon: "fa-heart-pulse",
+              en: { t: "AI in Healthcare", c: "AI is saving lives by looking at medical scans (X-rays, MRIs). It can spot tiny signs of cancer or heart disease that a tired human doctor might miss. It also helps invent new medicines by simulating how molecules react, speeding up drug discovery from years to months." },
+              ur: { t: "صحت میں AI", c: "AI طبی اسکینز (X-rays) کو دیکھ کر زندگیاں بچا رہا ہے۔ یہ بیماری کی ان چھوٹی علامات کو دیکھ سکتا ہے جو ڈاکٹر سے چھوٹ سکتی ہیں۔ یہ نئی دوائیں بنانے میں بھی مدد کرتا ہے، جس سے برسوں کا کام مہینوں میں ہو جاتا ہے۔" },
+              ps: { t: "په روغتیا کې AI", c: "AI د طبي سکینونو (X-rays) په لیدلو سره ژوند ژغوري. دا کولی شي د ناروغۍ کوچنۍ نښې وګوري چې ممکن د ډاکټر څخه پاتې شي. دا د نوي درملو په جوړولو کې هم مرسته کوي، کوم چې د کلونو کار په میاشتو کې ترسره کوي." }
+            },
+            { id: 46, cat: 4, icon: "fa-shield-halved",
+              en: { t: "AI Safety", c: "As AI gets smarter, we must ensure it is safe. This isn't just about 'Terminator' robots; it's about making sure AI doesn't accidentally do harm while trying to help. For example, an AI told to 'cure cancer' shouldn't decide to 'eliminate all humans' to achieve that goal. Giving AI human values is a key challenge." },
+              ur: { t: "AI کی حفاظت", c: "جیسے جیسے AI ہوشیار ہو رہا ہے، ہمیں اس کی حفاظت کو یقینی بنانا ہوگا۔ مثال کے طور پر، اگر AI کو 'کینسر ختم کرنے' کا کہا جائے تو اسے یہ فیصلہ نہیں کرنا چاہیے کہ 'انسانوں کو ختم کر دے'۔ AI کو انسانی اقدار دینا ایک بڑا چیلنج ہے۔" },
+              ps: { t: "د AI خوندیتوب", c: "لکه څنګه چې AI هوښیار کیږي، موږ باید د هغې خوندیتوب ډاډمن کړو. د مثال په توګه، که AI ته وویل شي چې 'سرطان درملنه وکړي'، نو باید پریکړه ونه کړي چې 'انسانان له منځه یوسي'. AI ته د انساني ارزښتونو ورکول یوه لویه ننګونه ده." }
+            },
+            { id: 47, cat: 4, icon: "fa-rocket",
+              en: { t: "AGI (The Singularity)", c: "Artificial General Intelligence (AGI) is the hypothetical point where AI becomes smarter than humans at *everything*. Some scientists think this will solve all our problems; others fear we might lose control. It is the ultimate goal of AI research, but nobody knows for sure when (or if) we will reach it." },
+              ur: { t: "AGI (سنگولیرٹی)", c: "AGI وہ نظریاتی نقطہ ہے جہاں AI ہر چیز میں انسانوں سے زیادہ ہوشیار ہو جائے گا۔ کچھ سائنسدانوں کا خیال ہے کہ یہ ہمارے مسائل حل کر دے گا، جبکہ کچھ کو ڈر ہے کہ ہم کنٹرول کھو دیں گے۔ یہ AI تحقیق کا حتمی مقصد ہے۔" },
+              ps: { t: "AGI (واحدیت)", c: "AGI هغه نظري نقطه ده چیرې چې AI به په هرڅه کې د انسانانو په پرتله هوښیار شي. ځینې ساینس پوهان فکر کوي چې دا به زموږ ستونزې حل کړي، پداسې حال کې چې نور ویره لري چې موږ به کنټرول له لاسه ورکړو." }
+            },
+            { id: 48, cat: 4, icon: "fa-earth-americas",
+              en: { t: "AI for Good", c: "AI is being used to track endangered animals, optimize energy grids to stop climate change, and translate languages to connect cultures. It is a powerful tool that can help solve the United Nations' Sustainable Development Goals if used wisely." },
+              ur: { t: "بھلائی کے لیے AI", c: "AI کا استعمال خطرے سے دوچار جانوروں کو ٹریک کرنے اور ماحولیاتی تبدیلی کو روکنے کے لیے کیا جا رہا ہے۔ یہ زبانوں کا ترجمہ کر کے ثقافتوں کو جوڑ رہا ہے۔ اگر سمجھداری سے استعمال کیا جائے تو یہ ایک طاقتور آلہ ہے۔" },
+              ps: { t: "د نیکۍ لپاره AI", c: "AI د خطر سره مخ څارویو تعقیب او د اقلیم بدلون مخنیوي لپاره کارول کیږي. دا د ژبو ژباړلو سره کلتورونه نښلوي. که په هوښیارۍ سره وکارول شي، دا یوه پیاوړې وسیله ده." }
+            },
+            { id: 49, cat: 4, icon: "fa-book-open-reader",
+              en: { t: "Lifelong Learning", c: "The world is changing fast. The skills you learn in school might be outdated in 10 years because of AI. To succeed, you must become a 'Lifelong Learner.' You need to be adaptable, curious, and always ready to learn how to use the newest tools." },
+              ur: { t: "زندگی بھر سیکھنا", c: "دنیا تیزی سے بدل رہی ہے۔ جو ہنر آپ اسکول میں سیکھتے ہیں وہ AI کی وجہ سے 10 سال میں پرانے ہو سکتے ہیں۔ کامیاب ہونے کے لیے، آپ کو ہمیشہ سیکھتے رہنا ہوگا۔ آپ کو نئے ٹولز استعمال کرنے کے لیے ہمیشہ تیار رہنا چاہیے۔" },
+              ps: { t: "د ټول عمر زده کړه", c: "نړۍ په چټکۍ سره بدلیږي. هغه مهارتونه چې تاسو په ښوونځي کې زده کوئ ممکن په 10 کلونو کې د AI له امله زاړه شي. د بریالي کیدو لپاره، تاسو باید تل زده کړه وکړئ. تاسو باید تل د نوي وسیلو کارولو زده کولو ته چمتو اوسئ." }
+            },
+            { id: 50, cat: 4, icon: "fa-star",
+              en: { t: "You are the Future", c: "AI is just a tool, like a hammer or a paintbrush. It has no desire, no passion, and no soul. YOU are the driver. It is up to you to decide how to use this technology. Will you use it to create art, cure diseases, or build a better society? The future of AI depends on the humans who use it." },
+              ur: { t: "آپ مستقبل ہیں", c: "AI صرف ایک آلہ ہے، ہتھوڑی یا برش کی طرح۔ اس کی کوئی خواہش یا روح نہیں ہے۔ آپ ڈرائیور ہیں۔ یہ آپ پر منحصر ہے کہ اس ٹیکنالوجی کو کیسے استعمال کریں۔ کیا آپ اسے آرٹ بنانے یا بیماریاں ٹھیک کرنے کے لیے استعمال کریں گے؟" },
+              ps: { t: "تاسو راتلونکی یاست", c: "AI یوه وسیله ده، لکه د هامر یا برش. دا هیڅ روح نلري. تاسو چلونکی یاست. دا ستاسو پورې اړه لري چې دا ټیکنالوژي څنګه وکاروئ. ایا تاسو به دا د هنر رامینځته کولو یا ناروغیو درملنې لپاره وکاروئ؟" }
+            }
+        ];
+
+        // Expanded Quiz to 15 Questions
+        const quizQuestions = [
+            {
+                q: { en: "What does AI stand for?", ur: "AI کا مطلب کیا ہے؟", ps: "AI د څه لپاره ولاړ دی؟" },
+                o: [
+                    { en: "Artificial Intelligence", ur: "مصنوعی ذہانت", ps: "مصنوعي استخبارات", correct: true },
+                    { en: "Apple Inc.", ur: "ایپل انک", ps: "ایپل شرکت", correct: false },
+                    { en: "Alien Invasion", ur: "خلائی حملہ", ps: "د پردیو یرغل", correct: false }
+                ]
+            },
+            {
+                q: { en: "What is Machine Learning?", ur: "مشین لرننگ کیا ہے؟", ps: "د ماشین زده کړه څه ده؟" },
+                o: [
+                    { en: "Magic tricks", ur: "جادو کے کرتب", ps: "جادویی چلونه", correct: false },
+                    { en: "Learning from data", ur: "ڈیٹا سے سیکھنا", ps: "د معلوماتو څخه زده کړه", correct: true },
+                    { en: "Robots fighting", ur: "روبوٹ لڑ رہے ہیں", ps: "روبوټ جنګ کوي", correct: false }
+                ]
+            },
+            {
+                q: { en: "Which AI generates images?", ur: "کون سا AI تصاویر بناتا ہے؟", ps: "کوم AI انځورونه تولیدوي؟" },
+                o: [
+                    { en: "Excel", ur: "ایکسل", ps: "ایکسل", correct: false },
+                    { en: "Generative AI", ur: "جنریٹو AI", ps: "تولیدي AI", correct: true },
+                    { en: "Calculator", ur: "کیلکولیٹر", ps: "حساب ماشین", correct: false }
+                ]
+            },
+            {
+                q: { en: "What is a Neural Network modeled after?", ur: "نیورل نیٹ ورک کس چیز پر مبنی ہے؟", ps: "نیورل شبکه د څه شی پر بنسټ جوړه شوې؟" },
+                o: [
+                    { en: "The Human Brain", ur: "انسانی دماغ", ps: "د انسان دماغ", correct: true },
+                    { en: "A Car Engine", ur: "کار کا انجن", ps: "د موټر انجن", correct: false },
+                    { en: "A Tree", ur: "ایک درخت", ps: "یوه ونه", correct: false }
+                ]
+            },
+             {
+                q: { en: "Can AI make mistakes (Hallucinations)?", ur: "کیا AI غلطیاں کر سکتا ہے؟", ps: "ایا AI غلطی کولی شی؟" },
+                o: [
+                    { en: "No, never", ur: "نہیں کبھی نہیں", ps: "نه، هیڅکله", correct: false },
+                    { en: "Yes, frequently", ur: "ہاں، اکثر", ps: "هو، ډیری وختونه", correct: true },
+                    { en: "Only on Sundays", ur: "صرف اتوار کو", ps: "یوازې په یکشنبه", correct: false }
+                ]
+            },
+            // New Questions
+            {
+                q: { en: "What fuels AI?", ur: "AI کا ایندھن کیا ہے؟", ps: "د AI تیل څه شی دی؟" },
+                o: [
+                    { en: "Data", ur: "ڈیٹا", ps: "معلومات (ډیټا)", correct: true },
+                    { en: "Petrol", ur: "پیٹرول", ps: "پټرول", correct: false },
+                    { en: "Wind", ur: "ہوا", ps: "باد", correct: false }
+                ]
+            },
+            {
+                q: { en: "What is a 'Deepfake'?", ur: "ڈیپ فیک کیا ہے؟", ps: "ډیپ فیک څه شی دی؟" },
+                o: [
+                    { en: "A deep ocean", ur: "ایک گہرا سمندر", ps: "یو ژور سمندر", correct: false },
+                    { en: "Fake AI Video", ur: "جعلی AI ویڈیو", ps: "جعلي AI ویډیو", correct: true },
+                    { en: "A type of cake", ur: "کیک کی ایک قسم", ps: "د کیک یو ډول", correct: false }
+                ]
+            },
+            {
+                q: { en: "Which hardware is best for training AI?", ur: "AI کی تربیت کے لیے کون سا ہارڈ ویئر بہترین ہے؟", ps: "د AI روزنې لپاره کوم هارډویر غوره دی؟" },
+                o: [
+                    { en: "GPU", ur: "GPU", ps: "GPU", correct: true },
+                    { en: "Printer", ur: "پرنٹر", ps: "پرنټر", correct: false },
+                    { en: "Mouse", ur: "ماؤس", ps: "ماوس", correct: false }
+                ]
+            },
+            {
+                q: { en: "What helps AI understand human language?", ur: "AI کو انسانی زبان سمجھنے میں کیا مدد کرتا ہے؟", ps: "څه شی د AI سره د انسان په ژبه پوهیدو کې مرسته کوي؟" },
+                o: [
+                    { en: "NLP", ur: "NLP", ps: "NLP", correct: true },
+                    { en: "GPS", ur: "GPS", ps: "GPS", correct: false },
+                    { en: "USB", ur: "USB", ps: "USB", correct: false }
+                ]
+            },
+            {
+                q: { en: "What is Supervised Learning?", ur: "سپر وائزڈ لرننگ کیا ہے؟", ps: "سپر وائزڈ لرننگ څه شی دی؟" },
+                o: [
+                    { en: "Learning with labeled data", ur: "لیبل شدہ ڈیٹا کے ساتھ سیکھنا", ps: "د لیبل شوي معلوماتو سره زده کړه", correct: true },
+                    { en: "Learning alone", ur: "اکیلے سیکھنا", ps: "یوازې زده کړه", correct: false },
+                    { en: "Learning in sleep", ur: "نیند میں سیکھنا", ps: "په خوب کې زده کړه", correct: false }
+                ]
+            },
+            {
+                q: { en: "Why can AI be biased?", ur: "AI متعصب کیوں ہو سکتا ہے؟", ps: "ولې AI تعصب کیدی شي؟" },
+                o: [
+                    { en: "Because Data comes from humans", ur: "کیونکہ ڈیٹا انسانوں سے آتا ہے", ps: "ځکه چې معلومات د انسانانو څخه راځي", correct: true },
+                    { en: "It hates people", ur: "یہ لوگوں سے نفرت کرتا ہے", ps: "دا د خلکو څخه کرکه کوي", correct: false },
+                    { en: "It is broken", ur: "یہ ٹوٹا ہوا ہے", ps: "دا مات شوی دی", correct: false }
+                ]
+            },
+            {
+                q: { en: "What is Computer Vision?", ur: "کمپیوٹر ویژن کیا ہے؟", ps: "د کمپیوټر لید څه شی دی؟" },
+                o: [
+                    { en: "AI Seeing", ur: "AI کا دیکھنا", ps: "د AI لیدل", correct: true },
+                    { en: "AI Hearing", ur: "AI کا سننا", ps: "د AI اوریدل", correct: false },
+                    { en: "Wearing glasses", ur: "عینک پہننا", ps: "شیشې اغوستل", correct: false }
+                ]
+            },
+            {
+                q: { en: "What is Overfitting?", ur: "اوور فٹنگ کیا ہے؟", ps: "اوور فټینګ څه شی دی؟" },
+                o: [
+                    { en: "Memorizing instead of learning", ur: "سیکھنے کے بجائے رٹنا", ps: "د زده کړې پر ځای یادول", correct: true },
+                    { en: "Exercising too much", ur: "بہت زیادہ ورزش کرنا", ps: "ډیر تمرین کول", correct: false },
+                    { en: "Fitting in clothes", ur: "کپڑوں میں فٹ ہونا", ps: "په جامو کې فټ کیدل", correct: false }
+                ]
+            },
+            {
+                q: { en: "Who decides AI Ethics?", ur: "AI اخلاقیات کا فیصلہ کون کرتا ہے؟", ps: "د AI اخلاق څوک پریکړه کوي؟" },
+                o: [
+                    { en: "Humans", ur: "انسان", ps: "انسانان", correct: true },
+                    { en: "Robots", ur: "روبوٹ", ps: "روبوټونه", correct: false },
+                    { en: "Aliens", ur: "خلائی مخلوق", ps: "پردیس", correct: false }
+                ]
+            },
+            {
+                q: { en: "Is AI a tool or a master?", ur: "کیا AI ایک آلہ ہے یا مالک؟", ps: "ایا AI یوه وسیله ده یا مالک؟" },
+                o: [
+                    { en: "A Tool", ur: "ایک آلہ", ps: "یوه وسیله", correct: true },
+                    { en: "A Master", ur: "ایک مالک", ps: "یو مالک", correct: false },
+                    { en: "Neither", ur: "کوئی بھی نہیں", ps: "هیڅ یو", correct: false }
+                ]
+            }
+        ];
+
+        // --- APP STATE ---
+        let currentLang = 'en';
+        let currentScore = 0;
+        
+        // --- DOM ELEMENTS ---
+        const appContainer = document.getElementById('app-container');
+        const footerBlog = document.getElementById('footer-blog');
+        const footerWeb = document.getElementById('footer-web');
+        const footerPrivacy = document.getElementById('footer-privacy');
+
+        // --- FUNCTIONS ---
+
+        function init() {
+            renderHome();
+        }
+
+        function changeLang(lang) {
+            currentLang = lang;
+            const body = document.body;
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-yellow-400', 'text-indigo-900');
+                btn.classList.add('text-white');
+            });
+
+            // Add active class to selected button
+            const activeBtn = document.getElementById(`btn-${lang}`);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-white');
+
+            if (lang === 'ur' || lang === 'ps') {
+                body.classList.add('rtl-text');
+                body.dir = "rtl";
+            } else {
+                body.classList.remove('rtl-text');
+                body.dir = "ltr";
+            }
+            // Update Footer
+            const t = translations[currentLang];
+            footerBlog.innerText = t.blog;
+            footerWeb.innerText = t.web;
+            footerPrivacy.innerText = t.privacy;
+            
+            renderHome(); 
+        }
+
+        function goHome() {
+            renderHome();
+        }
+
+        function renderHome() {
+            const t = translations[currentLang];
+            
+            // Group lessons by category
+            const categoriesHTML = t.categories.map((catName, index) => {
+                const catLessons = lessonsData.filter(l => l.cat === index).sort((a,b) => a.id - b.id);
+                const cardsHTML = catLessons.map(l => `
+                    <div class="lesson-card bg-white p-6 rounded-xl shadow-md border-b-4 border-indigo-500 cursor-pointer transition relative overflow-hidden group" onclick="openLessonModal(${l.id})">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                            <i class="fa-solid ${l.icon} text-6xl text-indigo-900"></i>
+                        </div>
+                        <div class="flex items-center gap-4 mb-3 relative z-10">
+                            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 shadow-sm">
+                                <i class="fa-solid ${l.icon} text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg leading-tight text-gray-800">${l[currentLang].t}</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 line-clamp-3 relative z-10">${l[currentLang].c}</p>
+                        <div class="mt-4 text-xs font-bold text-indigo-500 uppercase tracking-wide group-hover:text-indigo-700">
+                            ${t.startBtn} <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </div>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="mb-12 fade-in">
+                        <div class="flex items-center gap-4 mb-6 border-b pb-2 border-slate-200">
+                             <div class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow">${index + 1}</div>
+                             <h2 class="text-2xl font-bold text-indigo-900 brand-font">${catName}</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${cardsHTML}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            appContainer.innerHTML = `
+                <div class="text-center py-16 bg-gradient-to-br from-indigo-900 to-indigo-700 rounded-3xl text-white mb-12 shadow-2xl relative overflow-hidden">
+                    <!-- Decor -->
+                    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                         <i class="fa-solid fa-brain absolute top-10 left-10 text-9xl animate-pulse"></i>
+                         <i class="fa-solid fa-network-wired absolute bottom-10 right-10 text-9xl"></i>
+                    </div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex justify-center mb-6">
+                            <img src="/logo.png" alt="Logo" class="w-32 h-32 rounded-full border-4 border-yellow-400 shadow-lg object-cover bg-white" onerror="this.src='https://placehold.co/150x150?text=PE'">
+                        </div>
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4 brand-font tracking-tight">${t.welcome}</h1>
+                        <p class="text-xl md:text-2xl opacity-90 mb-8 max-w-2xl mx-auto font-light">${t.subtitle}</p>
+                        <button onclick="document.getElementById('modules-start').scrollIntoView({behavior: 'smooth'})" class="bg-yellow-400 text-indigo-900 px-10 py-4 rounded-full font-bold text-xl hover:bg-yellow-300 transition shadow-lg transform hover:scale-105 flex items-center gap-2 mx-auto">
+                           <i class="fa-solid fa-play"></i> ${t.startBtn}
+                        </button>
+                    </div>
+                </div>
+
+                <div id="modules-start">
+                    ${categoriesHTML}
+                </div>
+
+                <div class="mt-16 text-center py-12 bg-indigo-50 rounded-3xl border border-indigo-100 shadow-inner">
+                    <i class="fa-solid fa-certificate text-5xl text-yellow-500 mb-4"></i>
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-4">${t.quizTitle}</h2>
+                    <p class="text-gray-600 mb-8 text-lg max-w-xl mx-auto">${t.quizIntro}</p>
+                    <button onclick="renderQuiz()" class="bg-green-600 text-white px-10 py-4 rounded-full font-bold text-xl hover:bg-green-500 transition shadow-xl transform hover:-translate-y-1">
+                        <i class="fa-solid fa-clipboard-check mr-2"></i> ${t.quizTitle}
+                    </button>
+                </div>
+            `;
+        }
+
+        function openLessonModal(id) {
+            const l = lessonsData.find(x => x.id === id);
+            const t = translations[currentLang];
+            const content = l[currentLang];
+
+            // Simple modal logic
+            const modalHTML = `
+                <div class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 backdrop-blur-sm" id="lesson-modal">
+                    <div class="bg-white rounded-3xl max-w-2xl w-full p-8 shadow-2xl relative animate-fade-in overflow-y-auto max-h-[90vh]">
+                        <button onclick="document.getElementById('lesson-modal').remove()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-red-50 transition">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                        
+                        <div class="flex items-center gap-4 mb-6 pb-6 border-b">
+                            <div class="w-16 h-16 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600">
+                                <i class="fa-solid ${l.icon} text-3xl"></i>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-bold text-indigo-900 leading-tight">${content.t}</h2>
+                        </div>
+                        
+                        <div class="text-lg text-gray-700 leading-relaxed mb-8 space-y-4">
+                            <p>${content.c}</p>
+                        </div>
+                        
+                        <div class="flex justify-between items-center bg-gray-50 p-4 rounded-xl">
+                            <div class="text-sm text-gray-500 italic">PashtunEinstein Academy</div>
+                            <button onclick="document.getElementById('lesson-modal').remove()" class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-indigo-700 transition shadow-md">
+                                ${t.finish} <i class="fa-solid fa-check ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        function renderQuiz() {
+            const t = translations[currentLang];
+            currentScore = 0;
+
+            let questionsHTML = quizQuestions.map((qObj, idx) => {
+                const questionText = qObj.q[currentLang];
+                const optionsHTML = qObj.o.map((opt, optIdx) => `
+                    <label class="flex items-center p-4 border-2 border-gray-100 rounded-xl mb-3 cursor-pointer hover:bg-indigo-50 hover:border-indigo-200 transition group">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 mr-4 flex items-center justify-center group-hover:border-indigo-500 relative">
+                            <input type="radio" name="q${idx}" value="${opt.correct}" class="appearance-none w-full h-full absolute inset-0 cursor-pointer checked:bg-indigo-600 rounded-full">
+                        </div>
+                        <span class="text-gray-700 font-medium group-hover:text-indigo-900">${opt[currentLang]}</span>
+                    </label>
+                `).join('');
+
+                return `
+                    <div class="bg-white p-6 rounded-2xl shadow-sm mb-8 border border-gray-100 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                        <p class="font-bold text-xl mb-6 text-indigo-900 flex gap-3">
+                            <span class="text-indigo-200 font-black text-2xl">0${idx+1}</span> 
+                            ${questionText}
+                        </p>
+                        ${optionsHTML}
+                    </div>
+                `;
+            }).join('');
+
+            appContainer.innerHTML = `
+                <div class="max-w-3xl mx-auto">
+                    <button onclick="renderHome()" class="mb-6 text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-2 transition">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Lessons
+                    </button>
+                    <div class="text-center mb-10">
+                        <h1 class="text-4xl font-bold mb-2 brand-font text-indigo-900">${t.quizTitle}</h1>
+                        <div class="h-1 w-24 bg-yellow-400 mx-auto rounded-full"></div>
+                    </div>
+                    <form id="quiz-form">
+                        ${questionsHTML}
+                    </form>
+                    <div class="text-center mt-12 mb-12">
+                        <button onclick="checkQuiz()" class="bg-indigo-600 text-white px-12 py-4 rounded-full font-bold text-xl hover:bg-indigo-700 shadow-xl transition transform hover:scale-105">
+                            ${t.submitQuiz} <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkQuiz() {
+            const form = document.getElementById('quiz-form');
+            const inputs = form.querySelectorAll('input[type="radio"]:checked');
+            const t = translations[currentLang];
+            
+            if (inputs.length < quizQuestions.length) {
+                alert("Please answer all questions before submitting.");
+                return;
+            }
+
+            let score = 0;
+            inputs.forEach(input => {
+                if (input.value === 'true') score++;
+            });
+
+            // Pass threshold: 10 out of 15 (approx 66%)
+            const passed = score >= 10; 
+
+            appContainer.innerHTML = `
+                <div class="max-w-2xl mx-auto text-center bg-white p-12 rounded-[2rem] shadow-2xl mt-10 relative overflow-hidden">
+                     <div class="absolute top-0 left-0 w-full h-2 ${passed ? 'bg-green-500' : 'bg-red-500'}"></div>
+                    <div class="text-7xl mb-6 ${passed ? 'text-green-500 animate-bounce' : 'text-red-400'}">
+                        <i class="fa-solid ${passed ? 'fa-trophy' : 'fa-heart-crack'}"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold mb-4 text-gray-800">${passed ? t.passMsg : t.failMsg}</h2>
+                    <p class="text-2xl font-bold text-indigo-600 mb-8 bg-indigo-50 inline-block px-6 py-2 rounded-lg">
+                        ${t.scoreMsg}: ${score} / ${quizQuestions.length}
+                    </p>
+                    
+                    ${passed ? `
+                        <div class="mb-8 text-left bg-gradient-to-r from-gray-50 to-white p-8 rounded-2xl border border-gray-100 shadow-inner">
+                            <label class="block mb-3 font-bold text-gray-700 text-lg">${t.namePrompt}</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="cert-fname" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition" placeholder="First Name">
+                                <input type="text" id="cert-lname" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <button onclick="generateCertificate()" class="bg-yellow-400 text-indigo-900 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition shadow-lg w-full md:w-auto flex items-center justify-center gap-2 mx-auto">
+                            <i class="fa-solid fa-file-contract"></i> ${t.getCert}
+                        </button>
+                    ` : `
+                        <button onclick="renderQuiz()" class="bg-indigo-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-indigo-700 transition shadow-lg">Try Again</button>
+                    `}
+                     <div class="mt-8">
+                        <button onclick="renderHome()" class="text-gray-400 hover:text-gray-600 font-medium">Back to Home</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateCertificate() {
+            const fname = document.getElementById('cert-fname').value.trim();
+            const lname = document.getElementById('cert-lname').value.trim();
+            
+            if (!fname || !lname) {
+                alert("Please enter both First and Last Name.");
+                return;
+            }
+            
+            const fullName = fname + " " + lname;
+
+            const canvas = document.getElementById('certCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // 1. Background
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(0, 0, 1000, 700);
+
+            // 2. Fancy Border
+            // Outer Indigo
+            ctx.lineWidth = 20;
+            ctx.strokeStyle = "#312e81"; 
+            ctx.strokeRect(20, 20, 960, 660);
+            
+            // Inner Gold
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "#fbbf24"; 
+            ctx.strokeRect(45, 45, 910, 610);
+            
+            // Corner Accents
+            ctx.fillStyle = "#312e81";
+            ctx.fillRect(20, 20, 60, 60);
+            ctx.fillRect(920, 20, 60, 60);
+            ctx.fillRect(20, 620, 60, 60);
+            ctx.fillRect(920, 620, 60, 60);
+
+            // 3. Header Text
+            ctx.fillStyle = "#312e81";
+            ctx.font = "bold 60px 'Times New Roman', serif";
+            ctx.textAlign = "center";
+            ctx.fillText("CERTIFICATE", 500, 150);
+            
+            ctx.font = "tracking-widest 25px Arial, sans-serif";
+            ctx.fillStyle = "#fbbf24";
+            ctx.fillText("OF EXCELLENCE", 500, 190);
+
+            // 4. Body Text
+            ctx.font = "italic 24px Arial, sans-serif";
+            ctx.fillStyle = "#666";
+            ctx.fillText("This is to certify that", 500, 260);
+
+            // 5. Name (Dynamic)
+            ctx.font = "bold italic 70px 'Times New Roman', serif";
+            ctx.fillStyle = "#1e40af"; 
+            ctx.fillText(fullName, 500, 340);
+            
+            // Underline
+            ctx.beginPath();
+            ctx.moveTo(200, 360);
+            ctx.lineTo(800, 360);
+            ctx.strokeStyle = "#cbd5e1";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // 6. Reason
+            ctx.font = "24px Arial, sans-serif";
+            ctx.fillStyle = "#444";
+            ctx.fillText("Has successfully completed the fundamentals of Artificial Intelligence at", 500, 410);
+            ctx.font = "bold 32px 'Orbitron', sans-serif";
+            ctx.fillStyle = "#312e81";
+            ctx.fillText("PASHTUNEINSTEIN AI ACADEMY", 500, 460);
+
+            // 7. Signatures / Footer
+            const date = new Date().toLocaleDateString();
+            
+            // Line 1
+            ctx.beginPath();
+            ctx.moveTo(150, 580);
+            ctx.lineTo(400, 580);
+            ctx.stroke();
+            
+            // Line 2
+            ctx.beginPath();
+            ctx.moveTo(600, 580);
+            ctx.lineTo(850, 580);
+            ctx.stroke();
+            
+            ctx.font = "18px Arial, sans-serif";
+            ctx.fillStyle = "#333";
+            ctx.fillText(date, 275, 570);
+            ctx.fillText("PashtunEinstein", 725, 565); // "Signature" font simulation
+            
+            ctx.font = "bold 16px Arial, sans-serif";
+            ctx.fillStyle = "#888";
+            ctx.fillText("DATE", 275, 610);
+            ctx.fillText("INSTRUCTOR", 725, 610);
+
+            // 8. Seal
+            ctx.beginPath();
+            ctx.arc(500, 580, 50, 0, 2 * Math.PI);
+            ctx.fillStyle = "#fbbf24";
+            ctx.fill();
+            ctx.fillStyle = "#fff";
+            ctx.font = "30px Arial";
+            ctx.fillText("★", 500, 590);
+
+            // 9. Download
+            const link = document.createElement('a');
+            link.download = `Certificate_${fname}_${lname}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Initialize App
+        init();
+
+    </script>
+</body>
+</html>

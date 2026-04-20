@@ -1,9 +1,36 @@
 {
-  "name": "PashtunEinstein Academy",
-  "short_name": "Academy",
+  "name": "PashtunEinstein",
+  "short_name": "PashtunEin",
+  "description": "PashtunEinstein educational site for science, AI, communication, encryption, and language learning.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#00ffff",
-  "icons": []
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Academy",
+      "short_name": "Academy",
+      "url": "/academy/"
+    },
+    {
+      "name": "Science Explorer",
+      "short_name": "Science",
+      "url": "/webscience/"
+    },
+    {
+      "name": "AI Academy",
+      "short_name": "AI",
+      "url": "/ai/"
+    }
+  ]
 }

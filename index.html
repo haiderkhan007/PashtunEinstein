@@ -4,8 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="PashtunEinstein - Empowering Pashtuns through science and technology. Learn about AI, self-hosting, cybersecurity, and more.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PashtunEinstein">
+  <meta property="og:title" content="PashtunEinstein | Science & Tech">
+  <meta property="og:description" content="Empowering Pashtuns through science, technology, AI, cybersecurity, and practical digital education.">
+  <meta property="og:url" content="https://pashtuneinstein.com/">
+  <meta property="og:image" content="https://pashtuneinstein.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PashtunEinstein | Science & Tech">
+  <meta name="twitter:description" content="Empowering Pashtuns through science, technology, AI, cybersecurity, and practical digital education.">
+  <meta name="twitter:image" content="https://pashtuneinstein.com/logo.png">
+  <meta name="theme-color" content="#020617">
+  <link rel="canonical" href="https://pashtuneinstein.com/">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/logo.png">
   <meta http-equiv="Cache-Control" content="public, max-age=31536000" />
   <title>PashtunEinstein | Science & Tech</title>
+  <script defer src="/pwa.js"></script>
   <!-- Schema Markup for SEO -->
   <script type="application/ld+json">
   {
@@ -19,19 +36,6 @@
       "https://www.youtube.com/@PashtunEinstein",
       "https://t.me/s/PashtunEinstein"
     ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "url": "https://pashtuneinstein.com/",
-    "name": "PashtunEinstein",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://pashtuneinstein.com/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
   }
   </script>
   <!-- Google tag (gtag.js) -->
@@ -99,6 +103,8 @@
       top: 15px;
       left: 50%;
       transform: translateX(-50%);
+      width: calc(100% - 40px);
+      text-align: center;
       font-size: 1.2rem;
       font-weight: bold;
       color: white;
@@ -109,6 +115,8 @@
       top: 45px;
       left: 50%;
       transform: translateX(-50%);
+      width: calc(100% - 40px);
+      text-align: center;
       font-size: 0.85rem;
       color: white;
       text-shadow: 0 0 5px rgba(255,255,255,0.4);
@@ -174,6 +182,12 @@
       white-space: nowrap;
     }
     nav a:hover { color: #F8BD33; }
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+    }
     main { padding: 40px 20px; text-align: center; }
     section {
       background-color: var(--card-bg);
@@ -213,6 +227,9 @@
     }
     /* ✅ Small screen fixes */
     @media (max-width: 768px) {
+      header {
+        padding: 56px 16px 28px;
+      }
       .mypic { position: static; display: block; margin: 20px auto 0; }
       .typewriter { font-size: 1rem; white-space: normal; }
       nav { gap: 12px; padding: 10px; overflow-x: auto; }
@@ -222,6 +239,21 @@
       }
       .header-text h1 {
         font-size: 2.2rem;
+      }
+      .button {
+        width: min(100%, 280px);
+      }
+    }
+    @media (max-width: 480px) {
+      .arabic-top {
+        font-size: 1rem;
+      }
+      .translation-text {
+        top: 42px;
+        font-size: 0.78rem;
+      }
+      .header-text h1 {
+        font-size: 1.9rem;
       }
     }
   </style>
@@ -240,18 +272,18 @@
       <p class="subtitle">Knowledge is power</p>
     </div>
     <img src="mypic.webp" alt="mypic" class="mypic" loading="lazy" />
-    <div style="margin-top: 10px;">
-      <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank"><img src="facebook.webp" alt="Facebook" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
-      <a href="https://www.tiktok.com/@ikn0w.you" target="_blank"><img src="tiktok.webp" alt="TikTok" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
-      <a href="https://www.youtube.com/@PashtunEinstein" target="_blank"><img src="youtube.webp" alt="YouTube" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
-      <a href="https://t.me/s/PashtunEinstein" target="_blank"><img src="telegram.webp" alt="Telegram" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
+    <div class="social-links" style="margin-top: 10px;">
+      <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" rel="noopener noreferrer"><img src="facebook.webp" alt="Facebook" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
+      <a href="https://www.tiktok.com/@ikn0w.you" target="_blank" rel="noopener noreferrer"><img src="tiktok.webp" alt="TikTok" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
+      <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" rel="noopener noreferrer"><img src="youtube.webp" alt="YouTube" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
+      <a href="https://t.me/s/PashtunEinstein" target="_blank" rel="noopener noreferrer"><img src="telegram.webp" alt="Telegram" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
     </div>
   </header>
   <nav>
     <a href="#about">About</a>
     <a href="#youtube">YouTube</a>
     <a href="#facebook">Facebook</a>
-    <a href="https://blog.pashtuneinstein.com/" target="_blank">Blog</a>
+    <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">Blog</a>
     <a href="#contact">Contact</a>
   </nav>
   <main>
@@ -262,33 +294,33 @@
     <section id="academy">
       <h2>PashtunEinstein Academy</h2>
       <p>All your learning tools and smart apps in one simple portal. These apps help you learn in easy and advanced ways — and soon you can take a quiz and earn a stunning certificate from PashtunEinstein.</p>
-      <a class="button" href="acdamy.html">Visit Academy</a>
+      <a class="button" href="/academy">Visit Academy</a>
     </section>
     <section id="youtube">
       <h2>YouTube Channel</h2>
       <p>Explore my videos on tech tutorials, scientific explanations, and DIY projects.</p>
-      <a class="button" href="https://www.youtube.com/@PashtunEinstein" target="_blank">Visit Channel</a>
+      <a class="button" href="https://www.youtube.com/@PashtunEinstein" target="_blank" rel="noopener noreferrer">Visit Channel</a>
     </section>
     <section id="facebook">
       <h2>Facebook Page</h2>
       <p>Follow me on Facebook for updates, posts, and discussions.</p>
-      <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank">Visit Facebook</a>
+      <a class="button" href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" rel="noopener noreferrer">Visit Facebook</a>
     </section>
     <section id="contact">
       <h2>Contact</h2>
       <p>Email: <strong>info@pashtuneinstein.com</strong></p>
       <p>Contact me on Telegram:</p>
-      <a class="button" href="https://t.me/s/PashtunEinstein" target="_blank">Telegram</a>
+      <a class="button" href="https://t.me/s/PashtunEinstein" target="_blank" rel="noopener noreferrer">Telegram</a>
     </section>
     <section id="blog">
       <h2>Blog</h2>
       <ul style="list-style-type: none; padding-left: 0;">
-        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/5-best-books-free-for-you-to-download-that-will-change-your-thinking-and-lead-you-to-prosperity/" target="_blank" style="color: green; font-weight: bold; font-size: 1.1rem;">5 Best Books (Free for You to Download) That Will Change Your Thinking and Lead You to Prosperity</a></li>
-        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/4-privacy-checks-you-should-be-doing-but-probably-arent/" target="_blank" style="color: green; font-weight: bold; font-size: 1.1rem;">4 Privacy Checks You Should Be Doing (But Probably Aren’t)</a></li>
-        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/science-a-tool-to-understand-the-universe-but-not-the-whole-answer/" target="_blank" style="color: green; font-weight: bold; font-size: 1.1rem;">Science: A Tool to Understand the Universe, But Not the Whole Answer</a></li>
-        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/steps-for-pashtuns-to-become-smarter-and-more-successful/" target="_blank" style="color: green; font-weight: bold; font-size: 1.1rem;">Steps for Pashtuns to Become Smarter and More Successful</a></li>
+        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/5-best-books-free-for-you-to-download-that-will-change-your-thinking-and-lead-you-to-prosperity/" target="_blank" rel="noopener noreferrer" style="color: green; font-weight: bold; font-size: 1.1rem;">5 Best Books (Free for You to Download) That Will Change Your Thinking and Lead You to Prosperity</a></li>
+        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/4-privacy-checks-you-should-be-doing-but-probably-arent/" target="_blank" rel="noopener noreferrer" style="color: green; font-weight: bold; font-size: 1.1rem;">4 Privacy Checks You Should Be Doing (But Probably Aren’t)</a></li>
+        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/science-a-tool-to-understand-the-universe-but-not-the-whole-answer/" target="_blank" rel="noopener noreferrer" style="color: green; font-weight: bold; font-size: 1.1rem;">Science: A Tool to Understand the Universe, But Not the Whole Answer</a></li>
+        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/steps-for-pashtuns-to-become-smarter-and-more-successful/" target="_blank" rel="noopener noreferrer" style="color: green; font-weight: bold; font-size: 1.1rem;">Steps for Pashtuns to Become Smarter and More Successful</a></li>
       </ul>
-      <a class="button" href="https://blog.pashtuneinstein.com/" target="_blank">Visit Full Blog</a>
+      <a class="button" href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">Visit Full Blog</a>
     </section>
   </main>
   <footer>&copy; 2025 PashtunEinstein. All rights reserved.</footer>
