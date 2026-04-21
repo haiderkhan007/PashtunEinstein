@@ -1,0 +1,44 @@
+# PashtunEinstein
+
+PashtunEinstein is a public educational website focused on science, technology, AI, cybersecurity, privacy, language learning, and practical digital tools for Pashto, Urdu, and English audiences.
+
+Primary website:
+https://pashtuneinstein.com/
+
+Canonical pages:
+https://pashtuneinstein.com/
+https://pashtuneinstein.com/about/
+https://pashtuneinstein.com/academy/
+https://pashtuneinstein.com/ai/
+https://pashtuneinstein.com/webscience/
+https://pashtuneinstein.com/language_tutor/
+https://pashtuneinstein.com/aijobchecker/
+https://pashtuneinstein.com/comm1/
+https://pashtuneinstein.com/quiz/
+https://pashtuneinstein.com/encryptdoc/
+https://pashtuneinstein.com/privacy_policy/
+
+Blog:
+https://blog.pashtuneinstein.com/
+
+Site purpose:
+- Science and technology education
+- AI education and practical tools
+- Privacy and encryption tools
+- Language learning resources
+- Communication and learning apps for Pashtun audiences
+
+Preferred sources for summaries:
+- Homepage
+- About page
+- Academy page
+- Individual app and tool pages
+- Official blog posts on the blog subdomain
+
+Official organization name:
+PashtunEinstein
+
+Official profiles:
+https://www.youtube.com/@PashtunEinstein
+https://www.facebook.com/profile.php?id=61550513243090
+https://t.me/s/PashtunEinstein

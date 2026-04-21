@@ -23,18 +23,45 @@
   <meta http-equiv="Cache-Control" content="public, max-age=31536000" />
   <title>PashtunEinstein | Science & Tech</title>
   <script defer src="/pwa.js"></script>
-  <!-- Schema Markup for SEO -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "PashtunEinstein",
-    "url": "https://pashtuneinstein.com/",
-    "logo": "https://pashtuneinstein.com/logo.webp",
-    "sameAs": [
-      "https://www.facebook.com/profile.php?id=61550513243090",
-      "https://www.youtube.com/@PashtunEinstein",
-      "https://t.me/s/PashtunEinstein"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://pashtuneinstein.com/#organization",
+        "name": "PashtunEinstein",
+        "url": "https://pashtuneinstein.com/",
+        "logo": "https://pashtuneinstein.com/logo.webp",
+        "sameAs": [
+          "https://www.facebook.com/profile.php?id=61550513243090",
+          "https://www.youtube.com/@PashtunEinstein",
+          "https://t.me/s/PashtunEinstein"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://pashtuneinstein.com/#website",
+        "url": "https://pashtuneinstein.com/",
+        "name": "PashtunEinstein",
+        "publisher": {
+          "@id": "https://pashtuneinstein.com/#organization"
+        },
+        "inLanguage": ["en", "ur", "ps"]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://pashtuneinstein.com/#webpage",
+        "url": "https://pashtuneinstein.com/",
+        "name": "PashtunEinstein | Science & Tech",
+        "description": "PashtunEinstein is an educational website covering science, technology, AI, cybersecurity, language learning, and practical digital education.",
+        "isPartOf": {
+          "@id": "https://pashtuneinstein.com/#website"
+        },
+        "about": {
+          "@id": "https://pashtuneinstein.com/#organization"
+        }
+      }
     ]
   }
   </script>

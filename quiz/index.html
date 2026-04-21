@@ -22,6 +22,21 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/logo.png">
     <script defer src="/pwa.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Science Mastery Quiz - PashtunEinstein",
+      "url": "https://pashtuneinstein.com/quiz/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "description": "An interactive science quiz with multilingual questions and a certificate experience.",
+      "publisher": {
+        "@id": "https://pashtuneinstein.com/#organization"
+      },
+      "inLanguage": ["en", "ur", "ps"]
+    }
+    </script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -82,6 +97,21 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col">
+    <section class="border-b border-slate-800 bg-slate-950">
+        <div class="max-w-5xl mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold text-white">Science Mastery Quiz</h1>
+            <p class="mt-3 text-lg text-slate-300">Test science knowledge with an interactive quiz designed for English, Urdu, and Pashto learners.</p>
+            <p class="mt-3 text-slate-400">The quiz includes multiple-choice questions, language switching, and a certificate-style completion experience for learners studying core science topics.</p>
+        </div>
+    </section>
+
+    <noscript>
+        <section class="max-w-5xl mx-auto px-4 py-8 text-slate-300">
+            <h2 class="text-2xl font-semibold text-white">JavaScript is required for the interactive quiz</h2>
+            <p class="mt-3">This quiz runs in the browser. The summary above provides crawlable context for search engines and AI systems.</p>
+        </section>
+    </noscript>
+
     <div id="root" class="flex-grow flex flex-col"></div>
 
     <script type="text/babel" data-type="module">

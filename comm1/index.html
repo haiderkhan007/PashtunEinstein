@@ -22,6 +22,19 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/logo.png">
     <script defer src="/pwa.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "SpeakWise - PashtunEinstein Academy",
+      "url": "https://pashtuneinstein.com/comm1/",
+      "description": "A communication skills learning page focused on ethical communication, confidence, and professional etiquette.",
+      "provider": {
+        "@id": "https://pashtuneinstein.com/#organization"
+      },
+      "inLanguage": ["en", "ur"]
+    }
+    </script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -93,6 +106,21 @@
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 flex flex-col">
+
+    <section class="bg-white border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold text-slate-900">SpeakWise</h1>
+            <p class="mt-3 text-lg text-slate-700">Build stronger communication habits with lessons about ethics, politeness, conflict management, and professional etiquette.</p>
+            <p class="mt-3 text-slate-600">The interactive learning experience below includes lessons, quizzes, and certificate-style progression for learners who want to improve communication skills.</p>
+        </div>
+    </section>
+
+    <noscript>
+        <section class="max-w-5xl mx-auto px-4 py-8">
+            <h2 class="text-2xl font-semibold text-slate-900">JavaScript is required for the interactive course</h2>
+            <p class="mt-3 text-slate-700">The full lesson system on this page loads in the browser. The summary above provides crawlable context without JavaScript.</p>
+        </section>
+    </noscript>
 
     <!-- App Root -->
     <div id="app" class="flex-grow flex flex-col"></div>

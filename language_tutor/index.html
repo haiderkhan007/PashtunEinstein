@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pashto & Urdu Language Tutor</title>
+    <title>PashtunEinstein Pashto & Urdu Language Tutor</title>
     <meta name="description" content="Translate text and build vocabulary with the PashtunEinstein Pashto and Urdu language tutor.">
     <meta name="robots" content="index,follow">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="PashtunEinstein">
-    <meta property="og:title" content="Pashto & Urdu Language Tutor">
+    <meta property="og:title" content="PashtunEinstein Pashto & Urdu Language Tutor">
     <meta property="og:description" content="Translate text and build vocabulary with the PashtunEinstein Pashto and Urdu language tutor.">
     <meta property="og:url" content="https://pashtuneinstein.com/language_tutor/">
     <meta property="og:image" content="https://pashtuneinstein.com/logo.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Pashto & Urdu Language Tutor">
+    <meta name="twitter:title" content="PashtunEinstein Pashto & Urdu Language Tutor">
     <meta name="twitter:description" content="Translate text and build vocabulary with the PashtunEinstein Pashto and Urdu language tutor.">
     <meta name="twitter:image" content="https://pashtuneinstein.com/logo.png">
     <meta name="theme-color" content="#020617">
@@ -22,6 +22,21 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/logo.png">
     <script defer src="/pwa.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PashtunEinstein Pashto & Urdu Language Tutor",
+      "url": "https://pashtuneinstein.com/language_tutor/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "description": "A browser-based language tutor for translation and vocabulary building in Pashto, Urdu, and English.",
+      "publisher": {
+        "@id": "https://pashtuneinstein.com/#organization"
+      },
+      "inLanguage": ["en", "ur", "ps"]
+    }
+    </script>
     
     
 
@@ -56,6 +71,21 @@
     </style>
 </head>
 <body class="bg-emerald-50 text-slate-900">
+    <section class="bg-white border-b border-emerald-100">
+        <div class="max-w-4xl mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold text-slate-900">PashtunEinstein Pashto &amp; Urdu Language Tutor</h1>
+            <p class="mt-3 text-lg text-slate-700">Translate words, build vocabulary, and explore practical language learning between English, Pashto, and Urdu.</p>
+            <p class="mt-3 text-slate-600">The interactive tutor below helps learners discover common words, study translations, and improve multilingual understanding with a browser-based learning tool.</p>
+        </div>
+    </section>
+
+    <noscript>
+        <section class="max-w-4xl mx-auto px-4 py-8">
+            <h2 class="text-2xl font-semibold text-slate-900">JavaScript is required for the interactive tutor</h2>
+            <p class="mt-3 text-slate-700">The language tutor runs in the browser. The summary above explains the page for visitors and crawlers when scripts are unavailable.</p>
+        </section>
+    </noscript>
+
     <div id="root"></div>
 
     <script type="text/babel">

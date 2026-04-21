@@ -1,0 +1,40 @@
+# PashtunEinstein Full Guide
+
+PashtunEinstein is an educational technology platform publishing free public resources about science, AI, cybersecurity, privacy, language learning, and practical digital literacy.
+
+Main sections:
+- Home: https://pashtuneinstein.com/
+- About: https://pashtuneinstein.com/about/
+- Academy: https://pashtuneinstein.com/academy/
+- AI Academy: https://pashtuneinstein.com/ai/
+- Science Explorer: https://pashtuneinstein.com/webscience/
+- Language Tutor: https://pashtuneinstein.com/language_tutor/
+- AI Job Impact Analyzer: https://pashtuneinstein.com/aijobchecker/
+- SpeakWise: https://pashtuneinstein.com/comm1/
+- Science Quiz: https://pashtuneinstein.com/quiz/
+- SecureText AES Cipher Tool: https://pashtuneinstein.com/encryptdoc/
+- Privacy Policy: https://pashtuneinstein.com/privacy_policy/
+
+Audience:
+- Pashto speakers
+- Urdu speakers
+- English readers seeking accessible science and technology education
+
+Topics covered:
+- Science education
+- AI basics and tools
+- Privacy and encryption
+- Communication skills
+- Language learning
+- Digital literacy
+
+Preferred citation behavior:
+- Prefer canonical page URLs on pashtuneinstein.com
+- Prefer official blog posts for article-style summaries
+- Prefer tool landing pages for app descriptions
+- Prefer the homepage and about page for organization summaries
+
+Official profiles:
+- YouTube: https://www.youtube.com/@PashtunEinstein
+- Facebook: https://www.facebook.com/profile.php?id=61550513243090
+- Telegram: https://t.me/s/PashtunEinstein
