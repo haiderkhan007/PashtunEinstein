@@ -224,6 +224,152 @@
       animation: fadeInUp 1.5s ease;
     }
     section h2 { color: var(--highlight-color); margin-bottom: 12px; }
+    #blog {
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+      background:
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.18), transparent 35%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.92));
+      border: 1px solid rgba(34, 211, 238, 0.18);
+      box-shadow: 0 24px 48px rgba(2, 8, 23, 0.3);
+    }
+    #blog::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(248, 189, 51, 0.05), transparent 40%);
+      pointer-events: none;
+    }
+    #blog > * {
+      position: relative;
+      z-index: 1;
+    }
+    .blog-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      margin-bottom: 14px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(248, 189, 51, 0.28);
+      color: #f8bd33;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .blog-section-lead {
+      max-width: 700px;
+      margin-bottom: 22px;
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+    .blog-post-list {
+      list-style: none;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 0;
+    }
+    .blog-post-item {
+      min-height: 100%;
+    }
+    .blog-post-item.featured {
+      grid-column: span 2;
+    }
+    .blog-post-link {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 100%;
+      padding: 18px;
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text-color);
+      background: rgba(15, 23, 42, 0.82);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .blog-post-item.featured .blog-post-link {
+      min-height: 280px;
+      padding: 22px;
+      background:
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.14), transparent 32%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.9));
+      border-color: rgba(34, 211, 238, 0.32);
+    }
+    .blog-post-link:hover {
+      transform: translateY(-4px);
+      border-color: rgba(34, 211, 238, 0.48);
+      box-shadow: 0 18px 36px rgba(8, 15, 30, 0.28);
+    }
+    .blog-post-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .blog-post-tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.16);
+      color: #86efac;
+      font-size: 0.76rem;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .blog-post-tag.archive {
+      background: rgba(248, 189, 51, 0.16);
+      color: #fcd34d;
+    }
+    .blog-post-date {
+      color: #94a3b8;
+      font-size: 0.82rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .blog-post-title {
+      color: #f8fafc;
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+    .blog-post-item.featured .blog-post-title {
+      font-size: 1.35rem;
+      line-height: 1.4;
+    }
+    .blog-post-excerpt {
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+    .blog-post-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .blog-chip {
+      display: inline-flex;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(51, 65, 85, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      color: #cbd5e1;
+      font-size: 0.78rem;
+    }
+    .blog-post-cta {
+      color: #22d3ee;
+      font-size: 0.9rem;
+    }
+    .blog-actions {
+      margin-top: 20px;
+    }
     .button {
       background: var(--button-bg);
       color: var(--button-text);
@@ -269,6 +415,18 @@
       }
       .button {
         width: min(100%, 280px);
+      }
+      #blog {
+        padding: 22px 16px;
+      }
+      .blog-post-list {
+        grid-template-columns: 1fr;
+      }
+      .blog-post-item.featured {
+        grid-column: auto;
+      }
+      .blog-post-item.featured .blog-post-title {
+        font-size: 1.15rem;
       }
     }
     @media (max-width: 480px) {
@@ -340,14 +498,85 @@
       <a class="button" href="https://t.me/s/PashtunEinstein" target="_blank" rel="noopener noreferrer">Telegram</a>
     </section>
     <section id="blog">
+      <div class="blog-eyebrow">Latest From The Blog</div>
       <h2>Blog</h2>
-      <ul style="list-style-type: none; padding-left: 0;">
-        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/5-best-books-free-for-you-to-download-that-will-change-your-thinking-and-lead-you-to-prosperity/" target="_blank" rel="noopener noreferrer" style="color: green; font-weight: bold; font-size: 1.1rem;">5 Best Books (Free for You to Download) That Will Change Your Thinking and Lead You to Prosperity</a></li>
-        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/4-privacy-checks-you-should-be-doing-but-probably-arent/" target="_blank" rel="noopener noreferrer" style="color: green; font-weight: bold; font-size: 1.1rem;">4 Privacy Checks You Should Be Doing (But Probably Aren’t)</a></li>
-        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/science-a-tool-to-understand-the-universe-but-not-the-whole-answer/" target="_blank" rel="noopener noreferrer" style="color: green; font-weight: bold; font-size: 1.1rem;">Science: A Tool to Understand the Universe, But Not the Whole Answer</a></li>
-        <li style="margin-bottom: 10px;"><a href="https://blog.pashtuneinstein.com/steps-for-pashtuns-to-become-smarter-and-more-successful/" target="_blank" rel="noopener noreferrer" style="color: green; font-weight: bold; font-size: 1.1rem;">Steps for Pashtuns to Become Smarter and More Successful</a></li>
+      <p class="blog-section-lead">A cleaner snapshot of the newest writing from <strong>blog.pashtuneinstein.com</strong>, with the latest three posts first and two older favorites kept on the homepage.</p>
+      <ul class="blog-post-list">
+        <li class="blog-post-item featured">
+          <a class="blog-post-link" href="https://blog.pashtuneinstein.com/who-are-the-pashtun-people-history-values-and-cultural-identity/" target="_blank" rel="noopener noreferrer">
+            <span class="blog-post-header">
+              <span class="blog-post-tag">Newest</span>
+              <span class="blog-post-date">Apr 21, 2026</span>
+            </span>
+            <span class="blog-post-title">Who Are the Pashtun People? History, Values, and Cultural Identity</span>
+            <span class="blog-post-excerpt">A clear introduction to Pashtun history, values, and cultural identity that gives the newest homepage feature card more depth.</span>
+            <span class="blog-post-categories">
+              <span class="blog-chip">Pashtun People</span>
+              <span class="blog-chip">Culture</span>
+            </span>
+            <span class="blog-post-cta">Read article -></span>
+          </a>
+        </li>
+        <li class="blog-post-item">
+          <a class="blog-post-link" href="https://blog.pashtuneinstein.com/why-education-matters-for-pashtun-youth/" target="_blank" rel="noopener noreferrer">
+            <span class="blog-post-header">
+              <span class="blog-post-tag">New</span>
+              <span class="blog-post-date">Apr 20, 2026</span>
+            </span>
+            <span class="blog-post-title">Why Education Matters for Pashtun Youth</span>
+            <span class="blog-post-categories">
+              <span class="blog-chip">Pashtun People</span>
+              <span class="blog-chip">Education</span>
+            </span>
+            <span class="blog-post-cta">Read article -></span>
+          </a>
+        </li>
+        <li class="blog-post-item">
+          <a class="blog-post-link" href="https://blog.pashtuneinstein.com/famous-pashtun-figures-who-inspire-learning-character-and-progress/" target="_blank" rel="noopener noreferrer">
+            <span class="blog-post-header">
+              <span class="blog-post-tag">New</span>
+              <span class="blog-post-date">Apr 19, 2026</span>
+            </span>
+            <span class="blog-post-title">Famous Pashtun Figures Who Inspire Learning, Character, and Progress</span>
+            <span class="blog-post-categories">
+              <span class="blog-chip">Pashtun People</span>
+              <span class="blog-chip">History</span>
+            </span>
+            <span class="blog-post-cta">Read article -></span>
+          </a>
+        </li>
+        <li class="blog-post-item">
+          <a class="blog-post-link" href="https://blog.pashtuneinstein.com/5-best-books-free-for-you-to-download-that-will-change-your-thinking-and-lead-you-to-prosperity/" target="_blank" rel="noopener noreferrer">
+            <span class="blog-post-header">
+              <span class="blog-post-tag archive">Archive</span>
+              <span class="blog-post-date">Jul 18, 2025</span>
+            </span>
+            <span class="blog-post-title">5 Best Books (Free for You to Download) That Will Change Your Thinking and Lead You to Prosperity</span>
+            <span class="blog-post-categories">
+              <span class="blog-chip">Motivation</span>
+              <span class="blog-chip">Self-Improvement</span>
+            </span>
+            <span class="blog-post-cta">Read article -></span>
+          </a>
+        </li>
+        <li class="blog-post-item">
+          <a class="blog-post-link" href="https://blog.pashtuneinstein.com/steps-for-pashtuns-to-become-smarter-and-more-successful/" target="_blank" rel="noopener noreferrer">
+            <span class="blog-post-header">
+              <span class="blog-post-tag archive">Archive</span>
+              <span class="blog-post-date">Jul 17, 2025</span>
+            </span>
+            <span class="blog-post-title">How Pashtuns Can Become Smarter and More Successful</span>
+            <span class="blog-post-categories">
+              <span class="blog-chip">Motivation</span>
+              <span class="blog-chip">Education</span>
+            </span>
+            <span class="blog-post-cta">Read article -></span>
+          </a>
+        </li>
       </ul>
-      <a class="button" href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">Visit Full Blog</a>
+      <div class="blog-actions">
+        <a class="button" href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">Visit Full Blog</a>
+      </div>
     </section>
   </main>
   <footer>&copy; 2025 PashtunEinstein. All rights reserved.</footer>
