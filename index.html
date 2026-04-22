@@ -121,74 +121,136 @@
     }
     header {
       text-align: center;
-      padding: 50px 20px 30px;
-      background-color: rgba(30, 41, 59, 0.85);
+      padding: 54px 20px 34px;
+      background:
+        radial-gradient(circle at top center, rgba(34, 211, 238, 0.18), transparent 30%),
+        linear-gradient(135deg, rgba(2, 6, 23, 0.92), rgba(15, 23, 42, 0.88));
+      border-bottom: 1px solid rgba(34, 211, 238, 0.18);
+      box-shadow: 0 20px 50px rgba(2, 8, 23, 0.35);
       position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(34, 211, 238, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.08) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 85%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 140px;
+      background: linear-gradient(180deg, transparent, rgba(248, 189, 51, 0.08));
+      pointer-events: none;
+      z-index: 0;
     }
     .arabic-top {
       position: absolute;
       top: 15px;
       left: 50%;
       transform: translateX(-50%);
-      width: calc(100% - 40px);
+      width: fit-content;
+      max-width: calc(100% - 40px);
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: bold;
       color: white;
       z-index: 2;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      backdrop-filter: blur(10px);
+      letter-spacing: 0.08em;
     }
     .translation-text {
       position: absolute;
-      top: 45px;
+      top: 58px;
       left: 50%;
       transform: translateX(-50%);
       width: calc(100% - 40px);
       text-align: center;
-      font-size: 0.85rem;
-      color: white;
-      text-shadow: 0 0 5px rgba(255,255,255,0.4);
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      text-shadow: 0 0 12px rgba(34, 211, 238, 0.18);
       z-index: 2;
+      letter-spacing: 0.04em;
     }
     .logo-wrapper {
-      margin-top: 65px;
-      margin-bottom: 15px;
+      margin-top: 86px;
+      margin-bottom: 18px;
     }
     .logo-wrapper img {
-      height: 100px;
-      border-radius: 12px;
+      height: 112px;
+      border-radius: 22px;
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.76);
+      border: 1px solid rgba(34, 211, 238, 0.24);
+      box-shadow: 0 0 0 8px rgba(15, 23, 42, 0.34), 0 18px 40px rgba(15, 23, 42, 0.45);
       filter: brightness(1.8) contrast(1.2);
     }
+    .header-text {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 130px 0 0;
+    }
     .header-text h1 {
-      font-size: 2.7rem;
+      font-size: clamp(2.8rem, 5vw, 4.4rem);
+      line-height: 1.05;
+      letter-spacing: 0.04em;
       color: #F8BD33;
       animation: glow 2s ease-in-out infinite alternate;
+      text-transform: uppercase;
     }
     .typewriter {
       overflow: hidden;
       white-space: nowrap;
       border-right: 0.15em solid #F8BD33;
       animation: blink-caret 0.75s step-end infinite;
-      color: #F8BD33;
-      font-size: 1.1rem;
-      margin-top: 10px;
+      color: #67e8f9;
+      font-size: 1.08rem;
+      margin: 16px auto 0;
+      width: fit-content;
+      max-width: 100%;
+      padding: 10px 16px;
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 999px;
+      box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.16);
     }
     .subtitle {
-      color: white;
+      color: #e2e8f0;
       font-weight: bold;
-      margin-top: 10px;
+      margin-top: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
     .mypic {
       position: absolute;
-      bottom: 10px;
-      right: 20px;
-      width: 100px;
-      height: 100px;
+      bottom: 22px;
+      right: 24px;
+      width: 118px;
+      height: 118px;
       border-radius: 50%;
-      border: 3px solid white;
+      border: 3px solid rgba(34, 211, 238, 0.75);
       object-fit: cover;
-      transition: transform 0.4s ease;
+      box-shadow: 0 0 0 8px rgba(15, 23, 42, 0.44), 0 20px 30px rgba(2, 8, 23, 0.35);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      z-index: 1;
     }
-    .mypic:hover { transform: scale(1.05); }
+    .mypic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 8px rgba(15, 23, 42, 0.5), 0 24px 36px rgba(2, 8, 23, 0.42);
+    }
     nav {
       background: rgba(51, 65, 85, 0.9);
       text-align: center;
@@ -210,10 +272,36 @@
     }
     nav a:hover { color: #F8BD33; }
     .social-links {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 6px;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid rgba(34, 211, 238, 0.16);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+    .social-links a:hover {
+      transform: translateY(-3px);
+      border-color: rgba(248, 189, 51, 0.4);
+      background: rgba(30, 41, 59, 0.92);
+    }
+    .social-links a img {
+      width: 28px;
+      height: 28px;
+      margin: 0;
+      border-radius: 50%;
     }
     main { padding: 40px 20px; text-align: center; }
     section {
@@ -248,6 +336,10 @@
     }
     .blog-button {
       margin-top: 0;
+    }
+    .blog-actions {
+      margin-top: 20px;
+      text-align: center;
     }
     .blog-post-list {
       list-style: none;
@@ -383,8 +475,27 @@
       header {
         padding: 56px 16px 28px;
       }
+      .arabic-top {
+        font-size: 0.88rem;
+        padding: 7px 12px;
+      }
+      .translation-text {
+        top: 54px;
+      }
       .mypic { position: static; display: block; margin: 20px auto 0; }
-      .typewriter { font-size: 1rem; white-space: normal; }
+      .header-text {
+        padding-right: 0;
+      }
+      .logo-wrapper {
+        margin-top: 82px;
+      }
+      .logo-wrapper img {
+        height: 96px;
+      }
+      .typewriter {
+        font-size: 1rem;
+        white-space: normal;
+      }
       nav { gap: 12px; padding: 10px; overflow-x: auto; }
       nav a {
         font-size: 0.8rem;
@@ -424,7 +535,7 @@
         font-size: 1rem;
       }
       .translation-text {
-        top: 42px;
+        top: 50px;
         font-size: 0.78rem;
       }
       .header-text h1 {
@@ -493,7 +604,6 @@
           <div class="blog-eyebrow">Latest From The Blog</div>
           <h2>Blog</h2>
         </div>
-        <a class="button blog-button" href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">Visit Full Blog</a>
       </div>
       <ul class="blog-post-list">
         <li class="blog-post-item featured">
@@ -577,9 +687,12 @@
           </a>
         </li>
       </ul>
+      <div class="blog-actions">
+        <a class="button blog-button" href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">Visit Full Blog</a>
+      </div>
     </section>
   </main>
-  <footer>&copy; 2025 PashtunEinstein. All rights reserved.</footer>
+  <footer>&copy; 2026 PashtunEinstein. All rights reserved.</footer>
   <script>
     function toggleTheme() {
       const current = document.body.getAttribute("data-theme") || "dark";
