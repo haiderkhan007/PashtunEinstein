@@ -19,15 +19,15 @@
   <meta name="twitter:title" content="PashtunEinstein | Science & Tech for Pashtuns">
   <meta name="twitter:description" content="Empowering Pashtuns through science, technology, AI, cybersecurity, and practical digital education.">
   <meta name="twitter:image" content="https://pashtuneinstein.com/logo.webp">
-  <meta name="theme-color" content="#020617">
+  <meta name="theme-color" content="#020617" id="theme-color-meta">
   <link rel="canonical" href="https://pashtuneinstein.com/">
+  <link rel="alternate" hreflang="x-default" href="https://pashtuneinstein.com/">
   <link rel="alternate" hreflang="en" href="https://pashtuneinstein.com/">
   <link rel="alternate" hreflang="ps" href="https://pashtuneinstein.com/">
   <link rel="alternate" hreflang="ur" href="https://pashtuneinstein.com/">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/logo.png">
-  <meta http-equiv="Cache-Control" content="public, max-age=31536000" />
   <title>PashtunEinstein | Science & Tech for Pashtuns</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -339,8 +339,8 @@
       padding: 0 130px 0 0;
     }
     .header-text h1 {
-      font-size: clamp(2.8rem, 5vw, 4.4rem);
-      line-height: 1.05;
+      font-size: clamp(1.6rem, 4vw, 4.4rem);
+      line-height: 1.15;
       letter-spacing: 0.04em;
       color: #F8BD33;
       animation: glow 2s ease-in-out infinite alternate;
@@ -694,7 +694,7 @@
         padding: 4px 6px;
       }
       .header-text h1 {
-        font-size: 2.2rem;
+        font-size: 1.5rem;
       }
       .button {
         width: min(100%, 280px);
@@ -731,7 +731,7 @@
         font-size: 0.78rem;
       }
       .header-text h1 {
-        font-size: 1.9rem;
+        font-size: 1.3rem;
       }
     }
   </style>
@@ -751,7 +751,7 @@
     <div class="translation-text">My Lord, increase me in knowledge</div>
     <div class="logo-wrapper"><img src="logo.webp" alt="PashtunEinstein Logo" width="112" height="112"></div>
     <div class="header-text">
-      <h1>PashtunEinstein<span class="sr-only"> - Science & Tech for Pashtuns</span></h1>
+      <h1>PashtunEinstein &mdash; Science & Tech for Pashtuns</h1>
       <p style="font-size: 1.4rem; color: white; margin-top: 8px; text-shadow: 0 0 5px #F8BD33, 0 0 10px #F8BD33, 0 0 15px #F8BD33;">پشتون آئن سٹائن</p>
       <p class="typewriter">Empowering Pashtuns through science & tech</p>
       <p class="subtitle">Knowledge is power</p>
@@ -904,6 +904,10 @@
     <p>&copy; 2026 PashtunEinstein. All rights reserved.</p>
   </footer>
   <script>
+    function setThemeMeta(theme) {
+      var meta = document.getElementById("theme-color-meta");
+      if (meta) { meta.setAttribute("content", theme === "light" ? "#f1f5f9" : "#020617"); }
+    }
     function toggleTheme() {
       var current = document.body.getAttribute("data-theme") || "dark";
       var next = current === "light" ? "dark" : "light";
@@ -920,6 +924,7 @@
         sunIcon.style.display = "none";
         toggleBtn.setAttribute("aria-label", "Switch to light theme");
       }
+      setThemeMeta(next);
       try { localStorage.setItem("theme", next); } catch(e) {}
     }
     (function() {
@@ -933,6 +938,7 @@
         if (moonIcon) moonIcon.style.display = "none";
         if (sunIcon) sunIcon.style.display = "block";
         if (toggleBtn) toggleBtn.setAttribute("aria-label", "Switch to dark theme");
+        setThemeMeta("light");
       }
     })();
   </script>
