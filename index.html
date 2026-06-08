@@ -21,11 +21,17 @@
   <meta name="twitter:image" content="https://pashtuneinstein.com/logo.webp">
   <meta name="theme-color" content="#020617">
   <link rel="canonical" href="https://pashtuneinstein.com/">
+  <link rel="alternate" hreflang="en" href="https://pashtuneinstein.com/">
+  <link rel="alternate" hreflang="ps" href="https://pashtuneinstein.com/">
+  <link rel="alternate" hreflang="ur" href="https://pashtuneinstein.com/">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/logo.png">
   <meta http-equiv="Cache-Control" content="public, max-age=31536000" />
   <title>PashtunEinstein | Science & Tech for Pashtuns</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
   <script defer src="/pwa.js"></script>
   <script type="application/ld+json">
   {
@@ -52,7 +58,12 @@
         "publisher": {
           "@id": "https://pashtuneinstein.com/#organization"
         },
-        "inLanguage": ["en", "ur", "ps"]
+        "inLanguage": ["en", "ur", "ps"],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://blog.pashtuneinstein.com/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       },
       {
         "@type": "WebPage",
@@ -80,8 +91,8 @@
     gtag('config', 'G-6NEP0E4FHX');
   </script>
   <link rel="preload" as="image" href="logo.webp" type="image/webp">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" />
   <style>
     :root {
       --bg-color: rgba(0, 0, 0, 0.75);
@@ -90,6 +101,35 @@
       --button-bg: #F8BD33;
       --button-text: #000000;
       --highlight-color: #22d3ee;
+      --nav-bg: rgba(51, 65, 85, 0.9);
+      --footer-bg: rgba(30, 41, 59, 0.85);
+      --star-opacity: 1;
+    }
+    [data-theme="light"] {
+      --bg-color: rgba(255, 255, 255, 0.85);
+      --text-color: #1e293b;
+      --card-bg: rgba(241, 245, 249, 0.95);
+      --button-bg: #d97706;
+      --button-text: #ffffff;
+      --highlight-color: #0e7490;
+      --nav-bg: rgba(241, 245, 249, 0.95);
+      --footer-bg: rgba(241, 245, 249, 0.95);
+      --star-opacity: 0.15;
+    }
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: var(--button-bg);
+      color: var(--button-text);
+      padding: 8px 16px;
+      z-index: 100;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 0 0 4px 0;
+    }
+    .skip-link:focus {
+      top: 0;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -112,8 +152,57 @@
       width: 100%; height: 100%;
       pointer-events: none;
       z-index: 0;
+      overflow: hidden;
     }
-    #stars canvas { width: 100%; height: 100%; }
+    .star-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: var(--star-opacity);
+      transition: opacity 0.4s ease;
+    }
+    .star-layer-1 {
+      background-image:
+        radial-gradient(1px 1px at 24px 5px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 97px 43px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 168px 89px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1.5px 1.5px at 53px 120px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 140px 16px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 12px 78px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 175px 55px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 78px 165px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 145px 140px, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 110px 100px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 35px 180px, rgba(255,255,255,0.65), transparent),
+        radial-gradient(1px 1px at 190px 30px, rgba(255,255,255,0.55), transparent),
+        radial-gradient(1.5px 1.5px at 65px 8px, rgba(255,255,255,0.75), transparent),
+        radial-gradient(1px 1px at 130px 155px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 8px 95px, rgba(255,255,255,0.7), transparent);
+      background-size: 200px 200px;
+      animation: twinkle1 4s ease-in-out infinite alternate;
+    }
+    .star-layer-2 {
+      background-image:
+        radial-gradient(1.5px 1.5px at 87px 34px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(2px 2px at 230px 112px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1.5px 1.5px at 45px 210px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 180px 67px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 265px 189px, rgba(255,255,255,0.85), transparent),
+        radial-gradient(1.5px 1.5px at 150px 260px, rgba(255,255,255,0.65), transparent),
+        radial-gradient(2px 2px at 20px 150px, rgba(255,255,255,0.75), transparent),
+        radial-gradient(1.5px 1.5px at 290px 40px, rgba(255,255,255,0.55), transparent),
+        radial-gradient(1.5px 1.5px at 100px 280px, rgba(255,255,255,0.7), transparent);
+      background-size: 300px 300px;
+      animation: twinkle2 6s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle1 {
+      from { opacity: var(--star-opacity); }
+      to { opacity: calc(var(--star-opacity) * 0.6); }
+    }
+    @keyframes twinkle2 {
+      from { opacity: calc(var(--star-opacity) * 0.8); }
+      to { opacity: var(--star-opacity); }
+    }
     .toggle-btn {
       position: fixed;
       top: 10px;
@@ -124,6 +213,17 @@
       color: var(--button-bg);
       z-index: 3;
       cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+    }
+    .toggle-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
     header {
       text-align: center;
@@ -137,6 +237,13 @@
       overflow: hidden;
       isolation: isolate;
     }
+    [data-theme="light"] header {
+      background:
+        radial-gradient(circle at top center, rgba(14, 116, 144, 0.12), transparent 30%),
+        linear-gradient(135deg, rgba(241, 245, 249, 0.95), rgba(226, 232, 240, 0.92));
+      border-bottom-color: rgba(14, 116, 144, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
     header::before {
       content: "";
       position: absolute;
@@ -149,6 +256,11 @@
       pointer-events: none;
       z-index: 0;
     }
+    [data-theme="light"] header::before {
+      background:
+        linear-gradient(rgba(14, 116, 144, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 116, 144, 0.06) 1px, transparent 1px);
+    }
     header::after {
       content: "";
       position: absolute;
@@ -157,6 +269,9 @@
       background: linear-gradient(180deg, transparent, rgba(248, 189, 51, 0.08));
       pointer-events: none;
       z-index: 0;
+    }
+    [data-theme="light"] header::after {
+      background: linear-gradient(180deg, transparent, rgba(217, 119, 6, 0.06));
     }
     .arabic-top {
       position: absolute;
@@ -177,6 +292,9 @@
       backdrop-filter: blur(10px);
       letter-spacing: 0.08em;
     }
+    [data-theme="light"] .arabic-top {
+      background: rgba(15, 23, 42, 0.85);
+    }
     .translation-text {
       position: absolute;
       top: 58px;
@@ -185,10 +303,14 @@
       width: calc(100% - 40px);
       text-align: center;
       font-size: 0.82rem;
-      color: #cbd5e1;
+      color: #dde4ee;
       text-shadow: 0 0 12px rgba(34, 211, 238, 0.18);
       z-index: 2;
       letter-spacing: 0.04em;
+    }
+    [data-theme="light"] .translation-text {
+      color: #475569;
+      text-shadow: none;
     }
     .logo-wrapper {
       margin-top: 86px;
@@ -202,6 +324,12 @@
       border: 1px solid rgba(34, 211, 238, 0.24);
       box-shadow: 0 0 0 8px rgba(15, 23, 42, 0.34), 0 18px 40px rgba(15, 23, 42, 0.45);
       filter: brightness(1.8) contrast(1.2);
+    }
+    [data-theme="light"] .logo-wrapper img {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(14, 116, 144, 0.3);
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.4), 0 18px 40px rgba(0, 0, 0, 0.1);
+      filter: none;
     }
     .header-text {
       position: relative;
@@ -218,6 +346,17 @@
       animation: glow 2s ease-in-out infinite alternate;
       text-transform: uppercase;
     }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
     .typewriter {
       overflow: hidden;
       white-space: nowrap;
@@ -233,8 +372,14 @@
       border-radius: 999px;
       box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.16);
     }
+    [data-theme="light"] .typewriter {
+      color: #0e7490;
+      background: rgba(241, 245, 249, 0.9);
+      border-color: var(--button-bg);
+      box-shadow: inset 0 0 0 1px rgba(14, 116, 144, 0.2);
+    }
     .subtitle {
-      color: #e2e8f0;
+      color: var(--text-color);
       font-weight: bold;
       margin-top: 14px;
       letter-spacing: 0.14em;
@@ -257,8 +402,15 @@
       transform: scale(1.05);
       box-shadow: 0 0 0 8px rgba(15, 23, 42, 0.5), 0 24px 36px rgba(2, 8, 23, 0.42);
     }
+    [data-theme="light"] .mypic {
+      border-color: rgba(14, 116, 144, 0.6);
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.5), 0 20px 30px rgba(0, 0, 0, 0.15);
+    }
+    [data-theme="light"] .mypic:hover {
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.6), 0 24px 36px rgba(0, 0, 0, 0.2);
+    }
     nav {
-      background: rgba(51, 65, 85, 0.9);
+      background: var(--nav-bg);
       text-align: center;
       padding: 12px;
       display: flex;
@@ -266,6 +418,8 @@
       justify-content: center;
       gap: 15px;
       overflow-x: auto;
+      position: relative;
+      scrollbar-width: thin;
     }
     nav a {
       color: var(--highlight-color);
@@ -277,37 +431,11 @@
       white-space: nowrap;
     }
     nav a:hover { color: #F8BD33; }
-    .social-links {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 18px;
-    }
-    .social-links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      background: rgba(15, 23, 42, 0.72);
-      border: 1px solid rgba(34, 211, 238, 0.16);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-    }
-    .social-links a:hover {
-      transform: translateY(-3px);
-      border-color: rgba(248, 189, 51, 0.4);
-      background: rgba(30, 41, 59, 0.92);
-    }
-    .social-links a img {
-      width: 28px;
-      height: 28px;
-      margin: 0;
-      border-radius: 50%;
+    .external-icon {
+      font-size: 0.75em;
+      vertical-align: super;
+      margin-left: 2px;
+      opacity: 0.7;
     }
     main { padding: 40px 20px; text-align: center; }
     section {
@@ -323,6 +451,11 @@
       background: linear-gradient(180deg, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.88));
       border: 1px solid rgba(148, 163, 184, 0.18);
       box-shadow: 0 18px 40px rgba(2, 8, 23, 0.24);
+    }
+    [data-theme="light"] #blog {
+      background: linear-gradient(180deg, rgba(241, 245, 249, 0.98), rgba(226, 232, 240, 0.95));
+      border-color: rgba(14, 116, 144, 0.2);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
     }
     .blog-section-head {
       display: flex;
@@ -374,14 +507,28 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
       transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
     }
+    [data-theme="light"] .blog-post-link {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(14, 116, 144, 0.15);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
     .blog-post-item.featured .blog-post-link {
       border-color: rgba(248, 189, 51, 0.35);
       background: linear-gradient(90deg, rgba(248, 189, 51, 0.08), rgba(15, 23, 42, 0.9) 22%);
+    }
+    [data-theme="light"] .blog-post-item.featured .blog-post-link {
+      background: linear-gradient(90deg, rgba(217, 119, 6, 0.08), rgba(255, 255, 255, 0.92) 22%);
+      border-color: rgba(217, 119, 6, 0.3);
     }
     .blog-post-link:hover {
       border-color: rgba(34, 211, 238, 0.48);
       box-shadow: 0 12px 28px rgba(8, 15, 30, 0.22);
       background: rgba(15, 23, 42, 0.92);
+    }
+    [data-theme="light"] .blog-post-link:hover {
+      border-color: rgba(14, 116, 144, 0.5);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.98);
     }
     .blog-post-meta {
       display: flex;
@@ -390,6 +537,9 @@
       min-height: 100%;
       padding-right: 18px;
       border-right: 1px solid rgba(148, 163, 184, 0.14);
+    }
+    [data-theme="light"] .blog-post-meta {
+      border-right-color: rgba(14, 116, 144, 0.15);
     }
     .blog-post-tag {
       display: inline-flex;
@@ -403,15 +553,26 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
+    [data-theme="light"] .blog-post-tag {
+      background: rgba(22, 163, 74, 0.12);
+      color: #15803d;
+    }
     .blog-post-tag.archive {
       background: rgba(248, 189, 51, 0.16);
       color: #fcd34d;
     }
+    [data-theme="light"] .blog-post-tag.archive {
+      background: rgba(217, 119, 6, 0.12);
+      color: #92400e;
+    }
     .blog-post-date {
-      color: #94a3b8;
+      color: #a8b8c8;
       font-size: 0.82rem;
       letter-spacing: 0.03em;
       text-transform: uppercase;
+    }
+    [data-theme="light"] .blog-post-date {
+      color: #64748b;
     }
     .blog-post-content {
       display: flex;
@@ -423,6 +584,9 @@
       color: #f8fafc;
       font-size: 1.05rem;
       line-height: 1.55;
+    }
+    [data-theme="light"] .blog-post-title {
+      color: #0f172a;
     }
     .blog-post-item.featured .blog-post-title {
       font-size: 1.15rem;
@@ -438,8 +602,13 @@
       border-radius: 999px;
       background: rgba(51, 65, 85, 0.8);
       border: 1px solid rgba(148, 163, 184, 0.16);
-      color: #cbd5e1;
+      color: #dde4ee;
       font-size: 0.78rem;
+    }
+    [data-theme="light"] .blog-chip {
+      background: rgba(241, 245, 249, 0.9);
+      border-color: rgba(14, 116, 144, 0.15);
+      color: #475569;
     }
     .blog-post-cta {
       color: #22d3ee;
@@ -447,6 +616,9 @@
       white-space: nowrap;
       grid-column: 2;
       justify-self: start;
+    }
+    [data-theme="light"] .blog-post-cta {
+      color: #0e7490;
     }
     .button {
       background: var(--button-bg);
@@ -461,12 +633,26 @@
       transition: background 0.3s ease, transform 0.3s ease;
     }
     .button:hover { background: #faca15; transform: translateY(-2px); }
+    [data-theme="light"] .button:hover { background: #b45309; }
     footer {
-      background-color: rgba(30, 41, 59, 0.85);
+      background-color: var(--footer-bg);
       text-align: center;
-      padding: 15px;
+      padding: 20px 15px;
       font-size: 0.9rem;
     }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 18px;
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      color: var(--highlight-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-links a:hover { color: var(--button-bg); }
     @keyframes blink-caret { 50% { border-color: transparent } }
     @keyframes fadeInUp {
       from { transform: translateY(20px); opacity: 0; }
@@ -476,7 +662,7 @@
       from { text-shadow: 0 0 5px #F8BD33; }
       to { text-shadow: 0 0 20px #F8BD33; }
     }
-    /* ✅ Small screen fixes */
+    /* Small screen fixes */
     @media (max-width: 768px) {
       header {
         padding: 56px 16px 28px;
@@ -551,34 +737,41 @@
   </style>
 </head>
 <body data-theme="dark">
-  <div id="stars"><canvas></canvas></div>
-  <button class="toggle-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="stars" aria-hidden="true">
+    <div class="star-layer star-layer-1"></div>
+    <div class="star-layer star-layer-2"></div>
+  </div>
+  <button class="toggle-btn" onclick="toggleTheme()" aria-label="Switch to light theme" id="theme-toggle">
+    <svg id="theme-icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg id="theme-icon-sun" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
   <header>
     <div class="arabic-top">رَبِّ زِدْنِي عِلْمًا</div>
     <div class="translation-text">My Lord, increase me in knowledge</div>
-    <div class="logo-wrapper"><img src="logo.webp" alt="PashtunEinstein Logo"></div>
+    <div class="logo-wrapper"><img src="logo.webp" alt="PashtunEinstein Logo" width="112" height="112"></div>
     <div class="header-text">
-      <h1>PashtunEinstein</h1>
+      <h1>PashtunEinstein<span class="sr-only"> - Science & Tech for Pashtuns</span></h1>
       <p style="font-size: 1.4rem; color: white; margin-top: 8px; text-shadow: 0 0 5px #F8BD33, 0 0 10px #F8BD33, 0 0 15px #F8BD33;">پشتون آئن سٹائن</p>
       <p class="typewriter">Empowering Pashtuns through science & tech</p>
       <p class="subtitle">Knowledge is power</p>
     </div>
-    <img src="mypic.webp" alt="Saqib Khan - Founder of PashtunEinstein" class="mypic" loading="lazy" />
+    <img src="mypic.webp" alt="Saqib Khan - Founder of PashtunEinstein" class="mypic" loading="lazy" width="118" height="118" />
     <div class="social-links" style="margin-top: 10px;">
-      <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" rel="noopener noreferrer"><img src="facebook.webp" alt="Facebook" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
-      <a href="https://www.tiktok.com/@ikn0w.you" target="_blank" rel="noopener noreferrer"><img src="tiktok.webp" alt="TikTok" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
-      <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" rel="noopener noreferrer"><img src="youtube.webp" alt="YouTube" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
-      <a href="https://t.me/s/PashtunEinstein" target="_blank" rel="noopener noreferrer"><img src="telegram.webp" alt="Telegram" style="width:40px;height:40px;border-radius:50%;margin:5px;"></a>
+      <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="facebook.webp" alt="" width="28" height="28" style="border-radius:50%;"></a>
+      <a href="https://www.tiktok.com/@ikn0w.you" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><img src="tiktok.webp" alt="" width="28" height="28" style="border-radius:50%;"></a>
+      <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="youtube.webp" alt="" width="28" height="28" style="border-radius:50%;"></a>
+      <a href="https://t.me/s/PashtunEinstein" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><img src="telegram.webp" alt="" width="28" height="28" style="border-radius:50%;"></a>
     </div>
   </header>
   <nav>
     <a href="#about">About</a>
     <a href="#youtube">YouTube</a>
     <a href="#facebook">Facebook</a>
-    <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">Blog</a>
+    <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">Blog<span class="external-icon" aria-hidden="true"> &#x2197;</span></a>
     <a href="#contact">Contact</a>
   </nav>
-  <main>
+  <main id="main">
     <section id="about">
       <h2>About Us</h2>
       <p>The mission of PashtunEinstein is to educate and empower the Pashtun community through science, technology, and financial awareness. Our content is simple and practical so everyone can benefit.</p>
@@ -698,45 +891,49 @@
       </div>
     </section>
   </main>
-  <footer>&copy; 2026 PashtunEinstein. All rights reserved.</footer>
+  <footer>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#about">About</a>
+      <a href="#academy">Academy</a>
+      <a href="#youtube">YouTube</a>
+      <a href="#facebook">Facebook</a>
+      <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer">Blog</a>
+      <a href="#contact">Contact</a>
+      <a href="/privacy_policy/">Privacy Policy</a>
+    </nav>
+    <p>&copy; 2026 PashtunEinstein. All rights reserved.</p>
+  </footer>
   <script>
     function toggleTheme() {
-      const current = document.body.getAttribute("data-theme") || "dark";
-      document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
+      var current = document.body.getAttribute("data-theme") || "dark";
+      var next = current === "light" ? "dark" : "light";
+      document.body.setAttribute("data-theme", next);
+      var moonIcon = document.getElementById("theme-icon-moon");
+      var sunIcon = document.getElementById("theme-icon-sun");
+      var toggleBtn = document.getElementById("theme-toggle");
+      if (next === "light") {
+        moonIcon.style.display = "none";
+        sunIcon.style.display = "block";
+        toggleBtn.setAttribute("aria-label", "Switch to dark theme");
+      } else {
+        moonIcon.style.display = "block";
+        sunIcon.style.display = "none";
+        toggleBtn.setAttribute("aria-label", "Switch to light theme");
+      }
+      try { localStorage.setItem("theme", next); } catch(e) {}
     }
-    
     (function() {
-      const canvas = document.querySelector("#stars canvas");
-      const ctx = canvas.getContext("2d");
-      let w, h;
-      function resize() { 
-        w = canvas.width = window.innerWidth; 
-        h = canvas.height = window.innerHeight; 
+      var saved = null;
+      try { saved = localStorage.getItem("theme"); } catch(e) {}
+      if (saved === "light") {
+        document.body.setAttribute("data-theme", "light");
+        var moonIcon = document.getElementById("theme-icon-moon");
+        var sunIcon = document.getElementById("theme-icon-sun");
+        var toggleBtn = document.getElementById("theme-toggle");
+        if (moonIcon) moonIcon.style.display = "none";
+        if (sunIcon) sunIcon.style.display = "block";
+        if (toggleBtn) toggleBtn.setAttribute("aria-label", "Switch to dark theme");
       }
-      window.addEventListener("resize", resize); 
-      resize();
-      const stars = Array.from({length: 100}, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 1.5 + 0.5,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5
-      }));
-      function animateStars() {
-        ctx.clearRect(0, 0, w, h);
-        ctx.fillStyle = "white";
-        stars.forEach(star => {
-          star.x += star.dx;
-          star.y += star.dy;
-          if (star.x < 0 || star.x > w) star.dx *= -1;
-          if (star.y < 0 || star.y > h) star.dy *= -1;
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
-          ctx.fill();
-        });
-        requestAnimationFrame(animateStars);
-      }
-      animateStars();
     })();
   </script>
 </body>
