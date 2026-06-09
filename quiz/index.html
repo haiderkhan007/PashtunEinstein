@@ -125,9 +125,9 @@
 <body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col">
     <section class="border-b border-slate-800 bg-slate-950">
         <div class="max-w-5xl mx-auto px-4 py-8">
-            <h1 class="text-3xl font-bold text-white">Science Mastery Quiz</h1>
-            <p class="mt-3 text-lg text-slate-300">Test science knowledge with an interactive quiz designed for English, Urdu, and Pashto learners.</p>
-            <p class="mt-3 text-slate-400">The quiz includes multiple-choice questions, language switching, and a certificate-style completion experience for learners studying core science topics.</p>
+            <h1 id="header-title" class="text-3xl font-bold text-white">Science Mastery Quiz</h1>
+            <p id="header-desc1" class="mt-3 text-lg text-slate-300">Test science knowledge with an interactive quiz designed for English, Urdu, and Pashto learners.</p>
+            <p id="header-desc2" class="mt-3 text-slate-400">The quiz includes multiple-choice questions, language switching, and a certificate-style completion experience for learners studying core science topics.</p>
         </div>
     </section>
 
@@ -334,7 +334,10 @@
             tryAgain: { en: "Try Again", ur: "دوبارہ کوشش کریں", ps: "بیا هڅه وکړئ" },
             review: { en: "Review Lessons", ur: "اسباق کا جائزہ لیں", ps: "درسونه بیاکتنه کړئ" },
             website: { en: "Website", ur: "ویب سائٹ", ps: "ویب پاڼه" },
-            blog: { en: "Blog", ur: "بلاگ", ps: "بلاګ" }
+            blog: { en: "Blog", ur: "بلاگ", ps: "بلاګ" },
+            headerTitle: { en: "Science Mastery Quiz", ur: "سائنس ماسٹری کوئز", ps: "د ساینس ماسټري ازموینه" },
+            headerDesc1: { en: "Test science knowledge with an interactive quiz designed for English, Urdu, and Pashto learners.", ur: "انگریزی، اردو اور پشتو سیکھنے والوں کے لیے بنائی گئی انٹرایکٹو کوئز کے ساتھ سائنس کے علم کی جانچ کریں۔", ps: "د انګلیسي، اردو او پښتو زده کوونکو لپاره جوړ شوې تعاملي ازموینې سره د ساینس پوهه وازموئ." },
+            headerDesc2: { en: "The quiz includes multiple-choice questions, language switching, and a certificate-style completion experience for learners studying core science topics.", ur: "اس کوئز میں کثیر الانتخابی سوالات، زبان تبدیل کرنا، اور بنیادی سائنس موضوعات پر پڑھنے والے سیکھنے والوں کے لیے سرٹیفکیٹ اسٹائل مکمل ہونے کا تجربہ شامل ہے۔", ps: "ازموینه د ډیری انتخابي پوښتنو، د ژبې بدلولو، او د بنسټیزو ساینس موضوعاتو زده کوونکو لپاره د سند سټایل پای ته رسیدو تجربه لري." }
         };
 
         // --- Components ---
@@ -463,6 +466,16 @@
 
             const currentFont = language === 'ur' ? 'font-urdu' : language === 'ps' ? 'font-pashto' : 'font-sans';
             const dir = language === 'ur' || language === 'ps' ? 'rtl' : 'ltr';
+
+            useEffect(() => {
+                const titleEl = document.getElementById('header-title');
+                const desc1El = document.getElementById('header-desc1');
+                const desc2El = document.getElementById('header-desc2');
+                const fontClass = language === 'ur' ? 'font-urdu' : language === 'ps' ? 'font-pashto' : '';
+                if (titleEl) { titleEl.innerText = UI_TEXT.headerTitle[language]; titleEl.className = `text-3xl font-bold text-white ${fontClass}`; }
+                if (desc1El) { desc1El.innerText = UI_TEXT.headerDesc1[language]; desc1El.className = `mt-3 text-lg text-slate-300 ${fontClass}`; }
+                if (desc2El) { desc2El.innerText = UI_TEXT.headerDesc2[language]; desc2El.className = `mt-3 text-slate-400 ${fontClass}`; }
+            }, [language]);
 
             return (
                 <div className="flex-grow flex flex-col" dir={dir}>

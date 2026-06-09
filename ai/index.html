@@ -113,9 +113,9 @@
 
     <section class="bg-white border-b border-slate-200">
         <div class="max-w-5xl mx-auto px-4 py-8 text-slate-800">
-            <h1 class="text-3xl font-bold text-slate-900">PashtunEinstein AI Academy</h1>
-            <p class="mt-3 text-lg text-slate-700">Learn AI concepts in a simple, practical format with lessons designed for English, Urdu, and Pashto readers.</p>
-            <p class="mt-3 text-slate-600">This page covers AI basics, machine learning concepts, and guided educational content from PashtunEinstein. The interactive lesson interface loads below for a richer learning experience.</p>
+            <h1 id="header-title" class="text-3xl font-bold text-slate-900">PashtunEinstein AI Academy</h1>
+            <p id="header-desc1" class="mt-3 text-lg text-slate-700">Learn AI concepts in a simple, practical format with lessons designed for English, Urdu, and Pashto readers.</p>
+            <p id="header-desc2" class="mt-3 text-slate-600">This page covers AI basics, machine learning concepts, and guided educational content from PashtunEinstein. The interactive lesson interface loads below for a richer learning experience.</p>
         </div>
     </section>
 
@@ -128,7 +128,7 @@
                     <img src="/logo.png" alt="PashtunEinstein Logo" class="h-12 w-12 rounded-full border-2 border-yellow-400 object-cover" onerror="this.src='https://placehold.co/100x100?text=PE'"> 
                     <div class="flex flex-col">
                         <span class="brand-font text-xl font-bold tracking-wider leading-none">PashtunEinstein</span>
-                        <span class="text-xs text-yellow-400 font-light tracking-widest">AI ACADEMY</span>
+                        <span id="nav-subtitle" class="text-xs text-yellow-400 font-light tracking-widest">AI ACADEMY</span>
                     </div>
                 </div>
 
@@ -215,6 +215,10 @@
                 blog: "My Blog",
                 web: "My Website",
                 privacy: "Privacy Policy",
+                headerTitle: "PashtunEinstein AI Academy",
+                headerDesc1: "Learn AI concepts in a simple, practical format with lessons designed for English, Urdu, and Pashto readers.",
+                headerDesc2: "This page covers AI basics, machine learning concepts, and guided educational content from PashtunEinstein. The interactive lesson interface loads below for a richer learning experience.",
+                navSubtitle: "AI ACADEMY",
                 categories: ["Basics of AI", "Machine Learning Magic", "Deep Learning & Brains", "Generative AI & Creativity", "Future, Ethics & You"]
             },
             ur: {
@@ -236,6 +240,10 @@
                 blog: "میرا بلاگ",
                 web: "میری ویب سائٹ",
                 privacy: "پرائیویسی پالیسی",
+                headerTitle: "PashtunEinstein AI اکیڈمی",
+                headerDesc1: "انگریزی، اردو اور پشتو پڑھنے والوں کے لیے ڈیزائن کیے گئے اسباق کے ساتھ آسان اور عملی فارمیٹ میں AI تصورات سیکھیں۔",
+                headerDesc2: "یہ صفحہ AI کی بنیادیات، مشین لرننگ کے تصورات اور PashtunEinstein سے رہنمائی والا تعلیمی مواد پیش کرتا ہے۔ بہتر سیکھنے کے تجربے کے لیے انٹرایکٹو سبق انٹرفیس نیچے لوڈ ہوتا ہے۔",
+                navSubtitle: "AI اکیڈمی",
                 categories: ["AI کی بنیادی باتیں", "مشین لرننگ کا جادو", "ڈیپ لرننگ اور دماغ", "جنریٹو AI اور تخلیقی صلاحیت", "مستقبل، اخلاقیات اور آپ"]
             },
             ps: {
@@ -257,6 +265,10 @@
                 blog: "زما بلاګ",
                 web: "زما ویب پاڼه",
                 privacy: "د محرمیت تګلاره",
+                headerTitle: "PashtunEinstein AI اکاډمي",
+                headerDesc1: "د انګلیسي، اردو او پښتو لوستونکو لپاره ډیزاین شوي درسونو سره په ساده او عملي بڼه کې AI مفاهیم زده کړئ.",
+                headerDesc2: "دا پاڼه د AI بنسټونه، د ماشین زده کړې مفاهیم او د PashtunEinstein لخوا لارښود تعلیمي مینځپانګه وړاندې کوي. د غوره زده کړې تجربې لپاره تعاملي درس انټرفیس لاندې لوډیږي.",
+                navSubtitle: "AI اکاډمي",
                 categories: ["د AI بنسټونه", "د ماشین زده کړې جادو", "ډیپ لرننگ او دماغ", "تولیدي AI او خلاقیت", "راتلونکی، اخلاق او تاسو"]
             }
         };
@@ -692,6 +704,12 @@
             footerBlog.innerText = t.blog;
             footerWeb.innerText = t.web;
             footerPrivacy.innerText = t.privacy;
+
+            // Update Header
+            document.getElementById('header-title').innerText = t.headerTitle;
+            document.getElementById('header-desc1').innerText = t.headerDesc1;
+            document.getElementById('header-desc2').innerText = t.headerDesc2;
+            document.getElementById('nav-subtitle').innerText = t.navSubtitle;
             
             renderHome(); 
         }
