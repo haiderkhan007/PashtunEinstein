@@ -11,7 +11,6 @@ const APP_SHELL = [
   "/encryptdoc/",
   "/password-checker/",
   "/privacy-check/",
-  "/flashcards/",
   "/cyberchallenge/",
   "/language_tutor/",
   "/privacy_policy/",
