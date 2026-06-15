@@ -206,32 +206,32 @@ const CHALLENGES = [
         en:{password:"summer2026",question:"How long would it take to crack this password?",options:["Instantly (less than 1 second)","Minutes","Hours","Days"],answer:0,explanation:"'summer2026' is extremely weak. It combines a common dictionary word with a year — one of the most predictable patterns. Attackers use dictionaries, making this crack instant."},
         ur:{password:"summer2026",question:"یہ پاسورڈ کتنی عرصے میں توڑا جا سکتا ہے؟",options:["فوری (1 سیکنڈ سے کم)","منٹس","گھنٹے","دن"],answer:0,explanation:"'summer2026' انتہائی کمزور ہے۔ یہ عام لفظ اور سال ملاتا ہے۔ حملہ آور ڈکشنری استعمال کرتے ہیں۔"},
         ps:{password:"summer2026",question:"دا پړنوم څومره وخت نیسي تر ماتولو پورې؟",options:["سمدستي (له ۱ ثانیې کم)","دقیقې","ساعتونه","ورځې"],answer:0,explanation:"'summer2026' ډېر کمزوری دی. دا یو عام لفظ د کال سره یوځای کوي."}
-    },
+    }},
     {id:6,type:"password",scenario:{
         en:{password:"Tr0ub4dour&3",question:"How long would it take to crack this password?",options:["Seconds","Hours","Centuries","Millennia"],answer:1,explanation:"Despite looking complex, 'Tr0ub4dour&3' is based on a common word with simple leet-speak substitutions. Attackers know these patterns. It takes about 3 hours with modern tools."},
         ur:{password:"Tr0ub4dour&3",question:"یہ پاسورڈ توڑنے میں کتنا عرصہ لگے گا؟",options:["سیکنڈز","گھنٹے","صدیاں","ہزاروں سال"],answer:1,explanation:"بظاہر مشکل نظر آنے کے باوجود یہ عام لفظ پر مبنی ہے۔ جدید ٹولز سے تقریباً 3 گھنٹے لگتے ہیں۔"},
         ps:{password:"Tr0ub4dour&3",question:"دا پړنوم ماتولو لپاره څومره وخت نیسي؟",options:["ثانیې","ساعتونه","پیړۍ","زریزې"],answer:1,explanation:"پردې خوا سخت بریښي خو دا یو عام لفظ پر بنسټ دی. د عصري وسایلو سره شاوخوا ۳ ساعتونه نیسي."}
-    },
+    }},
     {id:7,type:"password",scenario:{
         en:{password:"correct horse battery staple",question:"How long would it take to crack this passphrase?",options:["Minutes","Days","Centuries","Trillions of years"],answer:3,explanation:"This is a famous XKCD passphrase. Four random common words create enormous entropy. Even with modern hardware, this would take trillions of years to brute-force. Length and randomness matter more than complexity."},
         ur:{password:"correct horse battery staple",question:"یہ پاس فریز توڑنے میں کتنا عرصہ لگے گا؟",options:["منٹس","دن","صدیاں","کھربوں سال"],answer:3,explanation:"یہ مشہور XKCD پاس فریز ہے۔ چار بے ترتیب عام الفاظ زبردست بے ترتیبی پیدا کرتے ہیں۔ لمبائی اور بے ترتیبی پیچیدگی سے زیادہ اہم ہے۔"},
         ps:{password:"correct horse battery staple",question:"دا پاس فریز ماتولو لپاره څومره وخت نیسي؟",options:["دقیقې","ورځې","پیړۍ","تیړونه کاله"],answer:3,explanation:"دا مشهور XKCD پاس فریز دی. څور بې ترتیبه عام وييکي انټروپي جوړوي. اوږدوالی او بې ترتیبي له پیچلودو څخه ډېر مهم دي."}
-    },
+    }},
     {id:8,type:"password",scenario:{
         en:{password:"P@$$w0rd!",question:"How long would it take to crack this password?",options:["Less than 1 second","Hours","Months","Years"],answer:0,explanation:"This is a common dictionary word ('password') with predictable leet-speak substitutions (@ for a, $$ for ss, 0 for o). Attackers try these patterns first. Cracked almost instantly."},
         ur:{password:"P@$$w0rd!",question:"یہ پاسورڈ توڑنے میں کتنا عرصہ لگے گا؟",options:["1 سیکنڈ سے کم","گھنٹے","مہینے","سال"],answer:0,explanation:"یہ عام لفظ (password) پر مبنی ہے جس میں قابل تخسس تبدیلیاں ہیں۔ حملہ آور سب سے پہلے یہ پیٹرن آزماتے ہیں۔"},
         ps:{password:"P@$$w0rd!",question:"دا پړنوم ماتولو لپاره څومره وخت نیسي؟",options:["له ۱ ثانیې کم","ساعتونه","میاشتې","کاله"],answer:0,explanation:"دا یو عام لفظ (password) پر بنسټ دی چې قابل پیشبیني بدلونونه لري. بریدګري لومړی دا بیلګه ازموئ."}
-    },
+    }},
     {id:9,type:"scam",scenario:{
         en:{title:"Friend in Trouble",description:"You receive a WhatsApp message from your friend's number:\n\n\"Hey, I'm in trouble! I lost my phone and wallet. Can you send me $500 urgently to this new number? I'll pay you back tomorrow!\"\n\nThe message comes from an unknown number claiming to be your friend. What should you do?",options:["Send the money immediately — they're in trouble!","Call your friend on their real number to verify","Ask for a voice message as proof","Both B and C"],answer:3,explanation:"This is a common social engineering scam. Scammers spoof contacts and send emergency requests for money. Always verify through a separate channel. Never send money based solely on a text message."},
         ur:{title:"دوست پریشان",description:"آپ کو واٹس ایپ میسج ملتا ہے:\n\n\"ارے، مجھے پریشانی ہے! میرا فون اور بٹوہ کھو گیا۔ کیا آپ مجھے فوراً $500 بھیج سکتے ہیں؟\"\n\nیہ میسج نامعلوم نمبر سے آیا ہے۔ آپ کو کیا کرنا چاہیے؟",options:["فوراً پیسے بھیجیں","اپنے دوست کو ان کے اصلی نمبر پر کال کریں","ثبوت کے لیے وائس میسج مانگیں","بی اور سی دونوں"],answer:3,explanation:"یہ عام سماجی انجینئرنگ scam ہے۔ ہمیشہ الگ ذریعے تصدیق کریں۔ صرف ٹیکسٹ میسج پر رقم نہ بھیجیں۔"},
         ps:{title:"ملګری په ستونزه کې",description:"تاسو واټساپ پیغام ترلاسه کوئ:\n\n\"سلام، زه په ستونزه کې یم! زما تلیفون او بټوه له لاسه وتل. ایا تاسو ما ته فوراً $500 لیږئ؟\"\n\nدا پیغام له نامعلوم شمیرې څخه راغلی. تاسو څه وکړئ؟",options:["سمدستي پیسې ولیږئ","خپل ملګري ته د هغوی اصلي شمیرې باندی زنګ ووهئ","د ثبوت لپاره غږیز پیغام وغواړئ","بی او سی دواړه"],answer:3,explanation:"دا یو عام ټولنیز انجینرینګ scamm دی. تل جلا سرچینه تصدیق وکړئ."}
-    },
+    }},
     {id:10,type:"scam",scenario:{
         en:{title:"Tech Support Call",description:"You receive a phone call. The caller says:\n\n\"Hello, I'm calling from Microsoft Technical Support. We've detected a serious virus on your computer. I can fix it right now — please download this remote access tool so I can connect to your PC and remove the virus.\"\n\nWhat should you do?",options:["Download the tool — they detected a real virus","Give them your credit card for the fix","Hang up immediately — Microsoft never calls like this","Ask for their employee ID and then download"],answer:2,explanation:"Microsoft will NEVER call you proactively about viruses. This is a well-known tech support scam. They want remote access to install malware or steal your data. Hang up immediately."},
         ur:{title:"ٹیک سپورٹ کال",description:"آپ کو فون کال آتی ہی:\n\n\"سلام، میں مائیکروسافٹ ٹیکنیکل سپورٹ سے کال کر رہا ہوں۔ ہم نے آپ کے کمپیوٹر پر سنگین وائرس پایا ہے۔ براہ کرم ریموٹ ایکسیس ٹول ڈاؤنلوڈ کریں۔\"\n\nآپ کو کیا کرنا چاہیے؟",options:["ٹول ڈاؤنلوڈ کریں","فکس کے لیے کریڈٹ کارڈ دیں","فون رکھ دیں — مائیکروسافٹ ایسے کبھی نہیں کال کرتا","ملازم نمبر پوچھیں پھر ڈاؤنلوڈ کریں"],answer:2,explanation:"مائیکروسافٹ آپ کو وائرس کے بارے میں کبھی پروایکیوي کال نہیں کرتی۔ یہ مشہور ٹیک سپورٹ scam ہے۔ فوراً فون رکھ دیں۔"},
         ps:{title:"ټیک سپورټ زنګ",description:"تاسو فون زنګ ترلاسه کوئ:\n\n\"سلام، زه د مایکروسافټ تخنیکي سپورټ څخه زنګ کوم. موږ ستاسو په کمپیوټر کې جدی وایرس وموند. مهرباني وکړئ ریموټ لاسرسۍ تول ډاونلوډ کړئ.\"\n\nتاسو څه وکړئ؟",options:["ټول ډاونلوډ کړئ","کریډیټ کارډ ورکړئ","فون اچولئ — مایکروسافټ هیڅکله داسې زنګ نه وهي","د کارموند شمیره وپوښتئ بیا ډاونلوډ کړئ"],answer:2,explanation:"مایکروسافټ هیڅکله предварي زنګ نه کوي. دا یو مشهور scamm دی. سمدستي فون اچولئ."}
-    }
+    }}
 ];
 
 const UI = {

@@ -1,5 +1,5 @@
-const STATIC_CACHE = "pashtuneinstein-static-v4";
-const RUNTIME_CACHE = "pashtuneinstein-runtime-v4";
+const STATIC_CACHE = "pashtuneinstein-static-v5";
+const RUNTIME_CACHE = "pashtuneinstein-runtime-v5";
 const APP_SHELL = [
   "/",
   "/index.html",
