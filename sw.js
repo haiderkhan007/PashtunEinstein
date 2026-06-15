@@ -1,5 +1,5 @@
-const STATIC_CACHE = "pashtuneinstein-static-v3";
-const RUNTIME_CACHE = "pashtuneinstein-runtime-v3";
+const STATIC_CACHE = "pashtuneinstein-static-v4";
+const RUNTIME_CACHE = "pashtuneinstein-runtime-v4";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -11,6 +11,8 @@ const APP_SHELL = [
   "/encryptdoc/",
   "/password-checker/",
   "/privacy-check/",
+  "/flashcards/",
+  "/cyberchallenge/",
   "/language_tutor/",
   "/privacy_policy/",
   "/quiz/",

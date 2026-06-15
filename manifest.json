@@ -31,6 +31,16 @@
       "name": "AI Academy",
       "short_name": "AI",
       "url": "/ai/"
+    },
+    {
+      "name": "Flashcards",
+      "short_name": "Flashcards",
+      "url": "/flashcards/"
+    },
+    {
+      "name": "Cyber Challenge",
+      "short_name": "Cyber",
+      "url": "/cyberchallenge/"
     }
   ]
 }

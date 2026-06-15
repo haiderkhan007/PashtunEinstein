@@ -426,6 +426,24 @@ footer {
         <a href="/privacy-check/" class="app-btn">Open App</a>
     </div>
 
+    <div class="app-card">
+        <div>
+            <div class="app-icon">📚</div>
+            <div class="app-title" id="title9">Science Flashcards</div>
+            <p id="desc9" class="app-desc">Spaced-repetition flashcards for science terms in Pashto, Urdu & English.</p>
+        </div>
+        <a href="/flashcards/" class="app-btn">Open App</a>
+    </div>
+
+    <div class="app-card">
+        <div>
+            <div class="app-icon">🔓</div>
+            <div class="app-title" id="title10">Cyber Challenge</div>
+            <p id="desc10" class="app-desc">Spot phishing emails, estimate password strength, and identify scams.</p>
+        </div>
+        <a href="/cyberchallenge/" class="app-btn">Open App</a>
+    </div>
+
 </div>
 
 <!-- LINKS -->
@@ -455,7 +473,9 @@ const translations = {
         "Learn science in Pashto, Urdu & English.",
         "Pashto–Urdu tutor to build vocabulary fast.",
         "Check password strength and generate secure passwords instantly.",
-        "Answer 15 questions and get your privacy score out of 100."
+        "Answer 15 questions and get your privacy score out of 100.",
+        "Spaced-repetition flashcards for science terms in Pashto, Urdu & English.",
+        "Spot phishing emails, estimate password strength, and identify scams."
     ],
     ur: [
         "اخلاقی اور کامیاب رابطے کی مہارت حاصل کریں۔",
@@ -465,7 +485,9 @@ const translations = {
         "سائنس کو آسان زبان میں سیکھیں۔",
         "لفظوں کا ذخیرہ بڑھانے کے لیے پشتو اُردو ٹیوٹر۔",
         "پاسورڈ کی طاقت چیکھیں اور فوری طور پر محفوظ پاسورڈ بنائیں۔",
-        "15 سوالات کے جواب دیں اور 100 میں سے اپنا پرائیویسی اسکور حاصل کریں۔"
+        "15 سوالات کے جواب دیں اور 100 میں سے اپنا پرائیویسی اسکور حاصل کریں۔",
+        "سائنس کے اصطلاحات کے فلیش کارڈز پشتو، اردو اور انگریزی میں۔",
+        "فشنگ ای میلز پہچانیں، پاسورڈ طاقت کا تخمینہ لگائیں، اور scam شناخت کریں۔"
     ],
     ps: [
         "د اخلاقي او بريالي اړيکو هنر زده کړئ.",
@@ -475,12 +497,14 @@ const translations = {
         "ساینس په ساده ژبه زده کړئ.",
         "د پښتو-اردو ژبې ښوونکی د ټکو یادولو لپاره.",
         "د پټنومې قومت وګورئ او سمدستي خوندي پړنومي جوړ کړئ.",
-        "د ۱۵ پوښتنو ځواب ورکړئ او د ۱۰۰ څخه خپل پرایویسي سکور ترلاسه کړئ."
+        "د ۱۵ پوښتنو ځواب ورکړئ او د ۱۰۰ څخه خپل پرایویسي سکور ترلاسه کړئ.",
+        "د ساینس اصطلاحاتو فلیش کارډونه پښتو، اردو او انګلیسي کې.",
+        "فشنگ ایمیلونه وپیژنئ، د پړنوم قوت تخمین کړئ، او scammونه پیژنئ."
     ]
 };
 
 function setLang(lang) {
-    const ids = ["desc1", "desc2", "desc3", "desc4", "desc5", "desc6", "desc7", "desc8"];
+    const ids = ["desc1", "desc2", "desc3", "desc4", "desc5", "desc6", "desc7", "desc8", "desc9", "desc10"];
     ids.forEach((id, i) => {
         document.getElementById(id).innerText = translations[lang][i];
     });
