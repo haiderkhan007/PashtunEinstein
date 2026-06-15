@@ -9,12 +9,12 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="PashtunEinstein">
     <meta property="og:title" content="Cybersecurity Challenge - PashtunEinstein">
-    <meta property="og:description" content="Test your cybersecurity awareness with interactive phishing identification, password cracking estimates, and scam detection challenges in English, Urdu, and Pashto.">
+    <meta property="og:description" content="Test your cybersecurity awareness with interactive phishing identification, password cracking estimates, and scam detection challenges.">
     <meta property="og:url" content="https://pashtuneinstein.com/cyberchallenge/">
     <meta property="og:image" content="https://pashtuneinstein.com/logo.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Cybersecurity Challenge - PashtunEinstein">
-    <meta name="twitter:description" content="Test your cybersecurity awareness with interactive phishing identification, password cracking estimates, and scam detection challenges in English, Urdu, and Pashto.">
+    <meta name="twitter:description" content="Test your cybersecurity awareness with interactive phishing identification, password cracking estimates, and scam detection challenges.">
     <meta name="twitter:image" content="https://pashtuneinstein.com/logo.png">
     <meta name="theme-color" content="#020617">
     <link rel="canonical" href="https://pashtuneinstein.com/cyberchallenge/">
@@ -30,10 +30,8 @@
       "url": "https://pashtuneinstein.com/cyberchallenge/",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Any",
-      "description": "An interactive cybersecurity awareness challenge to practice phishing identification, password strength estimation, and scam detection in English, Urdu, and Pashto.",
-      "publisher": {
-        "@id": "https://pashtuneinstein.com/#organization"
-      },
+      "description": "An interactive cybersecurity awareness challenge to practice phishing identification, password strength estimation, and scam detection.",
+      "publisher": { "@id": "https://pashtuneinstein.com/#organization" },
       "inLanguage": ["en", "ur", "ps"]
     }
     </script>
@@ -42,594 +40,398 @@
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://pashtuneinstein.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Academy",
-          "item": "https://pashtuneinstein.com/academy/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Cybersecurity Challenge",
-          "item": "https://pashtuneinstein.com/cyberchallenge/"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pashtuneinstein.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Academy", "item": "https://pashtuneinstein.com/academy/" },
+        { "@type": "ListItem", "position": 3, "name": "Cybersecurity Challenge", "item": "https://pashtuneinstein.com/cyberchallenge/" }
       ]
     }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    <script type="importmap">
-    {
-        "imports": {
-            "react": "https://esm.sh/react@18.2.0",
-            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client"
-        }
-    }
-    </script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Courier+Prime&family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .font-urdu { font-family: 'Noto Nastaliq Urdu', serif; line-height: 2.2; }
-        .font-pashto { font-family: 'Noto Naskh Arabic', serif; line-height: 1.8; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.4s ease-out; }
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
-        }
-        .scanline {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.3), transparent);
-            animation: scanline 4s linear infinite;
-            pointer-events: none;
-            z-index: 100;
-        }
-        .email-box {
-            font-family: 'Courier New', monospace;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #020617; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; }
+        .font-urdu { font-family: 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; }
+        .font-pashto { font-family: 'Noto Naskh Arabic', serif; line-height: 1.8; direction: rtl; }
+        .header-bar { background: #0f172a; border-bottom: 1px solid #1e293b; padding: 12px 16px; position: sticky; top: 0; z-index: 50; }
+        .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+        .lang-btns { display: flex; background: #1e293b; border-radius: 999px; padding: 3px; border: 1px solid #334155; }
+        .lang-btn { padding: 6px 14px; border-radius: 999px; border: none; background: transparent; color: #94a3b8; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s; }
+        .lang-btn.active { background: #0891b2; color: #fff; box-shadow: 0 2px 8px rgba(8,145,178,0.4); }
+        .lang-btn:hover:not(.active) { color: #e2e8f0; background: #334155; }
+        .main-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px 16px; position: relative; }
+        .center-col { text-align: center; max-width: 640px; width: 100%; }
+        .section-header { max-width: 800px; margin: 0 auto; padding: 32px 16px; text-align: center; }
+        .section-header h1 { font-size: 28px; font-weight: 800; color: #fff; }
+        .section-header p { margin-top: 12px; font-size: 16px; color: #94a3b8; }
+        .section-header .sub2 { font-size: 14px; color: #64748b; margin-top: 8px; }
+        .action-btn { display: inline-block; padding: 14px 32px; border-radius: 999px; border: none; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+        .action-btn:hover { transform: translateY(-2px); }
+        .btn-primary { background: linear-gradient(135deg, #0891b2, #2563eb); color: #fff; box-shadow: 0 4px 15px rgba(8,145,178,0.3); }
+        .btn-secondary { background: #334155; color: #e2e8f0; }
+        .email-box { font-family: 'Courier Prime', monospace; background: rgba(15,23,42,0.9); border: 1px solid #334155; border-radius: 12px; padding: 20px; }
         .email-from { color: #f87171; }
         .email-subject { color: #fbbf24; }
         .email-link { color: #60a5fa; text-decoration: underline; }
-        .email-danger { color: #ef4444; font-weight: bold; }
-        .email-safe { color: #22c55e; font-weight: bold; }
+        .option-btn { display: block; width: 100%; padding: 14px; border-radius: 12px; border: 2px solid #334155; background: rgba(30,41,59,0.5); color: #cbd5e1; cursor: pointer; transition: all 0.2s; text-align: left; font-size: 15px; margin-bottom: 10px; }
+        .option-btn:hover { border-color: #0891b2; background: rgba(8,145,178,0.1); color: #fff; }
+        .option-btn.correct { border-color: #22c55e; background: rgba(34,197,94,0.15); color: #86efac; }
+        .option-btn.wrong { border-color: #ef4444; background: rgba(239,68,68,0.15); color: #fca5a5; }
+        .option-btn.disabled { pointer-events: none; opacity: 0.5; }
+        .explanation-box { padding: 16px; border-radius: 12px; margin-top: 16px; }
+        .explanation-correct { border: 1px solid rgba(34,197,94,0.3); background: rgba(34,197,94,0.1); }
+        .explanation-wrong { border: 1px solid rgba(239,68,68,0.3); background: rgba(239,68,68,0.1); }
+        .explanation-info { border: 1px solid rgba(59,130,246,0.3); background: rgba(59,130,246,0.1); }
+        .phishing-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .phishing-btn { padding: 16px; border-radius: 12px; border: 2px solid; font-weight: 700; cursor: pointer; transition: all 0.2s; background: transparent; font-size: 15px; }
+        .phishing-btn:hover { transform: translateY(-2px); }
+        .phishing-btn.legit { border-color: rgba(16,185,129,0.5); color: #6ee7b7; }
+        .phishing-btn.legit:hover { background: rgba(16,185,129,0.1); }
+        .phishing-btn.phishing { border-color: rgba(239,68,68,0.5); color: #fca5a5; }
+        .phishing-btn.phishing:hover { background: rgba(239,68,68,0.1); }
+        .progress-bar { width: 200px; height: 8px; background: #1e293b; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #0891b2; transition: width 0.3s; border-radius: 4px; }
+        .red-flag { color: #fbbf24; font-weight: 700; font-size: 14px; }
+        .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,255,136,0.3), transparent); animation: scanline 4s linear infinite; pointer-events: none; z-index: 100; }
+        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .footer { background: #020617; border-top: 1px solid #0f172a; padding: 20px; text-align: center; font-size: 14px; color: #475569; }
+        .footer a { color: #0891b2; text-decoration: none; }
+        .footer a:hover { color: #22d3ee; }
+        .logo-img { height: 48px; width: auto; }
+        .site-title { font-size: 20px; font-weight: 800; color: #fff; }
+        .site-subtitle { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+        a.academy-link { color: #0891b2; font-size: 14px; font-weight: 600; text-decoration: none; }
+        a.academy-link:hover { color: #22d3ee; }
+        @media (max-width: 600px) {
+            .header-inner { flex-direction: column; align-items: center; }
+            .phishing-btns { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col">
-    <div class="scanline"></div>
+<body data-lang="en">
+<div class="scanline"></div>
 
-    <section class="border-b border-slate-800 bg-slate-950">
-        <div class="max-w-5xl mx-auto px-4 py-8">
-            <h1 id="header-title" class="text-3xl font-bold text-white">Cybersecurity Challenge</h1>
-            <p id="header-desc1" class="mt-3 text-lg text-slate-300">Test your ability to spot phishing emails, evaluate password strength, and identify online scams.</p>
-            <p id="header-desc2" class="mt-3 text-slate-400">Interactive challenges designed to build your cybersecurity awareness in English, Urdu, and Pashto.</p>
+<div class="section-header" id="sec-header">
+    <h1 id="sec-title">Cybersecurity Challenge</h1>
+    <p id="sec-sub1">Test your ability to spot phishing emails, evaluate password strength, and identify online scams.</p>
+    <p class="sub2" id="sec-sub2">Interactive challenges designed to build your cybersecurity awareness in English, Urdu, and Pashto.</p>
+</div>
+
+<header class="header-bar">
+    <div class="header-inner">
+        <div style="display:flex;align-items:center;gap:10px;">
+            <img src="/logo.png" alt="PashtunEinstein" class="logo-img">
+            <div>
+                <div class="site-title" id="site-title">Cybersecurity Challenge</div>
+                <div class="site-subtitle" id="site-subtitle">Can You Spot the Danger?</div>
+            </div>
         </div>
-    </section>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;">
+            <div class="lang-btns">
+                <button class="lang-btn active" onclick="setLang('en')">English</button>
+                <button class="lang-btn" onclick="setLang('ur')">اردو</button>
+                <button class="lang-btn" onclick="setLang('ps')">پښتو</button>
+            </div>
+            <a href="/academy/" class="academy-link" id="academy-link">Back to Academy</a>
+        </div>
+    </div>
+</header>
 
-    <noscript>
-        <section class="max-w-5xl mx-auto px-4 py-8 text-slate-300">
-            <h2 class="text-2xl font-semibold text-white">JavaScript is required for the interactive cybersecurity challenge</h2>
-            <p class="mt-3">This challenge runs in the browser. The summary above provides crawlable context for search engines and AI systems.</p>
-            <h3 class="text-xl font-semibold text-white mt-6">Challenge Types</h3>
-            <ul class="mt-2 list-disc pl-6">
-                <li>Phishing Email Identification: Spot fake emails vs real ones</li>
-                <li>Password Strength Estimation: Guess how long passwords take to crack</li>
-                <li>Scam Detection: Identify social engineering and online scams</li>
-            </ul>
-        </section>
-    </noscript>
+<div class="main-content">
+    <!-- INTRO -->
+    <div id="view-intro" class="center-col fade-in">
+        <div style="font-size:56px;text-align:center;margin-bottom:20px;">🛡️</div>
+        <h2 id="intro-title" style="font-size:36px;font-weight:800;margin-bottom:12px;">Cybersecurity Challenge</h2>
+        <p id="intro-subtitle" style="color:#94a3b8;font-size:18px;margin-bottom:8px;">Can You Spot the Danger?</p>
+        <p id="intro-desc" style="color:#64748b;font-size:14px;margin-bottom:24px;">Phishing identification, password crack estimation, and scam detection</p>
+        <button class="action-btn btn-primary" onclick="startChallenge()" id="btn-start">Start Challenge 🚀</button>
+    </div>
 
-    <div id="root" class="flex-grow flex flex-col"></div>
+    <!-- CHALLENGE -->
+    <div id="view-challenge" class="center-col fade-in" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span id="challenge-counter" style="color:#94a3b8;font-size:14px;"></span>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%;"></div></div>
+        </div>
+        <div id="challenge-content"></div>
+        <div id="next-btn-container" style="display:none;text-align:center;margin-top:20px;">
+            <button class="action-btn btn-primary" onclick="nextChallenge()" id="btn-next">Next Challenge →</button>
+        </div>
+    </div>
 
-    <script type="text/babel" data-type="module">
-        import React, { useState, useEffect } from 'react';
-        import ReactDOM from 'react-dom/client';
+    <!-- RESULT -->
+    <div id="view-result" class="center-col fade-in" style="display:none;">
+        <div id="result-icon" style="font-size:72px;margin-bottom:24px;"></div>
+        <h2 id="result-title" style="font-size:32px;font-weight:800;margin-bottom:12px;"></h2>
+        <p id="result-score" style="font-size:48px;font-weight:800;margin-bottom:8px;"></p>
+        <p id="result-msg" style="color:#94a3b8;font-size:18px;margin-bottom:24px;"></p>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
+            <button class="action-btn btn-secondary" onclick="startChallenge()" id="btn-try-again">Try Again</button>
+            <a href="/academy/" class="action-btn btn-primary" id="btn-academy">Back to Academy</a>
+        </div>
+    </div>
+</div>
 
-        const CHALLENGES = [
-            {
-                id: 1,
-                type: "phishing",
-                language: "en",
-                category: "email",
-                scenario: {
-                    en: { from: "security@g00gle-support.com", subject: "URGENT: Your account will be suspended!", body: "Dear User,\n\nWe detected unusual activity on your Google account. Click the link below immediately to verify your identity or your account will be permanently suspended within 24 hours.\n\nVerify Now: https://g00gle-support.com/verify\n\nIf you don't act now, you will lose access to all your data.\n\nGoogle Security Team", redFlags: ["Misspelled domain (g00gle instead of google)", "Creates urgency with threats", "Asks you to click a suspicious link", "Generic greeting 'Dear User'"] },
-                    ur: { from: "security@g00gle-support.com", subject: "فوری: آپ کا اکاؤنٹ معطل ہو جائے گا!", body: "محترم صارف،\n\nہم نے آپ کے گوگل اکاؤنٹ پر غیر معمولی سرگرمی دیکھی ہے۔ نیچے دیے گئے لنک پر فوری طور پر کلک کریں یا آپ کا اکاؤنٹ 24 گھنٹوں میں ہمیشہ کے لیے معطل ہو جائے گا。\n\nابھی تصدیق کریں: https://g00gle-support.com/verify\n\nگوگل سیکیورٹی ٹیم", redFlags: ["غلط ہجے ڈومین (g00gle بجائے google)", "دھمکیوں سے جلدی پیدا کرنا", "مشکوک لنک پر کلک کروانا", "عام سلام 'محترم صارف'"] },
-                    ps: { from: "security@g00gle-support.com", subject: "فوري: ستاسو اکاونټ بند کیږي!", body: "محترم کاروونکي،\n\nموږ ستاسو په ګوګل اکاونټ کې غیرعادي فعالیت لیدلی دی. لاندې لینک باندې سمدله کلیک وکړئ یا ستاسو اکاونټ به په ۲۴ ساعتونو کې دایمي بند شي.\n\nاوس تایید کړئ: https://g00gle-support.com/verify\n\nګوګل امنیت ټیم", redFlags: ["غلط拼ډومین (g00gle پر ځای google)", "د ګواښونو سره بیړه جوړول", "مشکوک لینک باندې کلیک ته هڅول", "عمومي سلام 'محترم کاروونکي'"] }
-                },
-                answer: "phishing",
-                explanation: { en: "This is a phishing email. The domain 'g00gle-support.com' uses zeros instead of 'o's. Legitimate Google emails come from @google.com. The urgency and threats are classic social engineering tactics.", ur: "یہ ایک فشنگ ای میل ہے۔ ڈومین میں صفر کی جگہ o استعمال ہوا ہے۔ اصلی گوگل ایمیلز @google.com سے آتی ہیں۔ جلدی اور دھمکیاں سماجی انجینئرنگ کی حربے ہیں۔", ps: "دا یو فشنگ ایمیل دی. ډومین کې د صفر پر ځای o کارول شوی دی. اصلي ګوګل ایمیلونه له @google.com څخه راځي. بیړه او ګواښونه د ټولنیز انجینرینګ لارې چارې دي." }
-            },
-            {
-                id: 2,
-                type: "phishing",
-                language: "en",
-                category: "email",
-                scenario: {
-                    en: { from: "no-reply@accounts.google.com", subject: "Security alert: New sign-in on your account", body: "Hi user@gmail.com,\n\nA new sign-in was detected on your Google Account from Chrome on Windows.\n\nDevice: Windows PC\nLocation: Islamabad, Pakistan\nTime: Jun 15, 2026, 3:42 PM\n\nIf this wasn't you, please review your account security at myaccount.google.com.\n\nYou received this email to let you know about important changes to your account.\n\nGoogle Security Team", redFlags: [] },
-                    ur: { from: "no-reply@accounts.google.com", subject: "سیکیورٹی الرٹ: آپ کے اکاؤنٹ پر نئی سائن اِن", body: "سلام user@gmail.com،\n\nآپ کے گوگل اکاؤنٹ پر ونڈوز پر کروم سے نئی سائن اِن پائی گئی۔\n\nڈیوائس: ونڈوز پی سی\nمقام: اسلام آباد، پاکستان\nوقت: 15 جون 2026، 3:42 بجے\n\nاگر یہ آپ نہیں تھے تو براہ کرم myaccount.google.com پر اکاؤنٹ سیکیورٹی چیک کریں۔\n\nگوگل سیکیورٹی ٹیم", redFlags: [] },
-                    ps: { from: "no-reply@accounts.google.com", subject: "د امنیت الرټ: ستاسو اکاونټ کې نوی ننوتل", body: "سلام user@gmail.com،\n\nستاسو په ګوګل اکاونټ کې له Windows Chrome څخه نوی ننوتل وموندل شو.\n\nډلګه: Windows PC\nځای: اسلام اباد، پاکستان\nوخت: جون 15 2026، سهار 3:42\n\nکه دا تاسو نه وو، مهرباني وکړئ خپل اکاونټ امنیت په myaccount.google.com وګورئ.\n\nګوګل امنیت ټیم", redFlags: [] }
-                },
-                answer: "legitimate",
-                explanation: { en: "This is a legitimate Google security alert. The sender domain is @accounts.google.com, it addresses you by your actual email, doesn't ask you to click suspicious links, and directs you to the official myaccount.google.com domain for review.", ur: "یہ ایک اصلی گوگل سیکیورٹی الرٹ ہے۔ بھیجنے والے کا ڈومین @accounts.google.com ہے، آپ کو آپ کے اصلی ای میل سے مخاطب کرتا ہے، مشکوک لنکس پر کلک نہیں کراتا، اور آپ کو سرکاری myaccount.google.com ڈومین پر بھیجتا ہے۔", ps: "دا یو اصلي ګوګل امنیت الرټ دی. د استونکي ډومین @accounts.google.com دی، تاسو ستاسو اصلي ایمیل پورته خطاب کوي، مشکوک لینکونو ته نه تلیوي، او تاسو رسمي myaccount.google.com ډومین ته لېږي." }
-            },
-            {
-                id: 3,
-                type: "phishing",
-                language: "en",
-                category: "email",
-                scenario: {
-                    en: { from: "prize-center@winntv-awards.net", subject: "🎉 Congratulations! You've won $5,000,000!", body: "CONGRATULATIONS!!!\n\nYou have been randomly selected as the WINNER of our International Email Lottery! You have won $5,000,000 USD!\n\nTo claim your prize, send the following to claims@winntv-awards.net:\n- Full name\n- Date of birth\n- Bank account number\n- Copy of your ID\n\nYou must claim within 48 hours or the prize will go to another winner.\n\nInternational Lottery Commission", redFlags: ["You didn't enter any lottery", "Asks for bank account and personal details", "Impossible prize from unknown organization", "Deadline pressure tactic (48 hours)"] },
-                    ur: { from: "prize-center@winntv-awards.net", subject: "🎉 مبارک ہو! آپ نے 5,000,000 ڈالر جیت لیے!", body: "مبارک ہو!!!\n\nآپ کو ہماری بین الاقوامی ای میل لاٹری کا فاتح منتخب کیا گیا ہے! آپ نے 5,000,000 امریکی ڈالر جیت لیے!\n\nانعام حاصل کرنے کے لیے یہ معلومات بھیجیں:\n- مکمل نام\n- تاریخ پیدائش\n- بینک اکاؤنٹ نمبر\n- شناختی کارڈ کی کاپی\n\nانعام 48 گھنٹوں میں حاصل کریں ورنا دوسرے فاتح کو دیا جائے گا۔\n\nبین الاقوامی لاٹری کمیشن", redFlags: ["آپ نے کوئی لاٹری نہیں کھیلی", "بینک اکاؤنٹ اور ذاتی معلومات مانگنا", "نامعلوم تنظیم سے ناممکن انعام", "مہلت کا دباؤ (48 گھنٹے)"] },
-                    ps: { from: "prize-center@winntv-awards.net", subject: "🎉 مبارک مو شه! تاسو 5,000,000 ډالر وګټل!", body: "مبارک مو شه!!!\n\nتاسو زموږ د نړیوال ایمیل لاترې فاتح و ټاکل شوئ! تاسو 5,000,000 امریکايي ډالر وګټل!\n\nانعام ترلاسه کولو لپاره دا معلومات ولیږئ:\n- بشپړ نوم\n- د زیږیدو نیټه\n- د بانک حساب شمیره\n- د پېژندپاڼې کاپي\n\نانعام باید په ۴۸ ساعتونو کې ترلاسه کړئ یا بل فاتح ته ورکول کیږي.\n\nنړیوال لاترې کمیسون", redFlags: ["تاسو کومه لاتره و نه لوبوله", "د بانک حساب او شخصي معلوماتو غوښتنه", "نامعلومې ادارې څخه ناممکن انعام", "د مهلت فشار (۴۸ ساعتونه)"] }
-                },
-                answer: "phishing",
-                explanation: { en: "This is a classic advance-fee scam (419 scam). No legitimate lottery contacts you by email asking for bank details. Never send personal or financial information via email to unknown senders.", ur: "یہ ایک کلاسک avance-fee scam ہے۔ کوئی اصلی لاٹری ای میل پر بینک معلومات نہیں مانگتی۔ نامعلوم بھیجنے والوں کو ذاتی یا مالی معلومات ای میل سے کبھی نہ بھیجیں۔", ps: "دا یو کلاسیک pre-payment scamm دی. هیڅ اصلي لاتره ستاسو بانک معلومات له ایمیل له لارې نه غواړي. نامعلومو استوونکو ته شخصي یا مالي معلومات هیڅکله له ایمیل نه ولیږئ." }
-            },
-            {
-                id: 4,
-                type: "phishing",
-                language: "en",
-                category: "email",
-                scenario: {
-                    en: { from: "support@amaz0n-delivery.com", subject: "Your Amazon package could not be delivered", body: "Hello Customer,\n\nWe attempted to deliver your Amazon package but could not reach you. Your order #AMZ-88231 is being held.\n\nTo reschedule delivery, confirm your details and pay a small re-delivery fee of $2.99:\nhttps://amaz0n-delivery.com/track\n\nIf you do not respond in 24 hours, your package will be returned.\n\nAmazon Delivery", redFlags: ["Domain uses zero instead of 'o' (amaz0n)", "Asks for payment for re-delivery (Amazon never does this)", "Suspicious URL with misspelled domain", "Real Amazon emails come from @amazon.com"] },
-                    ur: { from: "support@amaz0n-delivery.com", subject: "آپ کا ایمیزون پیکج ڈیلیور نہیں ہو سکا", body: "سلام گاہک،\n\nہم نے آپ کا ایمیزون پیکج ڈیلیور کرنے کی کوشش کی لیکن آپ تک نہیں پہنچ سکے۔ آپ کا آرڈر #AMZ-88221 روکا گیا ہے۔\n\nدوبارہ ڈیلیرو کروانے کے لیے اپنی معلومات جمع کریں اور $2.99 کی چھوٹی فیس ادا کریں:\nhttps://amaz0n-delivery.com/track\n\nاگر آپ 24 گھنٹوں میں جواب نہ دیں تو پیکج واپس بھیج دیا جائے گا۔\n\nایمیزون ڈیلیوری", redFlags: ["ڈومین میں صفر استعمال ہوا (amaz0n)", "دوبارہ ڈیلیوری کے لیے رقم مانگنا (ایمیزون ایسا نہیں کرتا)", "مشکوک یو آر ایل", "اصلی ایمیزون ای میلز @amazon.com سے آتی ہیں"] },
-                    ps: { from: "support@amaz0n-delivery.com", subject: "ستاسو ایمیزون پیکج تحویل نه شو", body: "سلام پیرودونکي،\n\nموږ ستاسو ایمیزون پیکج تحویل کولو هڅه وکړه خو تاسو ته ونه رسيد. ستاسو اورډر #AMZ-88221 وځنډول شو.\n\nد بیا تحویلي لپاره خپل معلومات تایید کړئ او $2.69 فیس ورکړئ:\nhttps://amaz0n-delivery.com/track\n\nکه تاسو په ۲۴ ساعتونو کې ځواب ورنکړئ، پیکج بیرته لیږل کیږي.\n\nایمیزون تحویله", redFlags: ["ډومین کې صفر کارول شوی (amaz0n)", "د بیا تحویلي لپاره د پیسو غوښتنه (ایمیزون دا نه کوي)", "مشکوک URL", "اصلي ایمیزون ایمیلونه له @amazon.com څخه راځي"] }
-                },
-                answer: "phishing",
-                explanation: { en: "This is a phishing email pretending to be from Amazon. The domain 'amaz0n-delivery.com' uses a zero instead of 'o'. Amazon never charges re-delivery fees. Real Amazon emails come from @amazon.com.", ur: "یہ ایمیزون کے نام پر فشنگ ای میل ہے۔ ڈومین میں o کی جگہ صفر ہے۔ ایمیزون کبھی دوبارہ ڈیلیوری فیس نہیں لیتی۔ اصلی ایمیزون ای میلز @amazon.com سے آتی ہیں۔", ps: "دا د ایمیزونپه نوم فشنگ ایمیل دی. ډومین کې د o پر ځای صفر دی. ایمیزون هیڅکله د بیا تحویلي فیس نه اخلي. اصلي ایمیزون ایمیلونه له @amazon.com څخه راځي." }
-            },
-            {
-                id: 5,
-                type: "password",
-                category: "strength",
-                scenario: {
-                    en: { password: "summer2026", question: "How long would it take to crack this password using a modern brute-force attack?", options: ["Instantly (less than 1 second)", "Minutes", "Hours", "Days"], answer: 0, explanation: "'summer2026' is extremely weak. It combines a common dictionary word with a year — one of the most predictable patterns. Attackers use dictionaries and common patterns, making this crack almost instantly." },
-                    ur: { password: "summer2026", question: "یہ پاسورڈ جدید brute-force حملے سے کتنی عرصے میں توڑا جا سکتا ہے؟", options: ["فوری (1 سیکنڈ سے کم)", "منٹس", "گھنٹے", "دن"], answer: 0, explanation: "'summer2026' انتہائی کمزور ہے۔ یہ ایک عام لفظ اور سال ملاتا ہے — سب سے قابلی پیشینگوں میں سے ایک۔ حملہ آور ڈکشنری اور عام پیٹرن استعمال کرتے ہیں۔" },
-                    ps: { password: "summer2026", question: "دا پړنوم د عصري brute-force برید سره څومره وخت نیسي تر ماتولو پورې؟", options: ["سمدستي (له ۱ ثانیې کم)", "دقیقې", "ساعتونه", "ورځې"], answer: 0, explanation: "'summer2026' ډېر کمزوری دی. دا یو عام قاموس لفظ د کال سره یوځای کوي — د ترټولو پیشبیني وړ بیلګو څخه. بریدګري قاموس او عام بیلګې کاروي." }
-                }
-            },
-            {
-                id: 6,
-                type: "password",
-                category: "strength",
-                scenario: {
-                    en: { password: "Tr0ub4dour&3", question: "How long would it take to crack this password?", options: ["Seconds", "Hours", "Centuries", "Millennia"], answer: 1, explanation: "Despite looking complex with mixed case and symbols, 'Tr0ub4dour&3' is based on a common word (troubadour) with simple leet-speak substitutions. Attackers know these patterns. It takes about 3 hours to crack with modern tools." },
-                    ur: { password: "Tr0ub4dour&3", question: "یہ پاسورڈ توڑنے میں کتنا عرصہ لگے گا؟", options: ["سیکنڈز", "گھنٹے", "صدیاں", "ہزاروں سال"], answer: 1, explanation: "بظاہر مشکل نظر آنے کے باوجود، یہ ایک عام لفظ پر مبنی ہے جس میں آسان علاماتی تبدیلیاں ہیں۔ حملہ آور ان پیٹرنز کو جانتے ہیں۔ جدید ٹولز سے تقریباً 3 گھنٹے لگتے ہیں۔" },
-                    ps: { password: "Tr0ub4dour&3", question: "دا پړنوم ماتولو لپاره څومره وخت نیسي؟", options: ["ثانیې", "ساعتونه", "پیړۍ", "زریزې"], answer: 1, explanation: "پردې خوا سخت بریښي، خو دا یو عام لفظ پر بنسټ دی چې ساده نښو بدلونونه لري. بریدګري دا بیلګې پیژني. د عصري وسایلو سره شاوخوا ۳ ساعتونه نیسي." }
-                }
-            },
-            {
-                id: 7,
-                type: "password",
-                category: "strength",
-                scenario: {
-                    en: { password: "correct horse battery staple", question: "How long would it take to crack this passphrase?", options: ["Minutes", "Days", "Centuries", "Trillions of years"], answer: 3, explanation: "This is a famous XKCD passphrase. Four random common words create enormous entropy (about 44 bits of true randomness). Even with modern hardware, this would take trillions of years to brute-force. Length and randomness matter more than complexity." },
-                    ur: { password: "correct horse battery staple", question: "یہ پاس فریز توڑنے میں کتنا عرصہ لگے گا؟", options: ["منٹس", "دن", "صدیاں", "کھربوں سال"], answer: 3, explanation: "یہ مشہور XKCD پاس فریز ہے۔ چار بے ترتیب عام الفاظ زبردست بے ترتیبی پیدا کرتے ہیں۔ جدید ہارڈویئر سے بھی کھربوں سال لگیں گے۔ لمبائی اور بے ترتیبی پیچیدگی سے زیادہ اہم ہے۔" },
-                    ps: { password: "correct horse battery staple", question: "دا پاس فریز ماتولو لپاره څومره وخت نیسي؟", options: ["دقیقې", "ورځې", "پیړۍ", "تیړونه کاله"], answer: 3, explanation: "دا مشهور XKCD پاس فریز دی. څور بې ترتیبه عام وييکي انټروپي جوړوي. عصري هارډویر سره هم تیريونه کاله نیسي. اوږدوالی او بې ترتیبي له پیچلودو څخه ډېر مهم دي." }
-                }
-            },
-            {
-                id: 8,
-                type: "password",
-                category: "strength",
-                scenario: {
-                    en: { password: "P@$$w0rd!", question: "How long would it take to crack this password?", options: ["Less than 1 second", "Hours", "Months", "Years"], answer: 0, explanation: "This is a common dictionary word ('password') with predictable leet-speak substitutions (@ for a, $$ for ss, 0 for o). Attackers try these patterns first. It's cracked almost instantly." },
-                    ur: { password: "P@$$w0rd!", question: "یہ پاسورڈ توڑنے میں کتنا عرصہ لگے گا؟", options: ["1 سیکنڈ سے کم", "گھنٹے", "مہینے", "سال"], answer: 0, explanation: "یہ ایک عام لفظ (password) پر مبنی ہے جس میں قابل تخسس تبدیلیاں ہیں۔ حملہ آور سب سے پہلے یہ پیٹرن آزماتے ہیں۔ یہ فوری طور پر ٹوٹ جاتا ہے۔" },
-                    ps: { password: "P@$$w0rd!", question: "دا پړنوم ماتولو لپاره څومره وخت نیسي؟", options: ["له ۱ ثانیې کم", "ساعتونه", "میاشتې", "کاله"], answer: 0, explanation: "دا یو عام لفظ (password) پر بنسټ دی چې قابل پیشبیني بدلونونه لري. بریدګري لومړی دا بیلګه ازموئ. دا سمدستي ماتوي." }
-                }
-            },
-            {
-                id: 9,
-                type: "scam",
-                category: "social",
-                scenario: {
-                    en: { title: "Friend in Trouble", description: "You receive a WhatsApp message from your friend's number:\n\n\"Hey, I'm in trouble! I lost my phone and wallet. Can you send me $500 urgently to this new number? I'll pay you back tomorrow!\"\n\nThe message comes from an unknown number claiming to be your friend. What should you do?", options: ["Send the money immediately — they're in trouble!", "Call your friend on their real number to verify", "Ask for a voice message as proof", "Both B and C"], answer: 3, explanation: "This is a common social engineering scam. Scammers spoof or compromise contacts, then send emergency requests for money. Always verify through a separate channel — call their known number or ask for voice verification. Never send money based solely on a text message." },
-                    ur: { title: "دوست پریشان", description: "آپ کو آپ کے دوست کے نمبر سے واٹس ایپ میسج ملتا ہے:\n\n\"ارے، مجھے پریشانی ہے! میرا فون اور بٹوہ کھو گیا۔ کیا آپ مجھے فوراً $500 اس نئے نمبر پر بھیج سکتے ہیں؟ میں کل لوٹا دوں گا!\"\n\nیہ میسج نامعلوم نمبر سے آیا ہے جو آپ کا دوست ہونے کا دعوی کرتا ہے۔ آپ کو کیا کرنا چاہیے؟", options: ["فوراً پیسے بھیجیں — وہ پریشان ہیں!", "اپنے دوست کو ان کے اصلی نمبر پر کال کریں", "ثبوت کے لیے وائس میسج مانگیں", "بی اور سی دونوں"], answer: 3, explanation: "یہ ایک عام سماجی انجینئرنگ scam ہے۔ Scammers رابطوں کو جعلسازی کرتے ہیں اور ایمرجنسی میں رقم مانگتے ہیں۔ ہمیشہ الگ ذریعے تصدیق کریں۔ صرف ٹیکسٹ میسج پر رقم نہ بھیجیں۔" },
-                    ps: { title: "ملګری په ستونزه کې", description: "تاسو خپل ملګري له خوا د واټساپ پیغام ترلاسه کوئ:\n\n\"سلام، زه په ستونزه کې یم! زما تلیفون او بټوه له لاسه وتل. ایا تاسو ما ته فوراً $500 دا نوي شمیرې ته لیږئ؟ زه سبا وره ورکم!\"\n\nدا پیغام له نامعلوم شمیرې څخه راغلی چې ستاسو ملګری ادعا کوي. تاسو څه وکړئ؟", options: ["سمدستي پیسې ولیږئ — هغوی په ستونزه کې دي!", "خپل ملګري ته د هغوی اصلي شمیرې باندې زنګ ووهئ", "د ثبوت لپاره غږیز پیغام وغواړئ", "بی او سی دواړه"], answer: 3, explanation: "دا یو عام ټولنیز انجینرینګ scamm دی. Scammers اړیکې جعل کوي او بيا اضطراري پیسي غواړي. تل جلا SOURC تصدیق وکړئ. یوازې د متن پیغام پر بنسټ پیسې مه لیږئ." }
-            },
-            {
-                id: 10,
-                type: "scam",
-                category: "social",
-                scenario: {
-                    en: { title: "Tech Support Call", description: "You receive a phone call. The caller says:\n\n\"Hello, I'm calling from Microsoft Technical Support. We've detected a serious virus on your computer. I can fix it right now — please download this remote access tool so I can connect to your PC and remove the virus.\"\n\nWhat should you do?", options: ["Download the tool — they detected a real virus", "Give them your credit card for the fix", "Hang up immediately — Microsoft never calls like this", "Ask for their employee ID and then download"], answer: 2, explanation: "Microsoft, Apple, or any tech company will NEVER call you proactively about viruses. This is a well-known tech support scam. They want remote access to install malware or steal your data. Hang up immediately, and if you're concerned, contact the company directly through official channels." },
-                    ur: { title: "ٹیک سپورٹ کال", description: "آپ کو فون کال آتی ہی۔ کالر کہتا ہے:\n\n\"سلام، میں مائیکروسافٹ ٹیکنیکل سپورٹ سے کال کر رہا ہوں۔ ہم نے آپ کے کمپیوٹر پر سنگین وائرس پایا ہے۔ میں اسے ابھی ٹھیک کر سکتا ہوں — براہ کرم یہ ریموٹ ایکسیس ٹول ڈاؤنلوڈ کریں تاکہ میں آپ کے پی سی سے جڑ کر وائرس ہٹا سکوں۔\"\n\nآپ کو کیا کرنا چاہیے؟", options: ["ٹول ڈاؤنلوڈ کریں — انہوں نے اصلی وائرس پایا", "فکس کے لیے کریڈٹ کارڈ دیں", "فون رکھ دیں — مائیکروسافٹ ایسے کبھی نہیں کال کرتا", "ان کا ملازم نمبر پوچھیں پھر ڈاؤنلوڈ کریں"], answer: 2, explanation: "مائیکروسافٹ، ایپل یا کوئی بھی ٹیک کمپنی آپ کو وائرس کے بارے میں کبھی پروایکیوي کال نہیں کرتی۔ یہ ایک مشہور ٹیک سپورٹ scam ہے۔ وہ ریموٹ ایکسیس چاہتے ہیں تاکہ میلویئر انسٹال کر سکیں یا آپ کا ڈیٹا چورائیں۔ فوراً فون رکھ دیں۔" },
-                    ps: { title: "ټیک سپورټ زنګ", description: "تاسو فون زنګ ترلاسه کوئ. زنګ کوونکی وایي:\n\n\"سلام، زه د مایکروسافټ تخنیکي سپورټ څخه زنګ کوم. موږ ستاسو په کمپیوټر کې جدی وایرس وموند. زه یې اوس جوړولی شم — مهرباني وکړئ دا ریموټ لاسرسۍ تول ډاونلوډ کړئ ترڅو زه ستاسو PC سره وصل شم او وایرس لرې کړم.\"\n\nتاسو څه وکړئ؟", options: ["ټول ډاونلوډ کړئ — هغوی اصلي وایروس وموند", "د جوړولو لپاره کریډیټ کارډ ورکړئ", "فون اچولئ — مایکروسافټ هیڅکله داسې زنګ نه وهي", "د هغوی دکارموند شمیره وپوښتئ بیا ډاونلوډ کړئ"], answer: 2, explanation: "مایکروسافټ، ایپل یا هره تخنیکي شرکت هیڅکله ستاسو په اړه وایروس предварي زنګ نه کوي. دا یو مشهور ټیک سپورټ scamm دی. هغوی ریموټ لاسرسۍ غواړي ترڅو میلویئر انسټال کړي یا ستاسو ډیټا غلا کړي. سمدستي فون اچولئ." }
-            }
-        ];
+<footer class="footer">
+    <p>&copy; 2026 PashtunEinstein. All Rights Reserved.</p>
+    <div style="margin-top:8px;"><a href="https://pashtuneinstein.com/">Website</a> · <a href="https://blog.pashtuneinstein.com/">Blog</a></div>
+</footer>
 
-        const UI = {
-            title: { en: "Cybersecurity Challenge", ur: "سائبر سیکیورٹی چیلنج", ps: "سايبر امنیت ننګونه" },
-            subtitle: { en: "Can You Spot the Danger?", ur: "کیا آپ خطرے کو پہچان سکتے ہیں؟", ps: "ایا تاسو خطره پیژندلی شئ؟" },
-            startBtn: { en: "Start Challenge", ur: "چیلنج شروع کریں", ps: "ننګونه پیل کړئ" },
-            challenge: { en: "Challenge", ur: "چیلنج", ps: "ننګونه" },
-            of: { en: "of", ur: "میں سے", ps: "له" },
-            phishing: { en: "Is this email safe or phishing?", ur: "کیا یہ ای میل محفوظ ہے یا فشنگ؟", ps: "ایا دا ایمیل خوندي دی یا فشنگ؟" },
-            phishingLegit: { en: "Legitimate Email", ur: "جائز ای میل", ps: "قانوني ایمیل" },
-            phishingDanger: { en: "Phishing / Scam", ur: "فشنگ /.scam", ps: "فشنگ / scamm" },
-            password: { en: "Password Crack Estimation", ur: "پاسورڈ توڑنے کا تخمینہ", ps: "د پړنوم ماتول تخمین" },
-            scam: { en: "What should you do?", ur: "آپ کو کیا کرنا چاہیے؟", ps: "تاسو څه وکړئ؟" },
-            correct: { en: "Correct!", ur: "درست!", ps: "سمه!" },
-            incorrect: { en: "Not quite right", ur: "بالکل درست نہیں", ps: "سمه نه ده" },
-            explanation: { en: "Explanation", ur: "وضاحت", ps: "توضیح" },
-            nextBtn: { en: "Next Challenge", ur: "اگلا چیلنج", ps: "بله ننګونه" },
-            yourScore: { en: "Your Score", ur: "آپ کا اسکور", ps: "ستاسو نمرې" },
-            outOf: { en: "out of", ur: "میں سے", ps: "له" },
-            excellent: { en: "Excellent! You're cyber-aware!", ur: "شاباش! آپ سائبر آگاہ ہیں!", ps: "ښه! تاسو سایبر خبر یاست!" },
-            good: { en: "Good job! Keep learning to stay safe online.", ur: "اچھا! آن لائن محفوظ رہنے کے لیے سیکھتے رہیں۔", ps: "ښه کار! آنلاین خوندي پاتې کیدو لپاره زده کړئ." },
-            keepLearning: { en: "Keep learning! Cyber threats evolve constantly.", ur: "سیکھتے رہیں! سائبر خطرات مسلسل تبدیل ہوتے ہیں۔", ps: "زده کړئ! سایبر ګواښونه په دوامدارډول بدلیږي." },
-            tryAgain: { en: "Try Again", ur: "دوبارہ کوشش کریں", ps: "بیا هڅه وکړئ" },
-            backToAcademy: { en: "Back to Academy", ur: "اکادمی واپس", ps: "اکاډمۍ ته شاته" },
-            redFlags: { en: "Red Flags:", ur: "خطرے کی نشانیاں:", ps: "سور بیرغونه:" },
-            showAnswer: { en: "Show Answer", ur: "جواب دکھائیں", ps: "ځواب وښئ" }
-        };
+<script>
+const CHALLENGES = [
+    {id:1,type:"phishing",scenario:{
+        en:{from:"security@g00gle-support.com",subject:"URGENT: Your account will be suspended!",body:"Dear User,\n\nWe detected unusual activity on your Google account. Click the link below immediately to verify your identity or your account will be permanently suspended within 24 hours.\n\nVerify Now: https://g00gle-support.com/verify\n\nIf you don't act now, you will lose access to all your data.\n\nGoogle Security Team",redFlags:["Misspelled domain (g00gle instead of google)","Creates urgency with threats","Asks you to click a suspicious link","Generic greeting 'Dear User'"]},
+        ur:{from:"security@g00gle-support.com",subject:"فوری: آپ کا اکاؤنٹ معطل ہو جائے گا!",body:"محترم صارف،\n\nہم نے آپ کے گوگل اکاؤنٹ پر غیر معمولی سرگرمی دیکھی ہے۔ نیچے دیے گئے لنک پر فوری طور پر کلک کریں یا آپ کا اکاؤنٹ 24 گھنٹوں میں ہمیشہ کے لیے معطل ہو جائے گا۔\n\nابھی تصدیق کریں: https://g00gle-support.com/verify\n\nگوگل سیکیورٹی ٹیم",redFlags:["غلط ہجے ڈومین","دھمکیوں سے جلدی پیدا کرنا","مشکوک لنک پر کلک کروانا","عام سلام 'محترم صارف'"]},
+        ps:{from:"security@g00gle-support.com",subject:"فوري: ستاسو اکاونټ بند کیږي!",body:"محترم کاروونکي،\n\nموږ ستاسو په ګوګل اکاونټ کې غیرعادي فعالیت لیدلی دی.\n\nاوس تایید کړئ: https://g00gle-support.com/verify\n\nګوګل امنیت ټیم",redFlags:["غلط拼ډومین","د ګواښونو سره بیړه جوړول","مشکوک لینک باندې کلیک ته هڅول","عمومي سلام"]}
+    },answer:"phishing",explanation:{en:"This is a phishing email. The domain 'g00gle-support.com' uses zeros instead of 'o's. Legitimate Google emails come from @google.com. The urgency and threats are classic social engineering.",ur:"یہ ایک فشنگ ای میل ہے۔ ڈومین میں صفر کی جگہ o استعمال ہوا ہے۔ اصلی گوگل ایمیلز @google.com سے آتی ہیں۔",ps:"دا یو فشنگ ایمیل دی. ډومین کې د صفر پر ځای o کارول شوی دی."}},
+    {id:2,type:"phishing",scenario:{
+        en:{from:"no-reply@accounts.google.com",subject:"Security alert: New sign-in on your account",body:"Hi user@gmail.com,\n\nA new sign-in was detected on your Google Account from Chrome on Windows.\n\nDevice: Windows PC\nLocation: Islamabad, Pakistan\nTime: Jun 15, 2026, 3:42 PM\n\nIf this wasn't you, please review your account security at myaccount.google.com.\n\nGoogle Security Team",redFlags:[]},
+        ur:{from:"no-reply@accounts.google.com",subject:"سیکیورٹی الرٹ: آپ کے اکاؤنٹ پر نئی سائن اِن",body:"سلام user@gmail.com،\n\nآپ کے گوگل اکاؤنٹ پر ونڈوز پر کروم سے نئی سائن اِن پائی گئی۔\n\nاگر یہ آپ نہیں تھے تو myaccount.google.com پر اکاؤنٹ سیکیورٹی چیک کریں۔",redFlags:[]},
+        ps:{from:"no-reply@accounts.google.com",subject:"د امنیت الرټ",body:"سلام user@gmail.com،\n\nستاسو په ګوګل اکاونټ کې نوی ننوتل وموندل شو.\n\nکه دا تاسو نه وو، myaccount.google.com ته ځئ.",redFlags:[]}
+    },answer:"legitimate",explanation:{en:"This is a legitimate Google security alert. The domain is @accounts.google.com, it addresses you by email, and directs you to the official domain — not a suspicious link.",ur:"یہ اصلی گوگل سیکیورٹی الرٹ ہے۔ ڈومین @accounts.google.com ہے اور آپ کو سرکاری ڈومین پر بھیجتا ہے۔",ps:"دا اصلي ګوګل امنیت الرټ دی. ډومین @accounts.google.com دی."}},
+    {id:3,type:"phishing",scenario:{
+        en:{from:"prize-center@winntv-awards.net",subject:"🎉 Congratulations! You've won $5,000,000!",body:"CONGRATULATIONS!!!\n\nYou have been randomly selected as the WINNER of our International Email Lottery! You have won $5,000,000 USD!\n\nTo claim your prize, send the following to claims@winntv-awards.net:\n- Full name\n- Date of birth\n- Bank account number\n- Copy of your ID\n\nYou must claim within 48 hours or the prize will go to another winner.\n\nInternational Lottery Commission",redFlags:["You didn't enter any lottery","Asks for bank account and personal details","Impossible prize from unknown organization","Deadline pressure tactic (48 hours)"]},
+        ur:{from:"prize-center@winntv-awards.net",subject:"🎉 مبارک ہو! آپ نے 5,000,000 ڈالر جیت لیے!",body:"مبارک ہو!!!\n\nآپ کو بین الاقوامی ای میل لاٹری کا فاتح منتخب کیا گیا ہے!\n\nانعام حاصل کرنے کے لیے ذاتی معلومات بھیجیں۔\n\nبین الاقوامی لاٹری کمیشن",redFlags:["آپ نے کوئی لاٹری نہیں کھیلی","بینک اکاؤنٹ اور ذاتی معلومات مانگنا","نامعلوم تنظیم سے ناممکن انعام","مہلت کا دباؤ"]},
+        ps:{from:"prize-center@winntv-awards.net",subject:"🎉 مبارک!",body:"مبارک مو شه!!!\n\nتاسو زموږ نړیوال ایمیل لاترې فاتح وټاکل شوئ!\n\nانعام ترلاسه کولو لپاره شخصي معلومات ولیږئ.\n\nنړیوال لاترې کمیسون",redFlags:["تاسو کومه لاتره و نه لوبوله","د بانک حساب غوښتنه","ناممکن انعام","د مهلت فشار"]}
+    },answer:"phishing",explanation:{en:"This is a classic advance-fee scam. No legitimate lottery contacts you by email asking for bank details. Never send personal info to unknown senders.",ur:"یہ کلاسک advance-fee scam ہے۔ کوئی اصلی لاٹری ای میل پر بینک معلومات نہیں مانگتی۔",ps:"دا کلاسیک pre-payment scamm دی."}},
+    {id:4,type:"phishing",scenario:{
+        en:{from:"support@amaz0n-delivery.com",subject:"Your Amazon package could not be delivered",body:"Hello Customer,\n\nWe attempted to deliver your Amazon package but could not reach you. Your order #AMZ-88231 is being held.\n\nTo reschedule delivery, confirm your details and pay a small re-delivery fee of $2.99:\nhttps://amaz0n-delivery.com/track\n\nAmazon Delivery",redFlags:["Domain uses zero instead of 'o' (amaz0n)","Asks for payment for re-delivery — Amazon never does this","Suspicious URL with misspelled domain","Real Amazon emails come from @amazon.com"]},
+        ur:{from:"support@amaz0n-delivery.com",subject:"آپ کا ایمیزون پیکج ڈیلیور نہیں ہو سکا",body:"سلام گاہک،\n\nہم نے آپ کا ایمیزون پیکج ڈیلیور کرنے کی کوشش کی لیکن نہیں پہنچ سکے۔\n\nدوبارہ ڈیلیرو کے لیے $2.99 ادا کریں:\nhttps://amaz0n-delivery.com/track",redFlags:["ڈومین میں صفر استعمال","دوبارہ ڈیلیوری کے لیے رقم مانگنا","مشکوک یو آر ایل","اصلی ایمیزون @amazon.com سے آتی ہیں"]},
+        ps:{from:"support@amaz0n-delivery.com",subject:"ستاسو ایمیزون پیکج تحویل نه شو",body:"سلام پیرودونکي،\n\nموږ ستاسو ایمیزون پیکج تحویل کولو هڅه وکړه خو ونرسيد.\n\nد بیا تحویلي لپاره $2.99 ورکړئ.",redFlags:["ډومین کې صفر کارول شوی","د بیا تحویلي فیس غوښتنه","مشکوک URL","اصلي ایمیزون @amazon.com څخه راځي"]}
+    },answer:"phishing",explanation:{en:"This is a phishing email pretending to be from Amazon. The domain uses a zero instead of 'o'. Amazon never charges re-delivery fees. Real emails come from @amazon.com.",ur:"یہ ایمیزون کے نام پر فشنگ ای میل ہے۔ ڈومین میں o کی جگہ صفر ہے۔ ایمیزون کبھی دوبارہ ڈیلیوری فیس نہیں لیتی۔",ps:"دا د ایمیزون په نوم فشنگ ایمیل دی. ډومین کې د o پر ځای صفر دی."}},
+    {id:5,type:"password",scenario:{
+        en:{password:"summer2026",question:"How long would it take to crack this password?",options:["Instantly (less than 1 second)","Minutes","Hours","Days"],answer:0,explanation:"'summer2026' is extremely weak. It combines a common dictionary word with a year — one of the most predictable patterns. Attackers use dictionaries, making this crack instant."},
+        ur:{password:"summer2026",question:"یہ پاسورڈ کتنی عرصے میں توڑا جا سکتا ہے؟",options:["فوری (1 سیکنڈ سے کم)","منٹس","گھنٹے","دن"],answer:0,explanation:"'summer2026' انتہائی کمزور ہے۔ یہ عام لفظ اور سال ملاتا ہے۔ حملہ آور ڈکشنری استعمال کرتے ہیں۔"},
+        ps:{password:"summer2026",question:"دا پړنوم څومره وخت نیسي تر ماتولو پورې؟",options:["سمدستي (له ۱ ثانیې کم)","دقیقې","ساعتونه","ورځې"],answer:0,explanation:"'summer2026' ډېر کمزوری دی. دا یو عام لفظ د کال سره یوځای کوي."}
+    },
+    {id:6,type:"password",scenario:{
+        en:{password:"Tr0ub4dour&3",question:"How long would it take to crack this password?",options:["Seconds","Hours","Centuries","Millennia"],answer:1,explanation:"Despite looking complex, 'Tr0ub4dour&3' is based on a common word with simple leet-speak substitutions. Attackers know these patterns. It takes about 3 hours with modern tools."},
+        ur:{password:"Tr0ub4dour&3",question:"یہ پاسورڈ توڑنے میں کتنا عرصہ لگے گا؟",options:["سیکنڈز","گھنٹے","صدیاں","ہزاروں سال"],answer:1,explanation:"بظاہر مشکل نظر آنے کے باوجود یہ عام لفظ پر مبنی ہے۔ جدید ٹولز سے تقریباً 3 گھنٹے لگتے ہیں۔"},
+        ps:{password:"Tr0ub4dour&3",question:"دا پړنوم ماتولو لپاره څومره وخت نیسي؟",options:["ثانیې","ساعتونه","پیړۍ","زریزې"],answer:1,explanation:"پردې خوا سخت بریښي خو دا یو عام لفظ پر بنسټ دی. د عصري وسایلو سره شاوخوا ۳ ساعتونه نیسي."}
+    },
+    {id:7,type:"password",scenario:{
+        en:{password:"correct horse battery staple",question:"How long would it take to crack this passphrase?",options:["Minutes","Days","Centuries","Trillions of years"],answer:3,explanation:"This is a famous XKCD passphrase. Four random common words create enormous entropy. Even with modern hardware, this would take trillions of years to brute-force. Length and randomness matter more than complexity."},
+        ur:{password:"correct horse battery staple",question:"یہ پاس فریز توڑنے میں کتنا عرصہ لگے گا؟",options:["منٹس","دن","صدیاں","کھربوں سال"],answer:3,explanation:"یہ مشہور XKCD پاس فریز ہے۔ چار بے ترتیب عام الفاظ زبردست بے ترتیبی پیدا کرتے ہیں۔ لمبائی اور بے ترتیبی پیچیدگی سے زیادہ اہم ہے۔"},
+        ps:{password:"correct horse battery staple",question:"دا پاس فریز ماتولو لپاره څومره وخت نیسي؟",options:["دقیقې","ورځې","پیړۍ","تیړونه کاله"],answer:3,explanation:"دا مشهور XKCD پاس فریز دی. څور بې ترتیبه عام وييکي انټروپي جوړوي. اوږدوالی او بې ترتیبي له پیچلودو څخه ډېر مهم دي."}
+    },
+    {id:8,type:"password",scenario:{
+        en:{password:"P@$$w0rd!",question:"How long would it take to crack this password?",options:["Less than 1 second","Hours","Months","Years"],answer:0,explanation:"This is a common dictionary word ('password') with predictable leet-speak substitutions (@ for a, $$ for ss, 0 for o). Attackers try these patterns first. Cracked almost instantly."},
+        ur:{password:"P@$$w0rd!",question:"یہ پاسورڈ توڑنے میں کتنا عرصہ لگے گا؟",options:["1 سیکنڈ سے کم","گھنٹے","مہینے","سال"],answer:0,explanation:"یہ عام لفظ (password) پر مبنی ہے جس میں قابل تخسس تبدیلیاں ہیں۔ حملہ آور سب سے پہلے یہ پیٹرن آزماتے ہیں۔"},
+        ps:{password:"P@$$w0rd!",question:"دا پړنوم ماتولو لپاره څومره وخت نیسي؟",options:["له ۱ ثانیې کم","ساعتونه","میاشتې","کاله"],answer:0,explanation:"دا یو عام لفظ (password) پر بنسټ دی چې قابل پیشبیني بدلونونه لري. بریدګري لومړی دا بیلګه ازموئ."}
+    },
+    {id:9,type:"scam",scenario:{
+        en:{title:"Friend in Trouble",description:"You receive a WhatsApp message from your friend's number:\n\n\"Hey, I'm in trouble! I lost my phone and wallet. Can you send me $500 urgently to this new number? I'll pay you back tomorrow!\"\n\nThe message comes from an unknown number claiming to be your friend. What should you do?",options:["Send the money immediately — they're in trouble!","Call your friend on their real number to verify","Ask for a voice message as proof","Both B and C"],answer:3,explanation:"This is a common social engineering scam. Scammers spoof contacts and send emergency requests for money. Always verify through a separate channel. Never send money based solely on a text message."},
+        ur:{title:"دوست پریشان",description:"آپ کو واٹس ایپ میسج ملتا ہے:\n\n\"ارے، مجھے پریشانی ہے! میرا فون اور بٹوہ کھو گیا۔ کیا آپ مجھے فوراً $500 بھیج سکتے ہیں؟\"\n\nیہ میسج نامعلوم نمبر سے آیا ہے۔ آپ کو کیا کرنا چاہیے؟",options:["فوراً پیسے بھیجیں","اپنے دوست کو ان کے اصلی نمبر پر کال کریں","ثبوت کے لیے وائس میسج مانگیں","بی اور سی دونوں"],answer:3,explanation:"یہ عام سماجی انجینئرنگ scam ہے۔ ہمیشہ الگ ذریعے تصدیق کریں۔ صرف ٹیکسٹ میسج پر رقم نہ بھیجیں۔"},
+        ps:{title:"ملګری په ستونزه کې",description:"تاسو واټساپ پیغام ترلاسه کوئ:\n\n\"سلام، زه په ستونزه کې یم! زما تلیفون او بټوه له لاسه وتل. ایا تاسو ما ته فوراً $500 لیږئ؟\"\n\nدا پیغام له نامعلوم شمیرې څخه راغلی. تاسو څه وکړئ؟",options:["سمدستي پیسې ولیږئ","خپل ملګري ته د هغوی اصلي شمیرې باندی زنګ ووهئ","د ثبوت لپاره غږیز پیغام وغواړئ","بی او سی دواړه"],answer:3,explanation:"دا یو عام ټولنیز انجینرینګ scamm دی. تل جلا سرچینه تصدیق وکړئ."}
+    },
+    {id:10,type:"scam",scenario:{
+        en:{title:"Tech Support Call",description:"You receive a phone call. The caller says:\n\n\"Hello, I'm calling from Microsoft Technical Support. We've detected a serious virus on your computer. I can fix it right now — please download this remote access tool so I can connect to your PC and remove the virus.\"\n\nWhat should you do?",options:["Download the tool — they detected a real virus","Give them your credit card for the fix","Hang up immediately — Microsoft never calls like this","Ask for their employee ID and then download"],answer:2,explanation:"Microsoft will NEVER call you proactively about viruses. This is a well-known tech support scam. They want remote access to install malware or steal your data. Hang up immediately."},
+        ur:{title:"ٹیک سپورٹ کال",description:"آپ کو فون کال آتی ہی:\n\n\"سلام، میں مائیکروسافٹ ٹیکنیکل سپورٹ سے کال کر رہا ہوں۔ ہم نے آپ کے کمپیوٹر پر سنگین وائرس پایا ہے۔ براہ کرم ریموٹ ایکسیس ٹول ڈاؤنلوڈ کریں۔\"\n\nآپ کو کیا کرنا چاہیے؟",options:["ٹول ڈاؤنلوڈ کریں","فکس کے لیے کریڈٹ کارڈ دیں","فون رکھ دیں — مائیکروسافٹ ایسے کبھی نہیں کال کرتا","ملازم نمبر پوچھیں پھر ڈاؤنلوڈ کریں"],answer:2,explanation:"مائیکروسافٹ آپ کو وائرس کے بارے میں کبھی پروایکیوي کال نہیں کرتی۔ یہ مشہور ٹیک سپورٹ scam ہے۔ فوراً فون رکھ دیں۔"},
+        ps:{title:"ټیک سپورټ زنګ",description:"تاسو فون زنګ ترلاسه کوئ:\n\n\"سلام، زه د مایکروسافټ تخنیکي سپورټ څخه زنګ کوم. موږ ستاسو په کمپیوټر کې جدی وایرس وموند. مهرباني وکړئ ریموټ لاسرسۍ تول ډاونلوډ کړئ.\"\n\nتاسو څه وکړئ؟",options:["ټول ډاونلوډ کړئ","کریډیټ کارډ ورکړئ","فون اچولئ — مایکروسافټ هیڅکله داسې زنګ نه وهي","د کارموند شمیره وپوښتئ بیا ډاونلوډ کړئ"],answer:2,explanation:"مایکروسافټ هیڅکله предварي زنګ نه کوي. دا یو مشهور scamm دی. سمدستي فون اچولئ."}
+    }
+];
 
-        function App() {
-            const [language, setLanguage] = useState('en');
-            const [view, setView] = useState('intro');
-            const [currentChallenge, setCurrentChallenge] = useState(0);
-            const [score, setScore] = useState(0);
-            const [answered, setAnswered] = useState(false);
-            const [selectedOption, setSelectedOption] = useState(null);
-            const [shuffledChallenges, setShuffledChallenges] = useState([]);
+const UI = {
+    title:{en:"Cybersecurity Challenge",ur:"سائبر سیکیورٹی چیلنج",ps:"سايبر امنیت ننګونه"},
+    subtitle:{en:"Can You Spot the Danger?",ur:"کیا آپ خطرے کو پہچان سکتے ہیں؟",ps:"ایا تاسو خطره پیژندلی شئ؟"},
+    startBtn:{en:"Start Challenge",ur:"چیلنج شروع کریں",ps:"ننګونه پیل کړئ"},
+    challenge:{en:"Challenge",ur:"چیلنج",ps:"ننګونه"},
+    of:{en:"of",ur:"میں سے",ps:"له"},
+    phishing:{en:"Is this email safe or phishing?",ur:"کیا یہ ای میل محفوظ ہے یا فشنگ؟",ps:"ایا دا ایمیل خوندي ده یا فشنگ؟"},
+    legitBtn:{en:"🛡️ Legitimate Email",ur:"🛡️ جائز ای میل",ps:"🛡️ قانوني ایمیل"},
+    phishingBtn:{en:"🚨 Phishing / Scam",ur:"🚨 فشنگ / Scam",ps:"🚨 فشنگ / Scamm"},
+    correct:{en:"Correct!",ur:"درست!",ps:"سمه!"},
+    incorrect:{en:"Not quite right",ur:"بالکل درست نہیں",ps:"سمه نه ده"},
+    explanation:{en:"Explanation",ur:"وضاحت",ps:"توضیح"},
+    redFlags:{en:"Red Flags:",ur:"خطرے کی نشانیاں:",ps:"سور بیرغونه:"},
+    nextBtn:{en:"Next Challenge →",ur:"اگلا چیلنج →",ps:"بله ننګونه →"},
+    yourScore:{en:"Your Score",ur:"آپ کا اسکور",ps:"ستاسو نمرې"},
+    outOf:{en:"out of",ur:"میں سے",ps:"له"},
+    excellent:{en:"Excellent! You're cyber-aware!",ur:"شاباش! آپ سائبر آگاہ ہیں!",ps:"ښه! تاسو سایبر خبر یاست!"},
+    good:{en:"Good job! Keep learning to stay safe online.",ur:"اچھا! آن لائن محفوظ رہنے کے لیے سیکھتے رہیں۔",ps:"ښه کار! آنلاین خوندي پاتې کیدو لپاره زده کړئ."},
+    keepLearning:{en:"Keep learning! Cyber threats evolve constantly.",ur:"سیکھتے رہیں! سائبر خطرات مسلسل تبدیل ہوتے ہیں۔",ps:"زده کړئ! سایبر ګواښونه په دوامدارډول بدلیږي."},
+    tryAgain:{en:"Try Again",ur:"دوبارہ کوشش کریں",ps:"بیا هڅه وکړئ"},
+    backToAcademy:{en:"Back to Academy",ur:"اکادمی واپس",ps:"اکاډمۍ ته شاته"},
+    passwordQ:{en:"Password Crack Estimation",ur:"پاسورڈ توڑنے کا تخمینہ",ps:"د پړنوم ماتول تخمین"},
+    password:{en:"Password:",ur:"پاسورڈ:",ps:"پړنوم:"},
+    scam:{en:"What should you do?",ur:"آپ کو کیا کرنا چاہیے؟",ps:"تاسو څه وکړئ؟"}
+};
 
-            const currentFont = language === 'ur' ? 'font-urdu' : language === 'ps' ? 'font-pashto' : '';
-            const dir = language === 'ur' || language === 'ps' ? 'rtl' : 'ltr';
-            const t = (key) => UI[key]?.[language] || UI[key]?.en || key;
+let lang='en',challenges=[],currentIdx=0,score=0,answered=false;
 
-            const startChallenge = () => {
-                const shuffled = [...CHALLENGES].sort(() => Math.random() - 0.5).slice(0, 8);
-                setShuffledChallenges(shuffled);
-                setCurrentChallenge(0);
-                setScore(0);
-                setAnswered(false);
-                setSelectedOption(null);
-                setView('challenge');
-            };
+function t(key){return UI[key]?.[lang]||UI[key]?.en||key;}
+function fc(){return lang==='ur'?'font-urdu':lang==='ps'?'font-pashto':'';}
+function dr(){return lang==='ur'||lang==='ps'?'rtl':'ltr';}
 
-            const handleAnswer = (index) => {
-                if (answered) return;
-                setSelectedOption(index);
-                setAnswered(true);
-                const challenge = shuffledChallenges[currentChallenge];
-                if (challenge.type === 'phishing') {
-                    const isPhishing = challenge.answer === 'phishing';
-                    const correctAnswer = isPhishing ? 1 : 0;
-                    if (index === correctAnswer) setScore(s => s + 1);
-                } else {
-                    if (index === challenge.scenario[language]?.answer ?? challenge.scenario.en.answer) setScore(s => s + 1);
-                }
-            };
+function setLang(l){
+    lang=l;
+    document.body.setAttribute('dir',dr());
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim()===(l==='en'?'English':l==='ur'?'اردو':'پښتو')));
+    const c=fc();
+    ['site-title','sec-title','intro-title','cat-title'].forEach(id=>{const el=document.getElementById(id);if(el)el.className=c;});
+    document.getElementById('site-title').textContent=t('title');
+    document.getElementById('site-subtitle').textContent=t('subtitle');
+    document.getElementById('sec-title').textContent=t('title');
+    document.getElementById('sec-sub1').textContent=t('subtitle');
+    document.getElementById('academy-link').textContent=t('backToAcademy');
+    document.getElementById('intro-title').textContent=t('title');
+    document.getElementById('intro-subtitle').textContent=t('subtitle');
+    document.getElementById('btn-start').textContent=t('startBtn')+' 🚀';
+    document.getElementById('btn-try-again').textContent=t('tryAgain');
+    document.getElementById('btn-academy').textContent=t('backToAcademy');
+}
 
-            const nextChallenge = () => {
-                if (currentChallenge + 1 < shuffledChallenges.length) {
-                    setCurrentChallenge(c => c + 1);
-                    setAnswered(false);
-                    setSelectedOption(null);
-                } else {
-                    setView('result');
-                }
-            };
+function startChallenge(){
+    challenges=[...CHALLENGES].sort(()=>Math.random()-0.5).slice(0,8);
+    currentIdx=0;score=0;answered=false;
+    document.getElementById('view-intro').style.display='none';
+    document.getElementById('view-challenge').style.display='';
+    document.getElementById('view-result').style.display='none';
+    showChallenge();
+}
 
-            const getChallengeData = () => {
-                const c = shuffledChallenges[currentChallenge];
-                return c;
-            };
+function showChallenge(){
+    answered=false;
+    const c=challenges[currentIdx];
+    const l=lang;
+    const cl=fc();
+    document.getElementById('challenge-counter').textContent=t('challenge')+' '+(currentIdx+1)+' '+t('of')+' '+challenges.length;
+    document.getElementById('progress-fill').style.width=((currentIdx+1)/challenges.length*100)+'%';
+    document.getElementById('next-btn-container').style.display='none';
 
-            useEffect(() => {
-                const titleEl = document.getElementById('header-title');
-                const desc1El = document.getElementById('header-desc1');
-                const desc2El = document.getElementById('header-desc2');
-                const fontClass = language === 'ur' ? 'font-urdu' : language === 'ps' ? 'font-pashto' : '';
-                if (titleEl) { titleEl.innerText = t('title'); titleEl.className = `text-3xl font-bold text-white ${fontClass}`; }
-                if (desc1El) { desc1El.innerText = t('subtitle'); desc1El.className = `mt-3 text-lg text-slate-300 ${fontClass}`; }
-                if (desc2El) { desc2El.innerText = ''; }
-            }, [language]);
+    let html='';
+    if(c.type==='phishing'){
+        const d=c.scenario[l]||c.scenario.en;
+        const isPhish=c.answer==='phishing';
+        html='<h3 style="font-size:20px;font-weight:700;margin-bottom:16px;" class="'+cl+'">'+t('phishing')+'</h3>';
+        html+='<div class="email-box">';
+        html+='<div style="margin-bottom:8px;"><span style="color:#94a3b8;font-size:13px;">From: </span><span class="email-from">'+d.from+'</span></div>';
+        html+='<div style="margin-bottom:16px;"><span style="color:#94a3b8;font-size:13px;">Subject: </span><span class="email-subject">'+d.subject+'</span></div>';
+        html+='<hr style="border-color:#334155;margin-bottom:16px;">';
+        html+='<div class="'+cl+'" style="color:#cbd5e1;white-space:pre-line;font-size:14px;line-height:1.7;">'+d.body+'</div>';
+        html+='</div>';
+        html+='<div class="phishing-btns" style="margin-top:20px;">';
+        html+='<button class="phishing-btn legit" onclick="handlePhishing(false)" id="btn-legit">'+t('legitBtn')+'</button>';
+        html+='<button class="phishing-btn phishing" onclick="handlePhishing(true)" id="btn-phish">'+t('phishingBtn')+'</button>';
+        html+='</div>';
+        html+='<div id="answer-area"></div>';
+    } else if(c.type==='password'){
+        const d=c.scenario[l]||c.scenario.en;
+        html='<h3 style="font-size:20px;font-weight:700;margin-bottom:16px;" class="'+cl+'">'+t('passwordQ')+'</h3>';
+        html+='<div style="background:rgba(15,23,42,0.9);border:1px solid #334155;border-radius:12px;padding:24px;text-align:center;margin-bottom:20px;">';
+        html+='<p style="color:#94a3b8;font-size:13px;margin-bottom:8px;">'+t('password')+'</p>';
+        html+='<p style="font-size:28px;font-weight:800;color:#fbbf24;font-family:\'Courier Prime\',monospace;word-break:break-all;">'+c.scenario.en.password+'</p>';
+        html+='</div>';
+        html+='<p style="color:#cbd5e1;text-align:center;margin-bottom:16px;" class="'+cl+'">'+d.question+'</p>';
+        html+='<div id="options-area">';
+        d.options.forEach((opt,i)=>{
+            html+='<button class="option-btn '+cl+'" onclick="handleOption('+i+')">'+opt+'</button>';
+        });
+        html+='</div>';
+        html+='<div id="answer-area"></div>';
+    } else if(c.type==='scam'){
+        const d=c.scenario[l]||c.scenario.en;
+        html='<h3 style="font-size:20px;font-weight:700;margin-bottom:16px;" class="'+cl+'">'+t('scam')+'</h3>';
+        html+='<div style="background:rgba(15,23,42,0.9);border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:20px;">';
+        html+='<p style="color:#f87171;font-size:13px;font-weight:700;margin-bottom:8px;">⚠️ '+d.title+'</p>';
+        html+='<div class="'+cl+'" style="color:#cbd5e1;white-space:pre-line;font-size:14px;line-height:1.7;">'+d.description+'</div>';
+        html+='</div>';
+        html+='<div id="options-area">';
+        d.options.forEach((opt,i)=>{
+            html+='<button class="option-btn '+cl+'" onclick="handleOption('+i+')">'+String.fromCharCode(65+i)+') '+opt+'</button>';
+        });
+        html+='</div>';
+        html+='<div id="answer-area"></div>';
+    }
+    document.getElementById('challenge-content').innerHTML=html;
+}
 
-            const renderPhishingChallenge = (challenge) => {
-                const data = challenge.scenario[language] || challenge.scenario.en;
-                const isCorrect = answered && (
-                    (challenge.answer === 'phishing' && selectedOption === 1) ||
-                    (challenge.answer === 'legitimate' && selectedOption === 0)
-                );
+function handlePhishing(guessPhishing){
+    if(answered)return;
+    answered=true;
+    const c=challenges[currentIdx];
+    const isPhish=c.answer==='phishing';
+    const correct=(guessPhishing&&isPhish)||(!guessPhishing&&!isPhish);
+    if(correct)score++;
+    const d=c.scenario[lang]||c.scenario.en;
+    let html='<div class="explanation-box '+(correct?'explanation-correct':'explanation-wrong')+'">';
+    html+='<p style="font-weight:700;'+(correct?'color:#4ade80;':'color:#f87171;')+'">'+(correct?'✅ '+t('correct'):'❌ '+t('incorrect'))+'</p>';
+    html+='<p style="color:#cbd5e1;margin-top:8px;font-size:14px;" class="'+fc()+'">'+(c.explanation[lang]||c.explanation.en)+'</p>';
+    html+='</div>';
+    if(d.redFlags&&d.redFlags.length>0){
+        html+='<div style="padding:16px;border-radius:12px;margin-top:12px;border:1px solid rgba(234,179,8,0.3);background:rgba(234,179,8,0.08);">';
+        html+='<p class="red-flag">🚩 '+t('redFlags')+'</p>';
+        html+='<ul style="list-style:disc;padding-left:20px;margin-top:8px;">';
+        d.redFlags.forEach(f=>{html+='<li style="color:#cbd5e1;font-size:14px;" class="'+fc()+'">'+f+'</li>';});
+        html+='</ul></div>';
+    }
+    document.getElementById('answer-area').innerHTML=html;
+    document.getElementById('next-btn-container').style.display='';
+    document.getElementById('btn-legit').disabled=true;
+    document.getElementById('btn-phish').disabled=true;
+    if(correct){
+        document.getElementById(guessPhishing?'btn-phish':'btn-legit').classList.add('correct');
+    } else {
+        document.getElementById(guessPhishing?'btn-phish':'btn-legit').classList.add('wrong');
+        document.getElementById(isPhish?'btn-phish':'btn-legit').classList.add('correct');
+    }
+}
 
-                return (
-                    <div className="space-y-6 fade-in">
-                        <h3 className={`text-xl font-bold text-white ${currentFont}`}>{t('phishing')}</h3>
-                        <div className="bg-slate-900/90 border border-slate-700 rounded-xl p-6 email-box">
-                            <div className="mb-2">
-                                <span className="text-slate-500 text-sm">From: </span>
-                                <span className="email-from">{data.from}</span>
-                            </div>
-                            <div className="mb-4">
-                                <span className="text-slate-500 text-sm">Subject: </span>
-                                <span className="email-subject">{data.subject}</span>
-                            </div>
-                            <hr className="border-slate-700 mb-4" />
-                            <div className={`${currentFont} text-slate-300 whitespace-pre-line text-sm leading-relaxed`}>{data.body}</div>
-                        </div>
+function handleOption(idx){
+    if(answered)return;
+    answered=true;
+    const c=challenges[currentIdx];
+    const d=c.scenario[lang]||c.scenario.en;
+    const correctAnswer=d.answer;
+    const isCorrect=idx===correctAnswer;
+    if(isCorrect)score++;
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <button onClick={() => handleAnswer(0)} disabled={answered}
-                                className={`p-4 rounded-xl border-2 text-center font-bold transition-all ${
-                                    answered
-                                        ? (challenge.answer === 'legitimate'
-                                            ? 'border-green-500 bg-green-600/20 text-green-300'
-                                            : selectedOption === 0 ? 'border-red-500 bg-red-600/20 text-red-300' : 'border-slate-700 bg-slate-800/50 text-slate-500')
-                                        : 'border-emerald-600/50 bg-emerald-600/10 text-emerald-300 hover:border-emerald-500 hover:bg-emerald-600/20'
-                                } ${currentFont}`}>
-                                🛡️ {t('phishingLegit')}
-                            </button>
-                            <button onClick={() => handleAnswer(1)} disabled={answered}
-                                className={`p-4 rounded-xl border-2 text-center font-bold transition-all ${
-                                    answered
-                                        ? (challenge.answer === 'phishing'
-                                            ? 'border-green-500 bg-green-600/20 text-green-300'
-                                            : selectedOption === 1 ? 'border-red-500 bg-red-600/20 text-red-300' : 'border-slate-700 bg-slate-800/50 text-slate-500')
-                                        : 'border-red-600/50 bg-red-600/10 text-red-300 hover:border-red-500 hover:bg-red-600/20'
-                                } ${currentFont}`}>
-                                🚨 {t('phishingDanger')}
-                            </button>
-                        </div>
+    const btns=document.querySelectorAll('#options-area .option-btn');
+    btns.forEach((btn,i)=>{
+        if(i===correctAnswer)btn.classList.add('correct');
+        else if(i===idx&&!isCorrect)btn.classList.add('wrong');
+        else btn.classList.add('disabled');
+    });
 
-                        {answered && (
-                            <div className="fade-in space-y-4">
-                                <div className={`p-4 rounded-xl border ${isCorrect ? 'border-green-500/50 bg-green-900/20' : 'border-red-500/50 bg-red-900/20'}`}>
-                                    <p className={`font-bold ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
-                                        {isCorrect ? '✅ ' + t('correct') : '❌ ' + t('incorrect')}
-                                    </p>
-                                    <p className={`text-slate-300 mt-2 text-sm ${currentFont}`}>
-                                        {challenge.explanation[language] || challenge.explanation.en}
-                                    </p>
-                                </div>
-                                {data.redFlags && data.redFlags.length > 0 && (
-                                    <div className="p-4 rounded-xl border border-yellow-500/30 bg-yellow-900/10">
-                                        <p className="text-yellow-400 font-bold text-sm">🚩 {t('redFlags')}</p>
-                                        <ul className="mt-2 space-y-1">
-                                            {data.redFlags.map((flag, i) => (
-                                                <li key={i} className={`text-slate-300 text-sm ${currentFont}`}>• {flag}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                );
-            };
+    let html='<div class="explanation-box explanation-info">';
+    html+='<p style="color:#60a5fa;font-weight:700;font-size:14px;">💡 '+t('explanation')+'</p>';
+    html+='<p style="color:#cbd5e1;margin-top:8px;font-size:14px;" class="'+fc()+'">'+d.explanation+'</p>';
+    html+='</div>';
+    document.getElementById('answer-area').innerHTML=html;
+    document.getElementById('next-btn-container').style.display='';
+}
 
-            const renderPasswordChallenge = (challenge) => {
-                const data = challenge.scenario[language] || challenge.scenario.en;
-                const correctAnswer = data.answer;
+function nextChallenge(){
+    if(currentIdx+1<challenges.length){
+        currentIdx++;
+        showChallenge();
+    } else {
+        showResult();
+    }
+}
 
-                return (
-                    <div className="space-y-6 fade-in">
-                        <h3 className={`text-xl font-bold text-white ${currentFont}`}>{t('password')}</h3>
+function showResult(){
+    const pct=Math.round((score/challenges.length)*100);
+    let icon,msg,msgClass;
+    if(pct>=80){icon='🛡️';msg=t('excellent');msgClass='color:#4ade80;';}
+    else if(pct>=50){icon='⚔️';msg=t('good');msgClass='color:#fbbf24;';}
+    else{icon='📖';msg=t('keepLearning');msgClass='color:#f87171;';}
+    document.getElementById('view-intro').style.display='none';
+    document.getElementById('view-challenge').style.display='none';
+    document.getElementById('view-result').style.display='';
+    document.getElementById('result-icon').textContent=icon;
+    document.getElementById('result-title').textContent=t('yourScore');
+    document.getElementById('result-title').className=fc();
+    document.getElementById('result-score').textContent=score+' '+t('outOf')+' '+challenges.length;
+    document.getElementById('result-score').style.cssText=msgClass+'font-size:48px;font-weight:800;';
+    document.getElementById('result-msg').textContent=msg;
+    document.getElementById('result-msg').className=fc();
+}
 
-                        <div className="bg-slate-900/90 border border-slate-700 rounded-xl p-6 text-center">
-                            <p className="text-slate-500 text-sm mb-2">Password:</p>
-                            <p className="text-3xl md:text-4xl font-mono font-bold text-amber-400 tracking-wider break-all">
-                                {challenge.scenario.en.password}
-                            </p>
-                        </div>
-
-                        <p className={`text-slate-300 text-center ${currentFont}`}>{data.question}</p>
-
-                        <div className="space-y-3">
-                            {data.options.map((option, index) => {
-                                const isCorrect = answered && index === correctAnswer;
-                                const isWrong = answered && selectedOption === index && index !== correctAnswer;
-                                return (
-                                    <button key={index} onClick={() => handleAnswer(index)} disabled={answered}
-                                        className={`w-full p-4 rounded-xl border-2 text-left transition-all ${currentFont} ${
-                                            isCorrect ? 'border-green-500 bg-green-600/20 text-green-300' :
-                                            isWrong ? 'border-red-500 bg-red-600/20 text-red-300' :
-                                            answered ? 'border-slate-700 bg-slate-800/50 text-slate-500' :
-                                            'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-amber-500 hover:bg-amber-600/10'
-                                        }`}>
-                                        {option}
-                                    </button>
-                                );
-                            })}
-                        </div>
-
-                        {answered && (
-                            <div className="p-4 rounded-xl border border-blue-500/30 bg-blue-900/10 fade-in">
-                                <p className="text-blue-400 font-bold text-sm">💡 {t('explanation')}</p>
-                                <p className={`text-slate-300 mt-2 text-sm ${currentFont}`}>{data.explanation}</p>
-                            </div>
-                        )}
-                    </div>
-                );
-            };
-
-            const renderScamChallenge = (challenge) => {
-                const data = challenge.scenario[language] || challenge.scenario.en;
-                const correctAnswer = data.answer;
-
-                return (
-                    <div className="space-y-6 fade-in">
-                        <h3 className={`text-xl font-bold text-white ${currentFont}`}>{t('scam')}</h3>
-
-                        <div className="bg-slate-900/90 border border-slate-700 rounded-xl p-6">
-                            <p className="text-red-400 text-sm font-bold mb-2">⚠️ {data.title}</p>
-                            <div className={`text-slate-300 whitespace-pre-line text-sm leading-relaxed ${currentFont}`}>{data.description}</div>
-                        </div>
-
-                        <div className="space-y-3">
-                            {data.options.map((option, index) => {
-                                const isCorrect = answered && index === correctAnswer;
-                                const isWrong = answered && selectedOption === index && index !== correctAnswer;
-                                return (
-                                    <button key={index} onClick={() => handleAnswer(index)} disabled={answered}
-                                        className={`w-full p-4 rounded-xl border-2 text-left transition-all ${currentFont} ${
-                                            isCorrect ? 'border-green-500 bg-green-600/20 text-green-300' :
-                                            isWrong ? 'border-red-500 bg-red-600/20 text-red-300' :
-                                            answered ? 'border-slate-700 bg-slate-800/50 text-slate-500' :
-                                            'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-cyan-500 hover:bg-cyan-600/10'
-                                        }`}>
-                                        {String.fromCharCode(65 + index)}) {option}
-                                    </button>
-                                );
-                            })}
-                        </div>
-
-                        {answered && (
-                            <div className="p-4 rounded-xl border border-blue-500/30 bg-blue-900/10 fade-in">
-                                <p className="text-blue-400 font-bold text-sm">💡 {t('explanation')}</p>
-                                <p className={`text-slate-300 mt-2 text-sm ${currentFont}`}>{data.explanation}</p>
-                            </div>
-                        )}
-                    </div>
-                );
-            };
-
-            const renderResult = () => {
-                const percentage = Math.round((score / shuffledChallenges.length) * 100);
-                let message, messageClass;
-                if (percentage >= 80) { message = t('excellent'); messageClass = 'text-green-400'; }
-                else if (percentage >= 50) { message = t('good'); messageClass = 'text-amber-400'; }
-                else { message = t('keepLearning'); messageClass = 'text-red-400'; }
-
-                return (
-                    <div className="max-w-lg w-full text-center space-y-8 fade-in">
-                        <div className={`w-28 h-28 rounded-full flex items-center justify-center mx-auto border-4 ${
-                            percentage >= 80 ? 'border-green-500 bg-green-500/10' :
-                            percentage >= 50 ? 'border-amber-500 bg-amber-500/10' :
-                            'border-red-500 bg-red-500/10'
-                        }`}>
-                            <span className="text-5xl">
-                                {percentage >= 80 ? '🛡️' : percentage >= 50 ? '⚔️' : '📖'}
-                            </span>
-                        </div>
-
-                        <div>
-                            <h2 className={`text-3xl font-bold text-white mb-2 ${currentFont}`}>{t('yourScore')}</h2>
-                            <p className={`text-5xl font-bold ${messageClass}`}>{score} {t('outOf')} {shuffledChallenges.length}</p>
-                            <p className={`text-lg mt-4 ${messageClass} ${currentFont}`}>{message}</p>
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button onClick={startChallenge}
-                                className={`px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-colors ${currentFont}`}>
-                                {t('tryAgain')}
-                            </button>
-                            <a href="/academy/"
-                                className={`px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-medium transition-colors ${currentFont}`}>
-                                {t('backToAcademy')}
-                            </a>
-                        </div>
-                    </div>
-                );
-            };
-
-            return (
-                <div className="flex-grow flex flex-col" dir={dir}>
-                    <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-lg">
-                        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-3">
-                            <div className="flex items-center gap-3">
-                                <img src="/logo.png" alt="PashtunEinstein Logo" className="h-12 w-auto" />
-                                <div>
-                                    <h1 className={`text-xl font-bold text-white ${currentFont}`}>{t('title')}</h1>
-                                    <p className={`text-xs text-slate-400 uppercase tracking-wider ${currentFont}`}>{t('subtitle')}</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-3 flex-wrap justify-center">
-                                <div className="flex items-center bg-slate-800 rounded-full p-1 border border-slate-700">
-                                    {['en', 'ur', 'ps'].map(code => (
-                                        <button key={code} onClick={() => setLanguage(code)}
-                                            className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
-                                                language === code ? 'bg-cyan-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-700'
-                                            } ${code === 'ur' ? 'font-urdu' : code === 'ps' ? 'font-pashto' : ''}`}>
-                                            {code === 'en' ? 'English' : code === 'ur' ? 'اردو' : 'پښتو'}
-                                        </button>
-                                    ))}
-                                </div>
-                                <a href="/academy/" className="text-cyan-400 hover:text-cyan-300 text-sm font-medium">{t('backToAcademy')}</a>
-                            </div>
-                        </div>
-                    </header>
-
-                    <main className="flex-grow flex items-center justify-center p-4 sm:p-8 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black -z-10"></div>
-
-                        {view === 'intro' && (
-                            <div className="max-w-2xl w-full text-center space-y-8 fade-in">
-                                <div className="bg-cyan-500/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto border-4 border-cyan-500 shadow-2xl shadow-cyan-500/20">
-                                    <span className="text-5xl">🛡️</span>
-                                </div>
-                                <div>
-                                    <h2 className={`text-4xl md:text-5xl font-bold text-white mb-4 ${currentFont}`}>{t('title')}</h2>
-                                    <p className={`text-lg text-slate-400 ${currentFont}`}>{t('subtitle')}</p>
-                                    <p className={`text-sm text-slate-500 mt-4 ${currentFont}`}>
-                                        {language === 'ur' ? 'فشنگ ای میلز کی شناخت، پاسورڈ طاقت کا تخمینہ، اور scam کی شناخت' :
-                                         language === 'ps' ? 'فشنگ ایمیلونه پیژندنه، د پړنوم قوت تخمین، او scamm پیژندنه' :
-                                         'Phishing identification, password crack estimation, and scam detection'}
-                                    </p>
-                                </div>
-                                <button onClick={startChallenge}
-                                    className={`px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-lg font-bold rounded-full shadow-lg shadow-cyan-600/25 transition-all transform hover:scale-105 ${currentFont}`}>
-                                    {t('startBtn')} 🚀
-                                </button>
-                            </div>
-                        )}
-
-                        {view === 'challenge' && shuffledChallenges.length > 0 && (
-                            <div className="max-w-2xl w-full space-y-6">
-                                <div className="flex items-center justify-between text-sm text-slate-400">
-                                    <span className={currentFont}>{t('challenge')} {currentChallenge + 1} {t('of')} {shuffledChallenges.length}</span>
-                                    <div className="w-48 bg-slate-800 h-2 rounded-full overflow-hidden" dir="ltr">
-                                        <div className="bg-cyan-500 h-full transition-all duration-300" style={{ width: `${((currentChallenge + 1) / shuffledChallenges.length) * 100}%` }}></div>
-                                    </div>
-                                </div>
-
-                                {(() => {
-                                    const challenge = getChallengeData();
-                                    if (challenge.type === 'phishing') return renderPhishingChallenge(challenge);
-                                    if (challenge.type === 'password') return renderPasswordChallenge(challenge);
-                                    if (challenge.type === 'scam') return renderScamChallenge(challenge);
-                                    return null;
-                                })()}
-
-                                {answered && (
-                                    <div className="flex justify-center">
-                                        <button onClick={nextChallenge}
-                                            className={`px-8 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-medium transition-colors ${currentFont}`}>
-                                            {t('nextBtn')} →
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-
-                        {view === 'result' && renderResult()}
-                    </main>
-
-                    <footer className="bg-slate-950 text-slate-600 py-6 text-center text-sm border-t border-slate-900">
-                        <p>&copy; {new Date().getFullYear()} PashtunEinstein. All Rights Reserved.</p>
-                        <div className="flex justify-center gap-4 mt-2">
-                            <a href="https://pashtuneinstein.com/" className={`hover:text-cyan-400 ${currentFont}`}>Website</a>
-                            <span className="text-slate-800">•</span>
-                            <a href="https://blog.pashtuneinstein.com/" className={`hover:text-cyan-400 ${currentFont}`}>Blog</a>
-                        </div>
-                    </footer>
-                </div>
-            );
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+setLang('en');
+</script>
 </body>
 </html>

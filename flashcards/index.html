@@ -14,7 +14,7 @@
     <meta property="og:image" content="https://pashtuneinstein.com/logo.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Science Flashcards - PashtunEinstein">
-    <meta name="twitter:description" content="Spaced-repetition science flashcards in English, Urdu, and Pashto. Memorize biology, physics, chemistry, and earth science terms efficiently.">
+    <meta name="twitter:description" content="Spaced-repetition science flashcards in English, Urdu, and Pashto.">
     <meta name="twitter:image" content="https://pashtuneinstein.com/logo.png">
     <meta name="theme-color" content="#020617">
     <link rel="canonical" href="https://pashtuneinstein.com/flashcards/">
@@ -30,10 +30,8 @@
       "url": "https://pashtuneinstein.com/flashcards/",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Any",
-      "description": "Trilingual spaced-repetition science flashcards for English, Urdu, and Pashto learners covering biology, physics, chemistry, and earth science.",
-      "publisher": {
-        "@id": "https://pashtuneinstein.com/#organization"
-      },
+      "description": "Trilingual spaced-repetition science flashcards for English, Urdu, and Pashto learners.",
+      "publisher": { "@id": "https://pashtuneinstein.com/#organization" },
       "inLanguage": ["en", "ur", "ps"]
     }
     </script>
@@ -42,484 +40,397 @@
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://pashtuneinstein.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Academy",
-          "item": "https://pashtuneinstein.com/academy/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Science Flashcards",
-          "item": "https://pashtuneinstein.com/flashcards/"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pashtuneinstein.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Academy", "item": "https://pashtuneinstein.com/academy/" },
+        { "@type": "ListItem", "position": 3, "name": "Science Flashcards", "item": "https://pashtuneinstein.com/flashcards/" }
       ]
     }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    <script type="importmap">
-    {
-        "imports": {
-            "react": "https://esm.sh/react@18.2.0",
-            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client"
-        }
-    }
-    </script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #020617; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; }
         .font-urdu { font-family: 'Noto Nastaliq Urdu', serif; line-height: 2.2; }
         .font-pashto { font-family: 'Noto Naskh Arabic', serif; line-height: 1.8; }
-        .flashcard {
-            perspective: 1000px;
-        }
-        .flashcard-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .flashcard.flipped .flashcard-inner {
-            transform: rotateY(180deg);
-        }
-        .flashcard-front, .flashcard-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-        .flashcard-back {
-            transform: rotateY(180deg);
-        }
-        .card-btn {
-            transition: all 0.2s ease;
-        }
-        .card-btn:hover {
-            transform: translateY(-2px);
-        }
-        .progress-ring {
-            transition: stroke-dashoffset 0.35s;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .header-bar { background: #0f172a; border-bottom: 1px solid #1e293b; padding: 12px 16px; position: sticky; top: 0; z-index: 50; }
+        .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+        .lang-btns { display: flex; background: #1e293b; border-radius: 999px; padding: 3px; border: 1px solid #334155; }
+        .lang-btn { padding: 6px 14px; border-radius: 999px; border: none; background: transparent; color: #94a3b8; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s; }
+        .lang-btn.active { background: #2563eb; color: #fff; box-shadow: 0 2px 8px rgba(37,99,235,0.4); }
+        .lang-btn:hover:not(.active) { color: #e2e8f0; background: #334155; }
+        .main-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px 16px; position: relative; }
+        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 500px; margin: 0 auto; }
+        .cat-btn { padding: 20px 16px; border-radius: 12px; border: 2px solid #334155; background: rgba(30,41,59,0.5); color: #cbd5e1; cursor: pointer; transition: all 0.2s; text-align: center; font-size: 15px; font-weight: 600; }
+        .cat-btn:hover { border-color: #475569; background: rgba(30,41,59,0.8); }
+        .cat-btn.selected { border-color: #10b981; background: rgba(16,185,129,0.15); color: #6ee7b7; }
+        .cat-icon { font-size: 32px; display: block; margin-bottom: 8px; }
+        .action-btn { display: inline-block; padding: 14px 32px; border-radius: 999px; border: none; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+        .action-btn:hover { transform: translateY(-2px); }
+        .btn-primary { background: linear-gradient(135deg, #059669, #0d9488); color: #fff; box-shadow: 0 4px 15px rgba(16,185,129,0.3); }
+        .btn-secondary { background: #334155; color: #e2e8f0; }
+        .btn-secondary:hover { background: #475569; }
+        .btn-danger { background: transparent; color: #94a3b8; border: 1px solid #334155; padding: 12px 24px; }
+        .btn-danger:hover { border-color: #ef4444; color: #f87171; }
+        .flashcard { perspective: 1000px; cursor: pointer; min-height: 300px; position: relative; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; min-height: 300px; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-face { position: absolute; width: 100%; height: 100%; min-height: 300px; backface-visibility: hidden; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+        .flashcard-front { background: rgba(15,23,42,0.9); border: 2px solid rgba(16,185,129,0.4); }
+        .flashcard-back { transform: rotateY(180deg); background: rgba(30,41,59,0.95); border: 2px solid rgba(59,130,246,0.4); }
+        .progress-bar { width: 200px; height: 8px; background: #1e293b; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #10b981; transition: width 0.3s; border-radius: 4px; }
+        .rate-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .rate-btn { padding: 12px; border-radius: 12px; border: 2px solid; font-weight: 700; cursor: pointer; transition: all 0.2s; background: transparent; }
+        .rate-btn:hover { transform: translateY(-2px); }
+        .rate-knew { border-color: rgba(16,185,129,0.5); color: #6ee7b7; background: rgba(16,185,129,0.1); }
+        .rate-knew:hover { background: rgba(16,185,129,0.2); }
+        .rate-learning { border-color: rgba(245,158,11,0.5); color: #fcd34d; background: rgba(245,158,11,0.1); }
+        .rate-learning:hover { background: rgba(245,158,11,0.2); }
+        .rate-forgot { border-color: rgba(239,68,68,0.5); color: #fca5a5; background: rgba(239,68,68,0.1); }
+        .rate-forgot:hover { background: rgba(239,68,68,0.2); }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 24px; }
+        .stat-box { background: rgba(30,41,59,0.8); border-radius: 12px; padding: 16px; border: 1px solid #334155; text-align: center; }
+        .stat-num { font-size: 24px; font-weight: 800; }
+        .stat-label { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
+        .modal-box { background: #0f172a; border: 1px solid #334155; border-radius: 16px; padding: 32px; max-width: 400px; width: 100%; text-align: center; }
+        .hidden { display: none !important; }
         .fade-in { animation: fadeIn 0.4s ease-out; }
-        @keyframes correctPulse {
-            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .footer { background: #020617; border-top: 1px solid #0f172a; padding: 20px; text-align: center; font-size: 14px; color: #475569; }
+        .footer a { color: #60a5fa; text-decoration: none; }
+        .footer a:hover { color: #93c5fd; }
+        .center-col { text-align: center; max-width: 600px; width: 100%; }
+        .logo-img { height: 48px; width: auto; }
+        .site-title { font-size: 20px; font-weight: 800; color: #fff; }
+        .site-subtitle { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+        .section-header { max-width: 800px; margin: 0 auto; padding: 32px 16px; text-align: center; }
+        .section-header h1 { font-size: 28px; font-weight: 800; color: #fff; }
+        .section-header p { margin-top: 12px; font-size: 16px; color: #94a3b8; }
+        .section-header .sub2 { font-size: 14px; color: #64748b; margin-top: 8px; }
+        a.academy-link { color: #60a5fa; font-size: 14px; font-weight: 600; text-decoration: none; }
+        a.academy-link:hover { color: #93c5fd; }
+        @media (max-width: 600px) {
+            .card-grid { grid-template-columns: 1fr; }
+            .rate-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .header-inner { flex-direction: column; align-items: center; }
+            .flashcard-face, .flashcard-inner { min-height: 260px; }
         }
-        @keyframes wrongPulse {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
-        .correct-pulse { animation: correctPulse 0.6s ease-out; }
-        .wrong-pulse { animation: wrongPulse 0.6s ease-out; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col">
+<body data-lang="en">
 
-    <section class="border-b border-slate-800 bg-slate-950">
-        <div class="max-w-5xl mx-auto px-4 py-8">
-            <h1 id="header-title" class="text-3xl font-bold text-white">Science Flashcards</h1>
-            <p id="header-desc1" class="mt-3 text-lg text-slate-300">Spaced-repetition flashcards for memorizing science terms in English, Urdu, and Pashto.</p>
-            <p id="header-desc2" class="mt-3 text-slate-400">Flip each card to reveal the answer, rate your recall, and the system schedules harder cards more frequently so you learn faster.</p>
+<div class="section-header" id="sec-header">
+    <h1 id="sec-title">Science Flashcards</h1>
+    <p id="sec-sub1">Spaced-repetition flashcards for memorizing science terms in English, Urdu, and Pashto.</p>
+    <p class="sub2" id="sec-sub2">Flip each card to reveal the answer, rate your recall, and the system schedules harder cards more frequently.</p>
+</div>
+
+<header class="header-bar">
+    <div class="header-inner">
+        <div style="display:flex;align-items:center;gap:10px;">
+            <img src="/logo.png" alt="PashtunEinstein" class="logo-img">
+            <div>
+                <div class="site-title" id="site-title">Science Flashcards</div>
+                <div class="site-subtitle" id="site-subtitle">Spaced-Repetition Learning</div>
+            </div>
         </div>
-    </section>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;">
+            <div class="lang-btns">
+                <button class="lang-btn active" onclick="setLang('en')">English</button>
+                <button class="lang-btn" onclick="setLang('ur')">اردو</button>
+                <button class="lang-btn" onclick="setLang('ps')">پښتو</button>
+            </div>
+            <a href="/academy/" class="academy-link" id="academy-link">Back to Academy</a>
+        </div>
+    </div>
+</header>
 
-    <noscript>
-        <section class="max-w-5xl mx-auto px-4 py-8 text-slate-300">
-            <h2 class="text-2xl font-semibold text-white">JavaScript is required for the interactive flashcards</h2>
-            <p class="mt-3">These flashcards run in your browser with local storage for progress tracking. The summary above provides crawlable context for search engines and AI systems.</p>
-            <h3 class="text-xl font-semibold text-white mt-6">Sample Flashcard Terms</h3>
-            <ul class="mt-2 list-disc pl-6">
-                <li>Photosynthesis - ضیائی تالیف - فوتوسنتز</li>
-                <li>Gravity - کشش ثقل - جاذبه</li>
-                <li>Cell - خلیہ - حجره</li>
-                <li>Photosynthesis - ضیائی تالیف - فوتوسنتز</li>
-                <li>Molecule - سالمہ - مالیکول</li>
-                <li>DNA - ڈی این اے - ډی این اې</li>
-                <li>Evolution - ارتقائ - تکامل</li>
-                <li>Osmosis - اسموز - اسموز</li>
-                <li>Thermodynamics - حرحرکیات - ترمودینامیک</li>
-                <li>Periodic Table - دوری جدول - دوری جدول</li>
-            </ul>
-        </section>
-    </noscript>
+<div class="main-content">
+    <!-- CATEGORY VIEW -->
+    <div id="view-categories" class="center-col fade-in">
+        <div style="font-size:56px;text-align:center;margin-bottom:20px;">📚</div>
+        <h2 id="cat-title" style="font-size:28px;font-weight:800;text-align:center;margin-bottom:24px;">Select a Category</h2>
+        <div class="card-grid" id="cat-grid"></div>
+        <p id="cat-hint" style="text-align:center;color:#64748b;font-size:14px;margin-top:12px;">All categories will be included if none selected.</p>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px;">
+            <button class="action-btn btn-primary" id="btn-start" onclick="startSession()">Start Session 🚀</button>
+            <button class="action-btn btn-danger" id="btn-reset" onclick="showResetModal()">Reset All Progress</button>
+        </div>
+        <div class="stats-grid" id="stats-grid"></div>
+    </div>
 
-    <div id="root" class="flex-grow flex flex-col"></div>
-
-    <script type="text/babel" data-type="module">
-        import React, { useState, useEffect, useCallback } from 'react';
-        import ReactDOM from 'react-dom/client';
-
-        const FLASHCARD_DATA = [
-            { id: 1, category: "biology", term: { en: "Cell", ur: "خلیہ", ps: "حجره" }, definition: { en: "The basic structural and functional unit of all living organisms.", ur: "تمام جانداروں کی بنیادی ساختی اور فعالی اکائی۔", ps: "د ټولو ژوندی موجوداتو بنسټیز جوړښتي او عملي واحد." } },
-            { id: 2, category: "biology", term: { en: "DNA", ur: "ڈی این اے", ps: "ډی این اې" }, definition: { en: "Deoxyribonucleic acid — carries the genetic instructions for all living organisms.", ur: "ڈی آکسی رائبونوکلک ایسڈ — تمام جانداروں کے لیے جینیاتی ہدایات رکھتا ہے۔", ps: "ډی آکسی رایبونوکلیک اسید — د ټولو ژوندی موجوداتو لپاره جنیټیکي لارښوونې لري." } },
-            { id: 3, category: "biology", term: { en: "Photosynthesis", ur: "ضیائی تالیف", ps: "فوتوسنتز" }, definition: { en: "The process by which plants convert sunlight, water, and CO₂ into glucose and oxygen.", ur: "وہ عمل جس میں پودے سورج کی روشنی، پانی اور کاربن ڈائی آکسائیڈ کو گلوکوز اور آکسیجن میں بدلتے ہیں۔", ps: "هغه پروسه چې نباتات د لمر وړانګه، اوبه او CO2 ګلوکوز او اکسیجن ته بدلوي." } },
-            { id: 4, category: "biology", term: { en: "Mitosis", ur: "مائٹوسس", ps: "مایتوزیس" }, definition: { en: "A type of cell division that results in two daughter cells with the same number of chromosomes.", ur: "خلیات کی تقسیم کی ایسا قسم جس کے نتیجے میں دو جینی خلیے بنتی ہیں۔", ps: "د حجرات وېشلوه ډول چې دوه لوڼو حجراتو ته پای ته رسیږي." } },
-            { id: 5, category: "biology", term: { en: "Enzyme", ur: "انزائم", ps: "انزایم" }, definition: { en: "A biological catalyst that speeds up chemical reactions in living organisms.", ur: "حیاتی عمل انگیز جو جانداروں میں کیمیائی عمل کو تیز کرتا ہے۔", ps: "بیالوژیکلي کتلیزټور چې د ژوندیو موجوداتو کې کیمیاوي غبرګونونه چټکوي." } },
-            { id: 6, category: "biology", term: { en: "Osmosis", ur: "اسموز", ps: "اسموز" }, definition: { en: "The movement of water molecules through a semi-permeable membrane from low to high solute concentration.", ur: "پانی کے سالمات کا نیم سرایت پذیر جھلی سے گزر کر کم سے زیادہ سالف کثافت والی جگہ جانا۔", ps: "د اوبو مالیکولونو حرکت د نیمه تراوا پرده له لارې." } },
-            { id: 7, category: "biology", term: { en: "Ecosystem", ur: "نظامِ حیات", ps: "ایکوسیسټم" }, definition: { en: "A community of living organisms interacting with their physical environment.", ur: "جانداروں کا ایک گروہ جو اپنے طبعی ماحول کے ساتھ باہمی تعلق رکھتا ہے۔", ps: "د ژوندیو موجوداتو یوه ټولنه چې خپل فزيکي چاپیریال سره تعامل لري." } },
-            { id: 8, category: "biology", term: { en: "Evolution", ur: "ارتقائ", ps: "تکامل" }, definition: { en: "The gradual change in species over generations through natural selection.", ur: "قدرتی انتخاب کے ذریعے نسلوں پر نسلوں میں نوعوں کی آہستہ آہستہ تبدیلی۔", ps: "د نوعونو تدریجي بدلون د طبیعي انتخاب له لارې." } },
-            { id: 9, category: "physics", term: { en: "Gravity", ur: "کشش ثقل", ps: "جاذبه" }, definition: { en: "The force of attraction between any two objects with mass.", ur: "کسی بھی دو اشیاء کے درمیان کشش کی قوت جن کی کمیت ہو۔", ps: "د هر دو شيونو ترمنځ د کشش ځواک چې وزن ولري." } },
-            { id: 10, category: "physics", term: { en: "Velocity", ur: "سمتی رفتار", ps: "چټکتا" }, definition: { en: "Speed in a given direction; a vector quantity.", ur: "ایک مخصوص سمت میں رفتار؛ ایک سمتی مقدار۔", ps: "د يوې ځانګړې لورې سره چټکتا؛ د ويکټر کمیت." } },
-            { id: 11, category: "physics", term: { en: "Acceleration", ur: "اسراع", ps: "تېزښت" }, definition: { en: "The rate at which velocity changes over time.", ur: "وہ شرح جس پر رفتار وقت کے ساتھ تبدیل ہوتی ہے۔", ps: "هغه اندازه چې چټکتا وخت سره بدلوي." } },
-            { id: 12, category: "physics", term: { en: "Energy", ur: "توانائی", ps: "انرژي" }, definition: { en: "The capacity to do work or cause change.", ur: "کام کرنے یا تبدیلی لانے کی صلاحیت۔", ps: "د کار کولو یا بدلون راوستلو ظرفیت." } },
-            { id: 13, category: "physics", term: { en: "Momentum", ur: "معرکہ", ps: "مومنټم" }, definition: { en: "The product of an object's mass and velocity; describes motion.", ur: "کسی شے کی کمیت اور رفتار کا حاصل ضرب؛ حرکت کی وضاحت کرتا ہے۔", ps: "د شی کمیت او چټکتا حاصل ضرب؛ حرکت بیانوي." } },
-            { id: 14, category: "physics", term: { en: "Force", ur: "قوت", ps: "ځواک" }, definition: { en: "A push or pull that can change an object's motion.", ur: "دھکا یا کھینچ جو شے کی حرکت بدل سکتی ہے۔", ps: "وهلو یا کشښ چې د شی حرکت بدلولی شي." } },
-            { id: 15, category: "physics", term: { en: "Wavelength", ur: "طولِ موج", ps: "د څپې اوږدوالی" }, definition: { en: "The distance between consecutive peaks of a wave.", ur: "لہر کے مسلسل چوٹیوں کے درمیان فاصلہ۔", ps: "د څپې پرله پسې څوکو ترمنځ واټن." } },
-            { id: 16, category: "physics", term: { en: "Thermodynamics", ur: "حرحرکیات", ps: "ترمودینامیک" }, definition: { en: "The branch of physics dealing with heat, work, and energy.", ur: "طبیعیات کی وہ شاخ جو حرارت، کام اور توانائی سے متعلق ہے۔", ps: "د فزیک هغه څانګه چې د تودوخې، کار او انرژۍ سره معامله کوي." } },
-            { id: 17, category: "chemistry", term: { en: "Atom", ur: "ایٹم", ps: "اتوم" }, definition: { en: "The smallest unit of a chemical element that retains its properties.", ur: "کیمیائی عنصر کی سب سے چھوٹی اکائی جو اپنی خصائیت برقرار رکھتی ہے۔", ps: "د کیمیاوي عنصر تر ټولو کوچنی واحد چې خپلې ځانګړتیاوې ساتي." } },
-            { id: 18, category: "chemistry", term: { en: "Molecule", ur: "سالمہ", ps: "مالیکول" }, definition: { en: "A group of atoms bonded together; the smallest unit of a chemical compound.", ur: "جوڑے ہوئے ایٹموں کا گروہ؛ کیمیائی مرکب کی سب سے چھوٹی اکائی۔", ps: "د تړلو اتومونو یوه ډله؛ د کیمیاوي مرکب تر ټولو کوچنی واحد." } },
-            { id: 19, category: "chemistry", term: { en: "Periodic Table", ur: "دوری جدول", ps: "دوری جدول" }, definition: { en: "A tabular arrangement of chemical elements organized by atomic number.", ur: "کیمیائی عناصر کی ایک جدولی ترتیب جو ایٹمی نمبر سے منظم ہو۔", ps: "د کیمیاوي عناصرو جدولي تنظیم چې د اتومي شمیر له مخې منظم شوې." } },
-            { id: 20, category: "chemistry", term: { en: "Chemical Bond", ur: "کیمیائی بندھن", ps: "کیمیاوي تړنه" }, definition: { en: "An attraction between atoms that allows the formation of chemical substances.", ur: "ایٹموں کے درمیان کشش جو کیمیائی مادوں کی تشکیل کی اجازت دیتی ہے۔", ps: "د اتومونو ترمنځ کشش چې د کیمیاوي موادو د جوړښت اجازه ورکوي." } },
-            { id: 21, category: "chemistry", term: { en: "Reaction", ur: "عمل", ps: "غبرګون" }, definition: { en: "A process where substances (reactants) are transformed into new substances (products).", ur: "ایک عمل جس میں مادے (متفاعل) نئے مادوں (مصنوعات) میں تبدیل ہوتے ہیں۔", ps: "هغه پروسه چې مواد (غبرګون کوونکي) نويو موادو ته بدلیږي." } },
-            { id: 22, category: "chemistry", term: { en: "Isotope", ur: "ہم座位", ps: "ایزوټوپ" }, definition: { en: "Atoms of the same element with different numbers of neutrons.", ur: "ایک ہی عنصر کے ایٹم جن میں نیوٹرانز کی تعداد مختلف ہو۔", ps: "د یوې عنصر اتومونه چې د نیوټرونونو شمیر یې توپیر لري." } },
-            { id: 23, category: "earth", term: { en: "Tectonic Plate", ur: "تختیٰ ارضی", ps: "تکتونیکي پلیټ" }, definition: { en: "A massive slab of solid rock that makes up Earth's lithosphere.", ur: "ٹھوس چٹان کی بڑی سلیب جو زمین کی قشر Haram تشکیل دیتی ہے۔", ps: "د کلک ډبرې لویه تاخته چې د ځمکې لیټوسفیر جوړوي." } },
-            { id: 24, category: "earth", term: { en: "Atmosphere", ur: "کرہِ ہوا", ps: "اتموسفیر" }, definition: { en: "The layer of gases surrounding Earth, held in place by gravity.", ur: "زمین کے گرد گیسوں کی تہ جو کشش ثقل سے قائم ہے۔", ps: "د ځمکې شاوخوا ګازونو طبقه چې د جاذبې له امله ساتل کیږي." } },
-            { id: 25, category: "earth", term: { en: "Erosion", ur: "کٹاو", ps: "فرسایش" }, definition: { en: "The gradual wearing away of rock and soil by water, wind, or ice.", ur: "پانی، ہوا یا برف کے ذریعے چٹان اور مٹی کا آہستہ آہستہ کم ہونا۔", ps: "د اوبو، باد یا یخی له امله د ډبرې او خاورې تدریجي کموال." } },
-            { id: 26, category: "earth", term: { en: "Mineral", ur: "معدنی", ps: "منرال" }, definition: { en: "A naturally occurring inorganic substance with a definite chemical composition.", ur: "ایک قدرتی غیر نامیاتی مادہ جس کی مقررہ کیمیائی ترکیب ہو۔", ps: "یو طبیعي غیر عضوي مواد چې определ کیمیاوي ترکیب ولري." } },
-            { id: 27, category: "earth", term: { en: "Fossil Fuel", ur: "حفری ایندھن", ps: "فسیل سوخت" }, definition: { en: "A fuel formed from the remains of ancient organisms — coal, oil, natural gas.", ur: "قدیم جانداروں کے باقیات سے بنایا ہوا ایندھن — کوئلہ، تیل، قدرتی گیس۔", ps: "د پخوانیو ژوندیو موجوداتو پاتې شونو څخه جوړ سوخت." } },
-            { id: 28, category: "biology", term: { en: "Chromosome", ur: "کروموسوم", ps: "کروموزوم" }, definition: { en: "A thread-like structure of DNA that carries genetic information.", ur: "ڈی این اے کا دھاگے نما ڈھانچہ جو جینیاتی معلومات رکھتا ہے۔", ps: "د ډی این اې تار ډوله جوړښت چې جنیټيکي معلومات لري." } },
-            { id: 29, category: "physics", term: { en: "Friction", ur: "رگڑ", ps: "رګڑ" }, definition: { en: "The resistance encountered when one body moves over another.", ur: "وہ مزاحمت جو ایک جسم دوسرے پر حرکت کرتے وقت ملتی ہے۔", ps: "هغه مقاومت چې یو جسم د بل پر حرکات کولو وخت ورسره مخ کیږي." } },
-            { id: 30, category: "chemistry", term: { en: "pH Scale", ur: "پي ایچ اسکیل", ps: "pH سکل" }, definition: { en: "A scale from 0–14 measuring how acidic or basic a solution is.", ur: "0 سے 14 تک کا اسکیل جو حل کے تیزابیت یا بنیادیت کو ناپتا ہے۔", ps: "د 0-څخه تر 14 پورې سکل چې د حل تیزابیت یا بنسټیزتوب اندازه کوي." } },
-        ];
-
-        const CATEGORIES = {
-            biology: { en: "Biology", ur: "حیاتیات", ps: "ژوندپوهنه", icon: "🧬", color: "green" },
-            physics: { en: "Physics", ur: "طبیعیات", ps: "فزیک", icon: "⚛️", color: "blue" },
-            chemistry: { en: "Chemistry", ur: "کیمیاء", ps: "کیمیا", icon: "🧪", color: "purple" },
-            earth: { en: "Earth Science", ur: "ارضی سائنس", ps: "د ځمکې ساینس", icon: "🌍", color: "amber" }
-        };
-
-        const UI = {
-            title: { en: "Science Flashcards", ur: "سائنس فلیش کارڈز", ps: "د ساینس فلیش کارډونه" },
-            subtitle: { en: "Spaced-Repetition Learning", ur: "فاصلہ repeat سیکھنا", ps: "فاصله تکرار زده کړه" },
-            selectCategory: { en: "Select a Category", ur: "زمرہ منتخب کریں", ps: "یوه ډله وټاکئ" },
-            allCategories: { en: "All Categories", ur: "تمام زمرے", ps: "ټولې ډلې" },
-            flipCard: { en: "Tap to flip", ur: "پلٹنے کے لیے ٹیپ کریں", ps: "واړولو لپاره کلیک وکړئ" },
-            knewIt: { en: "Knew It 😊", ur: "پتا تھا 😊", ps: "ماپوهيده 😊" },
-            learning: { en: "Learning 📖", ur: "سیکھ رہا ہوں 📖", ps: "زده کیږم 📖" },
-            forgot: { en: "Forgot 😕", ur: "بھول گیا 😕", ps: "هیر شولمه 😕" },
-            cardOf: { en: "of", ur: "میں سے", ps: "له" },
-            progress: { en: "Progress", ur: "پیش رفت", ps: "پرمختګ" },
-            mastered: { en: "Mastered", ur: "مکمل", ps: "ماسټر شو" },
-            reviewing: { en: "Reviewing", ur: "دہرایا جا رہا", ps: "بیاکتنه کیږي" },
-            again: { en: "New Session", ur: "نئی سیشن", ps: "نوي غونډې" },
-            backToAcademy: { en: "Back to Academy", ur: "اکادمی واپس", ps: "اکاډمۍ ته شاته" },
-            noCards: { en: "No cards to review! Come back later.", ur: "دہرانے کے لیے کوئی کارڈ نہیں! بعد میں آئیں۔", ps: "بیاکتنه لپاره کوم کارډ نشته! وروسته راشئ." },
-            term: { en: "Term", ur: "لفظ", ps: "وییکی" },
-            definition: { en: "Definition", ur: "تعریف", ps: "پېژندنه" },
-            sessionComplete: { en: "Session Complete!", ur: "سیشن مکمل!", ps: "غونډه بشپړه شوه!" },
-            greatJob: { en: "Great job! You reviewed all cards.", ur: "شاباش! آپ نے تمام کارڈز کا دہرا لیا۔", ps: "ښه کار! تاسو ټول کارډونه وکتل." },
-            startOver: { en: "Start Over", ur: "شروع کریں", ps: "بیا پیل کړئ" },
-            howWell: { en: "How well did you know this?", ur: "یہ آپ کو کتنا یاد تھا؟", ps: "دا تاسو څومره یاد وه؟" },
-            resetProgress: { en: "Reset All Progress", ur: "تمام پرمختگا حذف کریں", ps: "ټول پرمختګ پایښت کړئ" },
-            resetConfirm: { en: "Are you sure? This will erase all your progress.", ur: "کیا آپ یقینی ہیں؟ اس سے آپ کا تمام پرمختگا حذف ہو جائے گا۔", ps: "ایا تاسو ډاډه یاست؟ دا ستاسو ټول پرمختګ له منځه وړي." }
-        };
-
-        function App() {
-            const [language, setLanguage] = useState('en');
-            const [view, setView] = useState('categories');
-            const [selectedCategories, setSelectedCategories] = useState([]);
-            const [currentIndex, setCurrentIndex] = useState(0);
-            const [flipped, setFlipped] = useState(false);
-            const [progress, setProgress] = useState(() => {
-                try {
-                    const saved = localStorage.getItem('flashcard-progress');
-                    return saved ? JSON.parse(saved) : {};
-                } catch (e) { return {}; }
-            });
-            const [sessionCards, setSessionCards] = useState([]);
-            const [cardState, setCardState] = useState('');
-            const [showReset, setShowReset] = useState(false);
-
-            const currentFont = language === 'ur' ? 'font-urdu' : language === 'ps' ? 'font-pashto' : '';
-            const dir = language === 'ur' || language === 'ps' ? 'rtl' : 'ltr';
-
-            useEffect(() => {
-                try { localStorage.setItem('flashcard-progress', JSON.stringify(progress)); } catch(e) {}
-            }, [progress]);
-
-            const t = (key) => UI[key]?.[language] || UI[key]?.en || key;
-
-            const toggleCategory = (cat) => {
-                setSelectedCategories(prev =>
-                    prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
-                );
-            };
-
-            const startSession = () => {
-                let cats = selectedCategories.length > 0 ? selectedCategories : Object.keys(CATEGORIES);
-                let cards = FLASHCARD_DATA.filter(c => cats.includes(c.category));
-                cards = cards.sort(() => Math.random() - 0.5);
-                setSessionCards(cards);
-                setCurrentIndex(0);
-                setFlipped(false);
-                setCardState('');
-                setView('study');
-            };
-
-            const handleRate = (rating) => {
-                const cardId = sessionCards[currentIndex].id;
-                const existing = progress[cardId] || { level: 0, lastSeen: 0 };
-
-                let newLevel;
-                if (rating === 'knew') { newLevel = Math.min(5, existing.level + 1); setCardState('correct-pulse'); }
-                else if (rating === 'learning') { newLevel = existing.level; setCardState(''); }
-                else { newLevel = 0; setCardState('wrong-pulse'); }
-
-                setProgress(prev => ({
-                    ...prev,
-                    [cardId]: { level: newLevel, lastSeen: Date.now() }
-                }));
-
-                setTimeout(() => {
-                    setCardState('');
-                    if (currentIndex + 1 < sessionCards.length) {
-                        setCurrentIndex(prev => prev + 1);
-                        setFlipped(false);
-                    } else {
-                        setView('complete');
-                    }
-                }, 400);
-            };
-
-            const resetProgress = () => {
-                setProgress({});
-                localStorage.removeItem('flashcard-progress');
-                setShowReset(false);
-            };
-
-            const masteredCount = Object.values(progress).filter(p => p.level >= 3).length;
-            const learningCount = Object.values(progress).filter(p => p.level > 0 && p.level < 3).length;
-            const totalCards = FLASHCARD_DATA.length;
-
-            useEffect(() => {
-                const titleEl = document.getElementById('header-title');
-                const desc1El = document.getElementById('header-desc1');
-                const desc2El = document.getElementById('header-desc2');
-                const fontClass = language === 'ur' ? 'font-urdu' : language === 'ps' ? 'font-pashto' : '';
-                if (titleEl) { titleEl.innerText = t('title'); titleEl.className = `text-3xl font-bold text-white ${fontClass}`; }
-                if (desc1El) { desc1El.innerText = t('subtitle'); desc1El.className = `mt-3 text-lg text-slate-300 ${fontClass}`; }
-                if (desc2El) { desc2El.innerText = `${masteredCount} ${t('mastered')} · ${learningCount} ${t('reviewing')} · ${totalCards} total`; desc2El.className = `mt-3 text-slate-400 ${fontClass}`; }
-            }, [language, masteredCount, learningCount]);
-
-            return (
-                <div className="flex-grow flex flex-col" dir={dir}>
-                    <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-lg">
-                        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-3">
-                            <div className="flex items-center gap-3">
-                                <img src="/logo.png" alt="PashtunEinstein Logo" className="h-12 w-auto" />
-                                <div>
-                                    <h1 className={`text-xl font-bold text-white ${currentFont}`}>{t('title')}</h1>
-                                    <p className={`text-xs text-slate-400 uppercase tracking-wider ${currentFont}`}>{t('subtitle')}</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-3 flex-wrap justify-center">
-                                <div className="flex items-center bg-slate-800 rounded-full p-1 border border-slate-700">
-                                    {['en', 'ur', 'ps'].map(code => (
-                                        <button key={code} onClick={() => setLanguage(code)}
-                                            className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
-                                                language === code ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-700'
-                                            } ${code === 'ur' ? 'font-urdu' : code === 'ps' ? 'font-pashto' : ''}`}>
-                                            {code === 'en' ? 'English' : code === 'ur' ? 'اردو' : 'پښتو'}
-                                        </button>
-                                    ))}
-                                </div>
-                                <a href="/academy/" className="text-blue-400 hover:text-blue-300 text-sm font-medium">{t('backToAcademy')}</a>
-                            </div>
-                        </div>
-                    </header>
-
-                    <main className="flex-grow flex items-center justify-center p-4 sm:p-8 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black -z-10"></div>
-
-                        {view === 'categories' && (
-                            <div className="max-w-2xl w-full text-center space-y-8 fade-in">
-                                <div className="bg-emerald-500/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto border-4 border-emerald-500 shadow-2xl shadow-emerald-500/20">
-                                    <span className="text-5xl">📚</span>
-                                </div>
-                                <h2 className={`text-3xl md:text-4xl font-bold text-white ${currentFont}`}>{t('selectCategory')}</h2>
-                                <div className="grid grid-cols-2 gap-4">
-                                    {Object.entries(CATEGORIES).map(([key, cat]) => (
-                                        <button key={key} onClick={() => toggleCategory(key)}
-                                            className={`p-4 rounded-xl border-2 transition-all text-center ${currentFont} ${
-                                                selectedCategories.includes(key)
-                                                    ? 'border-emerald-500 bg-emerald-500/20 text-emerald-300'
-                                                    : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-500 hover:bg-slate-800'
-                                            }`}>
-                                            <span className="text-3xl block mb-2">{cat.icon}</span>
-                                            <span className="font-semibold">{cat[language]}</span>
-                                        </button>
-                                    ))}
-                                </div>
-                                {selectedCategories.length === 0 && (
-                                    <p className="text-slate-500 text-sm">{t('allCategories')}</p>
-                                )}
-                                <div className="flex flex-wrap justify-center gap-3">
-                                    <button onClick={startSession}
-                                        className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-lg font-bold rounded-full shadow-lg transition-all transform hover:scale-105">
-                                        {t('startOver')} 🚀
-                                    </button>
-                                    <button onClick={() => setShowReset(true)}
-                                        className="px-6 py-4 border border-slate-700 text-slate-400 hover:border-red-500 hover:text-red-400 rounded-full transition-all text-sm">
-                                        {t('resetProgress')}
-                                    </button>
-                                </div>
-
-                                <div className="grid grid-cols-3 gap-4 mt-6">
-                                    <div className="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
-                                        <div className="text-2xl font-bold text-green-400">{masteredCount}</div>
-                                        <div className={`text-xs text-slate-400 ${currentFont}`}>{t('mastered')}</div>
-                                    </div>
-                                    <div className="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
-                                        <div className="text-2xl font-bold text-amber-400">{learningCount}</div>
-                                        <div className={`text-xs text-slate-400 ${currentFont}`}>{t('reviewing')}</div>
-                                    </div>
-                                    <div className="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
-                                        <div className="text-2xl font-bold text-slate-300">{totalCards}</div>
-                                        <div className={`text-xs text-slate-400 ${currentFont}`}>{t('progress')}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {view === 'study' && sessionCards.length > 0 && (
-                            <div className="max-w-xl w-full space-y-6 fade-in">
-                                <div className="flex items-center justify-between text-sm text-slate-400">
-                                    <span className={currentFont}>{t('term')} {currentIndex + 1} {t('cardOf')} {sessionCards.length}</span>
-                                    <div className="w-48 bg-slate-800 h-2 rounded-full overflow-hidden" dir="ltr">
-                                        <div className="bg-emerald-500 h-full transition-all duration-300" style={{ width: `${((currentIndex + 1) / sessionCards.length) * 100}%` }}></div>
-                                    </div>
-                                </div>
-
-                                <div className={`flashcard ${flipped ? 'flipped' : ''} ${cardState}`} style={{ minHeight: '320px' }}
-                                    onClick={() => setFlipped(!flipped)}>
-                                    <div className="flashcard-inner" style={{ minHeight: '320px' }}>
-                                        <div className="flashcard-front bg-slate-900/90 border-2 border-emerald-500/40 shadow-2xl">
-                                            <div className={`text-xs uppercase tracking-wider text-emerald-400 mb-4 ${currentFont}`}>
-                                                {CATEGORIES[sessionCards[currentIndex].category]?.[language] || sessionCards[currentIndex].category}
-                                            </div>
-                                            <div className={`text-3xl md:text-4xl font-bold text-white mb-6 ${currentFont}`}>
-                                                {sessionCards[currentIndex].term[language]}
-                                            </div>
-                                            <div className={`text-sm text-slate-500 ${currentFont}`}>{t('flipCard')}</div>
-                                        </div>
-                                        <div className="flashcard-back bg-slate-800/95 border-2 border-blue-500/40 shadow-2xl">
-                                            <div className={`text-xs uppercase tracking-wider text-blue-400 mb-4 ${currentFont}`}>
-                                                {t('definition')}
-                                            </div>
-                                            <div className={`text-xl md:text-2xl text-white leading-relaxed ${currentFont}`}>
-                                                {sessionCards[currentIndex].definition[language]}
-                                            </div>
-                                            {language !== 'en' && (
-                                                <div className={`text-sm text-slate-400 mt-3 ${language === 'en' ? '' : currentFont}`}>
-                                                    <span className="text-slate-500">EN:</span> {sessionCards[currentIndex].term.en} — {sessionCards[currentIndex].definition.en}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {flipped && (
-                                    <div className="space-y-3 fade-in">
-                                        <p className={`text-center text-slate-400 text-sm ${currentFont}`}>{t('howWell')}</p>
-                                        <div className="grid grid-cols-3 gap-3">
-                                            <button onClick={() => handleRate('knew')}
-                                                className={`p-3 rounded-xl bg-green-600/20 border-2 border-green-500/50 text-green-300 font-bold hover:bg-green-600/40 transition-all card-btn ${currentFont}`}>
-                                                ✅ {t('knewIt')}
-                                            </button>
-                                            <button onClick={() => handleRate('learning')}
-                                                className={`p-3 rounded-xl bg-amber-600/20 border-2 border-amber-500/50 text-amber-300 font-bold hover:bg-amber-600/40 transition-all card-btn ${currentFont}`}>
-                                                📖 {t('learning')}
-                                            </button>
-                                            <button onClick={() => handleRate('forgot')}
-                                                className={`p-3 rounded-xl bg-red-600/20 border-2 border-red-500/50 text-red-300 font-bold hover:bg-red-600/40 transition-all card-btn ${currentFont}`}>
-                                                😕 {t('forgot')}
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-
-                        {view === 'complete' && (
-                            <div className="max-w-lg w-full text-center space-y-8 fade-in">
-                                <div className="bg-emerald-500/10 w-28 h-28 rounded-full flex items-center justify-center mx-auto border-4 border-emerald-500 shadow-2xl">
-                                    <span className="text-6xl">🎉</span>
-                                </div>
-                                <h2 className={`text-3xl md:text-4xl font-bold text-white ${currentFont}`}>{t('sessionComplete')}</h2>
-                                <p className={`text-slate-400 text-lg ${currentFont}`}>{t('greatJob')}</p>
-                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                    <button onClick={() => { setView('categories'); setSelectedCategories([]); }}
-                                        className={`px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-colors ${currentFont}`}>
-                                        {t('again')}
-                                    </button>
-                                    <a href="/academy/"
-                                        className={`px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition-colors ${currentFont}`}>
-                                        {t('backToAcademy')}
-                                    </a>
-                                </div>
-                            </div>
-                        )}
-                    </main>
-
-                    {showReset && (
-                        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                            <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full text-center shadow-2xl">
-                                <div className="text-4xl mb-4">⚠️</div>
-                                <p className={`text-slate-300 mb-6 ${currentFont}`}>{t('resetConfirm')}</p>
-                                <div className="flex gap-3 justify-center">
-                                    <button onClick={() => setShowReset(false)}
-                                        className="px-6 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-colors">
-                                        Cancel
-                                    </button>
-                                    <button onClick={resetProgress}
-                                        className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
-                                        Reset
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    <footer className="bg-slate-950 text-slate-600 py-6 text-center text-sm border-t border-slate-900">
-                        <p>&copy; {new Date().getFullYear()} PashtunEinstein. All Rights Reserved.</p>
-                        <div className="flex justify-center gap-4 mt-2">
-                            <a href="https://pashtuneinstein.com/" className={`hover:text-blue-400 ${currentFont}`}>{t('backToAcademy') === 'Back to Academy' ? 'Website' : t('backToAcademy')}</a>
-                            <span className="text-slate-800">•</span>
-                            <a href="https://blog.pashtuneinstein.com/" className={`hover:text-blue-400 ${currentFont}`}>Blog</a>
-                        </div>
-                    </footer>
+    <!-- STUDY VIEW -->
+    <div id="view-study" class="center-col fade-in" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span id="card-counter" style="color:#94a3b8;font-size:14px;"></span>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%;"></div></div>
+        </div>
+        <div class="flashcard" id="flashcard" onclick="flipCard()">
+            <div class="flashcard-inner" id="flashcard-inner">
+                <div class="flashcard-face flashcard-front" id="card-front">
+                    <div id="card-cat" style="font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#10b981;margin-bottom:12px;"></div>
+                    <div id="card-term" style="font-size:32px;font-weight:800;color:#fff;margin-bottom:16px;"></div>
+                    <div id="card-flip-hint" style="font-size:14px;color:#64748b;">Tap to flip</div>
                 </div>
-            );
-        }
+                <div class="flashcard-face flashcard-back" id="card-back">
+                    <div id="back-label" style="font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:#60a5fa;margin-bottom:12px;"></div>
+                    <div id="card-def" style="font-size:20px;color:#fff;line-height:1.6;"></div>
+                    <div id="card-en-hint" style="font-size:14px;color:#94a3b8;margin-top:12px;"></div>
+                </div>
+            </div>
+        </div>
+        <div id="rate-buttons" class="rate-grid" style="display:none;">
+            <button class="rate-btn rate-knew" onclick="handleRate('knew')">✅ Knew It</button>
+            <button class="rate-btn rate-learning" onclick="handleRate('learning')">📖 Learning</button>
+            <button class="rate-btn rate-forgot" onclick="handleRate('forgot')">😕 Forgot</button>
+        </div>
+    </div>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+    <!-- COMPLETE VIEW -->
+    <div id="view-complete" class="center-col fade-in" style="display:none;">
+        <div style="font-size:72px;text-align:center;margin-bottom:24px;">🎉</div>
+        <h2 id="complete-title" style="font-size:32px;font-weight:800;text-align:center;margin-bottom:12px;">Session Complete!</h2>
+        <p id="complete-msg" style="color:#94a3b8;text-align:center;font-size:18px;">Great job! You reviewed all cards.</p>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px;">
+            <button class="action-btn btn-secondary" onclick="backToCategories()">New Session</button>
+            <a href="/academy/" class="action-btn btn-primary">Back to Academy</a>
+        </div>
+    </div>
+</div>
+
+<!-- RESET MODAL -->
+<div id="reset-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+        <div style="font-size:40px;margin-bottom:16px;">⚠️</div>
+        <p id="reset-msg" style="color:#cbd5e1;margin-bottom:20px;">Are you sure? This will erase all your progress.</p>
+        <div style="display:flex;gap:12px;justify-content:center;">
+            <button class="action-btn btn-secondary" onclick="hideResetModal()">Cancel</button>
+            <button class="action-btn" style="background:#dc2626;color:#fff;" onclick="resetProgress()">Reset</button>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2026 PashtunEinstein. All Rights Reserved.</p>
+    <div style="margin-top:8px;"><a href="https://pashtuneinstein.com/">Website</a> · <a href="https://blog.pashtuneinstein.com/">Blog</a></div>
+</footer>
+
+<script>
+const DATA = [
+    {id:1,cat:"biology",term:{en:"Cell",ur:"خلیہ",ps:"حجره"},def:{en:"The basic structural and functional unit of all living organisms.",ur:"تمام جانداروں کی بنیادی ساختی اور فعالی اکائی۔",ps:"د ټولو ژوندی موجوداتو بنسټیز جوړښتي او عملي واحد."}},
+    {id:2,cat:"biology",term:{en:"DNA",ur:"ڈی این اے",ps:"ډی این اې"},def:{en:"Deoxyribonucleic acid — carries the genetic instructions for all living organisms.",ur:"ڈی آکسی رائبونوکلک ایسڈ — تمام جانداروں کے لیے جینیاتی ہدایات رکھتا ہے۔",ps:"ډی آکسی رایبونوکلیک اسید — د ټولو ژوندی موجوداتو لپاره جنیټیکي لارښوونې لري."}},
+    {id:3,cat:"biology",term:{en:"Photosynthesis",ur:"ضیائی تالیف",ps:"فوتوسنتز"},def:{en:"The process by which plants convert sunlight, water, and CO₂ into glucose and oxygen.",ur:"وہ عمل جس میں پودے سورج کی روشنی، پانی اور کاربن ڈائی آکسائیڈ کو گلوکوز اور آکسیجن میں بدلتے ہیں۔",ps:"هغه پروسه چې نباتات د لمر وړانګه، اوبه او CO2 ګلوکوز او اکسیجن ته بدلوي."}},
+    {id:4,cat:"biology",term:{en:"Mitosis",ur:"مائٹوسس",ps:"مایتوزیس"},def:{en:"A type of cell division that results in two daughter cells with the same number of chromosomes.",ur:"خلیات کی تقسیم کی ایسا قسم جس کے نتیجے میں دو جینی خلیے بنتی ہیں۔",ps:"د حجرات وېشلوه ډول چې دوه لوڼو حجراتو ته پای ته رسیږي."}},
+    {id:5,cat:"biology",term:{en:"Enzyme",ur:"انزائم",ps:"انزایم"},def:{en:"A biological catalyst that speeds up chemical reactions in living organisms.",ur:"حیاتی عمل انگیز جو جانداروں میں کیمیائی عمل کو تیز کرتا ہے۔",ps:"بیالوژیکلي کتلیزټور چې د ژوندیو موجوداتو کې کیمیاوي غبرګونونه چټکوي."}},
+    {id:6,cat:"biology",term:{en:"Osmosis",ur:"اسموز",ps:"اسموز"},def:{en:"The movement of water molecules through a semi-permeable membrane from low to high solute concentration.",ur:"پانی کے سالمات کا نیم سرایت پذیر جھلی سے گزر کر کم سے زیادہ سالف کثافت والی جگہ جانا۔",ps:"د اوبو مالیکولونو حرکت د نیمه تراوا پرده له لارې."}},
+    {id:7,cat:"biology",term:{en:"Ecosystem",ur:"نظامِ حیات",ps:"ایکوسیسټم"},def:{en:"A community of living organisms interacting with their physical environment.",ur:"جانداروں کا ایک گروہ جو اپنے طبعی ماحول کے ساتھ باہمی تعلق رکھتا ہے۔",ps:"د ژوندیو موجوداتو یوه ټولنه چې خپل فزيکي چاپیریال سره تعامل لري."}},
+    {id:8,cat:"biology",term:{en:"Evolution",ur:"ارتقائ",ps:"تکامل"},def:{en:"The gradual change in species over generations through natural selection.",ur:"قدرتی انتخاب کے ذریعے نسلوں پر نسلوں میں نوعوں کی آہستہ آہستہ تبدیلی۔",ps:"د نوعونو تدریجي بدلون د طبیعي انتخاب له لارې."}},
+    {id:9,cat:"physics",term:{en:"Gravity",ur:"کشش ثقل",ps:"جاذبه"},def:{en:"The force of attraction between any two objects with mass.",ur:"کسی بھی دو اشیاء کے درمیان کشش کی قوت جن کی کمیت ہو۔",ps:"د هر دو شيونو ترمنځ د کشش ځواک چې وزن ولري."}},
+    {id:10,cat:"physics",term:{en:"Velocity",ur:"سمتی رفتار",ps:"چټکتا"},def:{en:"Speed in a given direction; a vector quantity.",ur:"ایک مخصوص سمت میں رفتار؛ ایک سمتی مقدار۔",ps:"د يوې ځانګړې لورې سره چټکتا؛ د ويکټر کمیت."}},
+    {id:11,cat:"physics",term:{en:"Acceleration",ur:"اسراع",ps:"تېزښت"},def:{en:"The rate at which velocity changes over time.",ur:"وہ شرح جس پر رفتار وقت کے ساتھ تبدیل ہوتی ہے۔",ps:"هغه اندازه چې چټکتا وخت سره بدلوي."}},
+    {id:12,cat:"physics",term:{en:"Energy",ur:"توانائی",ps:"انرژي"},def:{en:"The capacity to do work or cause change.",ur:"کام کرنے یا تبدیلی لانے کی صلاحیت۔",ps:"د کار کولو یا بدلون راوستلو ظرفیت."}},
+    {id:13,cat:"physics",term:{en:"Momentum",ur:"معرکہ",ps:"مومنټم"},def:{en:"The product of an object's mass and velocity; describes motion.",ur:"کسی شے کی کمیت اور رفتار کا حاصل ضرب؛ حرکت کی وضاحت کرتا ہے۔",ps:"د شی کمیت او چټکتا حاصل ضرب؛ حرکت بیانوي."}},
+    {id:14,cat:"physics",term:{en:"Force",ur:"قوت",ps:"ځواک"},def:{en:"A push or pull that can change an object's motion.",ur:"دھکا یا کھینچ جو شے کی حرکت بدل سکتی ہے۔",ps:"وهلو یا کشښ چې د شی حرکت بدلولی شي."}},
+    {id:15,cat:"physics",term:{en:"Wavelength",ur:"طولِ موج",ps:"د څپې اوږدوالی"},def:{en:"The distance between consecutive peaks of a wave.",ur:"لہر کے مسلسل چوٹیوں کے درمیان فاصلہ۔",ps:"د څپې پرله پسې څوکو ترمنځ واټن."}},
+    {id:16,cat:"physics",term:{en:"Thermodynamics",ur:"حرحرکیات",ps:"ترمودینامیک"},def:{en:"The branch of physics dealing with heat, work, and energy.",ur:"طبیعیات کی وہ شاخ جو حرارت، کام اور توانائی سے متعلق ہے۔",ps:"د فزیک هغه څانګه چې د تودوخې، کار او انرژۍ سره معامله کوي."}},
+    {id:17,cat:"chemistry",term:{en:"Atom",ur:"ایٹم",ps:"اتوم"},def:{en:"The smallest unit of a chemical element that retains its properties.",ur:"کیمیائی عنصر کی سب سے چھوٹی اکائی جو اپنی خصائیت برقرار رکھتی ہے۔",ps:"د کیمیاوي عنصر تر ټولو کوچنی واحد چې خپلې ځانګړتیاوې ساتي."}},
+    {id:18,cat:"chemistry",term:{en:"Molecule",ur:"سالمہ",ps:"مالیکول"},def:{en:"A group of atoms bonded together; the smallest unit of a chemical compound.",ur:"جوڑے ہوئے ایٹموں کا گروہ؛ کیمیائی مرکب کی سب سے چھوٹی اکائی۔",ps:"د تړلو اتومونو یوه ډله؛ د کیمیاوي مرکب تر ټولو کوچنی واحد."}},
+    {id:19,cat:"chemistry",term:{en:"Periodic Table",ur:"دوری جدول",ps:"دوری جدول"},def:{en:"A tabular arrangement of chemical elements organized by atomic number.",ur:"کیمیائی عناصر کی ایک جدولی ترتیب جو ایٹمی نمبر سے منظم ہو۔",ps:"د کیمیاوي عناصرو جدولي تنظیم چې د اتومي شمیر له مخې منظم شوې."}},
+    {id:20,cat:"chemistry",term:{en:"Chemical Bond",ur:"کیمیائی بندھن",ps:"کیمیاوي تړنه"},def:{en:"An attraction between atoms that allows the formation of chemical substances.",ur:"ایٹموں کے درمیان کشش جو کیمیائی مادوں کی تشکیل کی اجازت دیتی ہے۔",ps:"د اتومونو ترمنځ کشش چې د کیمیاوي موادو د جوړښت اجازه ورکوي."}},
+    {id:21,cat:"chemistry",term:{en:"Reaction",ur:"عمل",ps:"غبرګون"},def:{en:"A process where substances (reactants) are transformed into new substances (products).",ur:"ایک عمل جس میں مادے (متفاعل) نئے مادوں (مصنوعات) میں تبدیل ہوتے ہیں۔",ps:"هغه پروسه چې مواد نويو موادو ته بدلیږي."}},
+    {id:22,cat:"chemistry",term:{en:"Isotope",ur:"ہم座位",ps:"ایزوټوپ"},def:{en:"Atoms of the same element with different numbers of neutrons.",ur:"ایک ہی عنصر کے ایٹم جن میں نیوٹرانز کی تعداد مختلف ہو۔",ps:"د یوې عنصر اتومونه چې د نیوټرونونو شمیر یې توپیر لري."}},
+    {id:23,cat:"earth",term:{en:"Tectonic Plate",ur:"تختیٰ ارضی",ps:"تکتونیکي پلیټ"},def:{en:"A massive slab of solid rock that makes up Earth's lithosphere.",ur:"ٹھوس چٹان کی بڑی سلیب جو زمین کی قشر Haram تشکیل دیتی ہے۔",ps:"د کلک ډبرې لویه تاخته چې د ځمکې لیټوسفیر جوړوي."}},
+    {id:24,cat:"earth",term:{en:"Atmosphere",ur:"کرہِ ہوا",ps:"اتموسفیر"},def:{en:"The layer of gases surrounding Earth, held in place by gravity.",ur:"زمین کے گرد گیسوں کی تہ جو کشش ثقل سے قائم ہے۔",ps:"د ځمکې شاوخوا ګازونو طبقه چې د جاذبې له امله ساتل کیږي."}},
+    {id:25,cat:"earth",term:{en:"Erosion",ur:"کٹاو",ps:"فرسایش"},def:{en:"The gradual wearing away of rock and soil by water, wind, or ice.",ur:"پانی، ہوا یا برف کے ذریعے چٹان اور مٹی کا آہستہ آہستہ کم ہونا۔",ps:"د اوبو، باد یا یخی له امله د ډبرې او خاورې تدریجي کموال."}},
+    {id:26,cat:"earth",term:{en:"Mineral",ur:"معدنی",ps:"منرال"},def:{en:"A naturally occurring inorganic substance with a definite chemical composition.",ur:"ایک قدرتی غیر نامیاتی مادہ جس کی مقررہ کیمیائی ترکیب ہو۔",ps:"یو طبیعي غیر عضوي مواد چې تعيني کیمیاوي ترکیب ولري."}},
+    {id:27,cat:"earth",term:{en:"Fossil Fuel",ur:"حفری ایندھن",ps:"فسیل سوخت"},def:{en:"A fuel formed from the remains of ancient organisms — coal, oil, natural gas.",ur:"قدیم جانداروں کے باقیات سے بنایا ہوا ایندھن — کوئلہ، تیل، قدرتی گیس۔",ps:"د پخوانیو ژوندیو موجوداتو پاتې شونو څخه جوړ سوخت."}},
+    {id:28,cat:"biology",term:{en:"Chromosome",ur:"کروموسوم",ps:"کروموزوم"},def:{en:"A thread-like structure of DNA that carries genetic information.",ur:"ڈی این اے کا دھاگے نما ڈھانچہ جو جینیاتی معلومات رکھتا ہے۔",ps:"د ډی این اې تار ډوله جوړښت چې جنیټيکي معلومات لري."}},
+    {id:29,cat:"physics",term:{en:"Friction",ur:"رگڑ",ps:"رګړ"},def:{en:"The resistance encountered when one body moves over another.",ur:"وہ مزاحمت جو ایک جسم دوسرے پر حرکت کرتے وقت ملتی ہے۔",ps:"هغه مقاومت چې یو جسم د بل پر حرکات کولو وخت ورسره مخ کیږي."}},
+    {id:30,cat:"chemistry",term:{en:"pH Scale",ur:"پي ایچ اسکیل",ps:"pH سکل"},def:{en:"A scale from 0–14 measuring how acidic or basic a solution is.",ur:"0 سے 14 تک کا اسکیل جو حل کے تیزابیت یا بنیادیت کو ناپتا ہے۔",ps:"د 0-څخه تر 14 پورې سکل چې د حل تیزابیت یا بنسټیزتوب اندازه کوي."}}
+];
+
+const CATS = {
+    biology: {en:"Biology",ur:"حیاتیات",ps:"ژوندپوهنه",icon:"🧬"},
+    physics: {en:"Physics",ur:"طبیعیات",ps:"فزیک",icon:"⚛️"},
+    chemistry: {en:"Chemistry",ur:"کیمیاء",ps:"کیمیا",icon:"🧪"},
+    earth: {en:"Earth Science",ur:"ارضی سائنس",ps:"د ځمکې ساینس",icon:"🌍"}
+};
+
+const UI = {
+    title:{en:"Science Flashcards",ur:"سائنس فلیش کارڈز",ps:"د ساینس فلیش کارډونه"},
+    subtitle:{en:"Spaced-Repetition Learning",ur:"فاصلہ repeat سیکھنا",ps:"فاصله تکرار زده کړه"},
+    selectCat:{en:"Select a Category",ur:"زمرہ منتخب کریں",ps:"یوه ډله وټاکئ"},
+    allCats:{en:"All categories will be included if none selected.",ur:"اگر کوئی منتخب نہیں تو تمام زمرے شامل ہوں گے۔",ps:"که هیڅ نه ټاکل شي نو ټولې ډلې شاملې کیږي."},
+    flipHint:{en:"Tap to flip",ur:"پلٹنے کے لیے ٹیپ کریں",ps:"واړولو لپاره کلیک وکړئ"},
+    knewIt:{en:"Knew It 😊",ur:"پتا تھا 😊",ps:"ماپوهيده 😊"},
+    learning:{en:"Learning 📖",ur:"سیکھ رہا ہوں 📖",ps:"زده کیږم 📖"},
+    forgot:{en:"Forgot 😕",ur:"بھول گیا 😕",ps:"هیر شولمه 😕"},
+    definition:{en:"Definition",ur:"تعریف",ps:"پېژندنه"},
+    cardOf:{en:"of",ur:"میں سے",ps:"له"},
+    mastered:{en:"Mastered",ur:"مکمل",ps:"ماسټر شو"},
+    reviewing:{en:"Reviewing",ur:"دہرایا جا رہا",ps:"بیاکتنه کیږي"},
+    total:{en:"Total",ur:"کل",ps:"ټول"},
+    sessionComplete:{en:"Session Complete!",ur:"سیشن مکمل!",ps:"غونډه بشپړه شوه!"},
+    greatJob:{en:"Great job! You reviewed all cards.",ur:"شاباش! آپ نے تمام کارڈز کا دہرا لیا۔",ps:"ښه کار! تاسو ټول کارډونه وکتل."},
+    newSession:{en:"New Session",ur:"نئی سیشن",ps:"نوي غونډې"},
+    backToAcademy:{en:"Back to Academy",ur:"اکادمی واپس",ps:"اکاډمۍ ته شاته"},
+    howWell:{en:"How well did you know this?",ur:"یہ آپ کو کتنا یاد تھا؟",ps:"دا تاسو څومره یاد وه؟"},
+    resetProgress:{en:"Reset All Progress",ur:"تمام پرمختگا حذف کریں",ps:"ټول پرمختګ پایښت کړئ"},
+    resetConfirm:{en:"Are you sure? This will erase all your progress.",ur:"کیا آپ یقینی ہیں؟ اس سے آپ کا تمام پرمختگا حذف ہو جائے گا۔",ps:"ایا تاسو ډاډه یاست؟ دا ستاسو ټول پرمختګ له منځه وړي."}
+};
+
+let lang = 'en', selectedCats = [], sessionCards = [], currentIdx = 0, isFlipped = false;
+
+function t(key) { return UI[key]?.[lang] || UI[key]?.en || key; }
+function fontClass() { return lang === 'ur' ? 'font-urdu' : lang === 'ps' ? 'font-pashto' : ''; }
+function dir() { return lang === 'ur' || lang === 'ps' ? 'rtl' : 'ltr'; }
+
+function loadProgress() {
+    try { return JSON.parse(localStorage.getItem('flashcard-progress')) || {}; } catch(e) { return {}; }
+}
+function saveProgress(p) {
+    try { localStorage.setItem('flashcard-progress', JSON.stringify(p)); } catch(e) {}
+}
+
+function setLang(l) {
+    lang = l;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === (l==='en'?'English':l==='ur'?'اردو':'پښتو')));
+    document.body.setAttribute('dir', dir());
+    const fc = fontClass();
+    document.getElementById('site-title').className = 'site-title ' + fc;
+    document.getElementById('site-subtitle').className = 'site-subtitle ' + fc;
+    document.getElementById('sec-title').className = fc;
+    document.getElementById('sec-title').textContent = t('title');
+    document.getElementById('sec-sub1').className = fc;
+    document.getElementById('sec-sub1').textContent = t('subtitle');
+    document.getElementById('academy-link').textContent = t('backToAcademy');
+    document.getElementById('cat-title').textContent = t('selectCat');
+    document.getElementById('cat-title').className = fc;
+    document.getElementById('cat-hint').textContent = t('allCats');
+    document.getElementById('cat-hint').className = fc;
+    document.getElementById('card-flip-hint').textContent = t('flipHint');
+    document.getElementById('back-label').textContent = t('definition');
+    document.getElementById('complete-title').textContent = t('sessionComplete');
+    document.getElementById('complete-msg').textContent = t('greatJob');
+    document.querySelectorAll('.rate-btn')[0].textContent = t('knewIt');
+    document.querySelectorAll('.rate-btn')[1].textContent = t('learning');
+    document.querySelectorAll('.rate-btn')[2].textContent = t('forgot');
+    document.getElementById('btn-reset').textContent = t('resetProgress');
+    renderCategories();
+    renderStats();
+}
+
+function renderCategories() {
+    const grid = document.getElementById('cat-grid');
+    grid.innerHTML = '';
+    Object.entries(CATS).forEach(([key, cat]) => {
+        const btn = document.createElement('button');
+        btn.className = 'cat-btn' + (selectedCats.includes(key) ? ' selected' : '') + ' ' + fontClass();
+        btn.innerHTML = '<span class="cat-icon">' + cat.icon + '</span><span>' + cat[lang] + '</span>';
+        btn.onclick = () => { toggleCategory(key); };
+        grid.appendChild(btn);
+    });
+}
+
+function toggleCategory(cat) {
+    if (selectedCats.includes(cat)) selectedCats = selectedCats.filter(c => c !== cat);
+    else selectedCats.push(cat);
+    renderCategories();
+}
+
+function renderStats() {
+    const progress = loadProgress();
+    const mastered = Object.values(progress).filter(p => p.level >= 3).length;
+    const learning = Object.values(progress).filter(p => p.level > 0 && p.level < 3).length;
+    const total = DATA.length;
+    const grid = document.getElementById('stats-grid');
+    grid.innerHTML = '<div class="stat-box"><div class="stat-num" style="color:#10b981;">' + mastered + '</div><div class="stat-label ' + fontClass() + '">' + t('mastered') + '</div></div>' +
+        '<div class="stat-box"><div class="stat-num" style="color:#f59e0b;">' + learning + '</div><div class="stat-label ' + fontClass() + '">' + t('reviewing') + '</div></div>' +
+        '<div class="stat-box"><div class="stat-num" style="color:#94a3b8;">' + total + '</div><div class="stat-label ' + fontClass() + '">' + t('total') + '</div></div>';
+}
+
+function startSession() {
+    let cats = selectedCats.length > 0 ? selectedCats : Object.keys(CATS);
+    sessionCards = DATA.filter(c => cats.includes(c.cat)).sort(() => Math.random() - 0.5);
+    currentIdx = 0;
+    isFlipped = false;
+    document.getElementById('view-categories').style.display = 'none';
+    document.getElementById('view-study').style.display = '';
+    document.getElementById('view-complete').style.display = 'none';
+    showCard();
+}
+
+function showCard() {
+    const card = sessionCards[currentIdx];
+    const fc = fontClass();
+    document.getElementById('card-counter').textContent = t('cardOf').replace('of', (currentIdx+1) + ' ' + t('cardOf').split(' ').pop() + ' ' + sessionCards.length);
+    document.getElementById('progress-fill').style.width = ((currentIdx+1) / sessionCards.length * 100) + '%';
+    document.getElementById('card-cat').textContent = CATS[card.cat][lang];
+    document.getElementById('card-cat').className = fc;
+    document.getElementById('card-term').textContent = card.term[lang];
+    document.getElementById('card-term').className = fc;
+    document.getElementById('card-def').textContent = card.def[lang];
+    document.getElementById('card-def').className = fc;
+    if (lang !== 'en') {
+        document.getElementById('card-en-hint').textContent = 'EN: ' + card.term.en + ' — ' + card.def.en;
+        document.getElementById('card-en-hint').style.display = '';
+        document.getElementById('card-en-hint').className = fc;
+    } else {
+        document.getElementById('card-en-hint').style.display = 'none';
+    }
+    document.getElementById('flashcard').classList.remove('flipped');
+    isFlipped = false;
+    document.getElementById('rate-buttons').style.display = 'none';
+}
+
+function flipCard() {
+    isFlipped = !isFlipped;
+    document.getElementById('flashcard').classList.toggle('flipped', isFlipped);
+    if (isFlipped) {
+        document.getElementById('rate-buttons').style.display = '';
+    }
+}
+
+function handleRate(rating) {
+    const cardId = sessionCards[currentIdx].id;
+    const progress = loadProgress();
+    const existing = progress[cardId] || {level: 0, lastSeen: 0};
+    if (rating === 'knew') existing.level = Math.min(5, existing.level + 1);
+    else if (rating === 'forgot') existing.level = 0;
+    existing.lastSeen = Date.now();
+    progress[cardId] = existing;
+    saveProgress(progress);
+    if (currentIdx + 1 < sessionCards.length) {
+        currentIdx++;
+        showCard();
+    } else {
+        document.getElementById('view-study').style.display = 'none';
+        document.getElementById('view-complete').style.display = '';
+    }
+}
+
+function backToCategories() {
+    selectedCats = [];
+    document.getElementById('view-categories').style.display = '';
+    document.getElementById('view-study').style.display = 'none';
+    document.getElementById('view-complete').style.display = 'none';
+    renderCategories();
+    renderStats();
+}
+
+function showResetModal() { document.getElementById('reset-modal').style.display = ''; }
+function hideResetModal() { document.getElementById('reset-modal').style.display = 'none'; }
+function resetProgress() {
+    localStorage.removeItem('flashcard-progress');
+    hideResetModal();
+    renderStats();
+}
+
+setLang('en');
+</script>
 </body>
 </html>
