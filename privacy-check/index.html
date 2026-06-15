@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Checklist Scorer — How Private Is Your Digital Life? | PashtunEinstein</title>
+    <meta name="description" content="Answer 15 questions about your digital habits and get a privacy score out of 100. See exactly where you are exposed and what to fix first. Free, private, works entirely in your browser.">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PashtunEinstein">
+    <meta property="og:title" content="Privacy Checklist Scorer — How Private Is Your Digital Life?">
+    <meta property="og:description" content="Answer 15 questions about your digital habits and get a privacy score out of 100. See exactly where you are exposed and what to fix first.">
+    <meta property="og:url" content="https://pashtuneinstein.com/privacy-check/">
+    <meta property="og:image" content="https://pashtuneinstein.com/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Privacy Checklist Scorer — How Private Is Your Digital Life?">
+    <meta name="twitter:description" content="Answer 15 questions about your digital habits and get a privacy score out of 100. See exactly where you are exposed and what to fix first.">
+    <meta name="twitter:image" content="https://pashtuneinstein.com/logo.png">
+    <meta name="theme-color" content="#020617">
+    <link rel="canonical" href="https://pashtuneinstein.com/privacy-check/">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/logo.png">
+    <script defer src="/pwa.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PashtunEinstein Privacy Checklist Scorer",
+      "url": "https://pashtuneinstein.com/privacy-check/",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Any",
+      "description": "Answer 15 questions about your digital habits and get a privacy score out of 100. See exactly where you are exposed and get personalized recommendations.",
+      "publisher": {
+        "@id": "https://pashtuneinstein.com/#organization"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pashtuneinstein.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Academy",
+          "item": "https://pashtuneinstein.com/academy/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Privacy Checklist Scorer",
+          "item": "https://pashtuneinstein.com/privacy-check/"
+        }
+      ]
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .card {
+            background-color: rgba(22, 27, 34, 0.95);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .question-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            background: rgba(30, 40, 52, 0.7);
+            border: 1px solid #1e293b;
+            transition: all 0.25s ease;
+        }
+
+        .question-row:hover {
+            border-color: #374151;
+        }
+
+        .yes-btn, .no-btn {
+            padding: 6px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            min-width: 60px;
+        }
+
+        .yes-btn {
+            background: #1f2937;
+            color: #9ca3af;
+            border: 1px solid #374151;
+        }
+
+        .yes-btn.active {
+            background: #16a34a;
+            color: white;
+            border-color: #16a34a;
+            box-shadow: 0 0 12px rgba(22, 163, 74, 0.3);
+        }
+
+        .no-btn {
+            background: #1f2937;
+            color: #9ca3af;
+            border: 1px solid #374151;
+        }
+
+        .no-btn.active {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+            box-shadow: 0 0 12px rgba(220, 38, 38, 0.3);
+        }
+
+        .score-ring {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 6px solid;
+            transition: all 0.5s ease;
+        }
+
+        .score-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .score-label {
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .tip-item {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            border: 1px solid;
+        }
+
+        .tip-critical {
+            background: rgba(220, 38, 38, 0.1);
+            border-color: rgba(220, 38, 38, 0.3);
+        }
+
+        .tip-warning {
+            background: rgba(217, 119, 6, 0.1);
+            border-color: rgba(217, 119, 6, 0.3);
+        }
+
+        .tip-good {
+            background: rgba(22, 163, 74, 0.1);
+            border-color: rgba(22, 163, 74, 0.3);
+        }
+
+        .progress-track {
+            background: #1f2937;
+            border-radius: 9999px;
+            overflow: hidden;
+            height: 10px;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.4s ease, background-color 0.4s ease;
+        }
+
+        @media (max-width: 640px) {
+            .score-ring {
+                width: 140px;
+                height: 140px;
+            }
+            .score-number {
+                font-size: 2.5rem;
+            }
+            .question-row {
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <header class="p-4 border-b border-gray-700 relative z-10 bg-opacity-90 bg-[#0d1117]">
+        <div class="max-w-7xl mx-auto flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
+            <div class="flex items-center space-x-4">
+                <a href="https://pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-4 hover:opacity-90 transition-opacity">
+                    <img src="/logo.png" alt="PashtunEinstein Logo" class="h-16 w-16 rounded-full bg-white p-1 shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/64x64/ffffff/1e40af?text=PE'" title="PashtunEinstein Logo">
+                    <div class="flex flex-col">
+                        <span id="siteTitle" class="text-2xl font-bold text-teal-400 leading-none">PrivacyCheck</span>
+                        <span class="text-sm text-gray-400 font-medium mt-1">PashtunEinstein</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="space-x-4 hidden md:flex">
+                <a href="https://pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-teal-400 transition-colors">Website</a>
+                <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-teal-400 transition-colors">Blog</a>
+                <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-teal-400 transition-colors">YouTube</a>
+                <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-teal-400 transition-colors">Facebook</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto p-4 md:p-8 relative z-10">
+
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
+            <button onclick="setLang('en')" class="px-4 py-2 rounded-lg font-semibold text-sm bg-teal-500 text-black hover:bg-teal-400 transition" id="btnEn">English</button>
+            <button onclick="setLang('ur')" class="px-4 py-2 rounded-lg font-semibold text-sm bg-gray-700 text-white hover:bg-gray-600 transition" id="btnUr">اردو</button>
+            <button onclick="setLang('ps')" class="px-4 py-2 rounded-lg font-semibold text-sm bg-gray-700 text-white hover:bg-gray-600 transition" id="btnPs">پښتو</button>
+        </div>
+
+        <h1 id="pageTitle" class="text-3xl md:text-4xl font-extrabold text-center mt-2 mb-3 text-white">Privacy Checklist Scorer</h1>
+        <p id="pageDesc" class="text-center mb-8 text-gray-400 max-w-2xl mx-auto">Answer 15 questions about your digital habits and get a privacy score out of 100. See exactly where you are exposed and what to fix first. Nothing is sent to any server.</p>
+
+        <div id="quizSection">
+            <div class="flex items-center justify-between mb-2">
+                <span id="progressLabel" class="text-sm text-gray-400">0 of 15 answered</span>
+                <span id="progressPercent" class="text-sm font-semibold text-gray-400">0%</span>
+            </div>
+            <div class="progress-track">
+                <div id="progressBar" class="progress-fill" style="width: 0%; background-color: #6b7280;"></div>
+            </div>
+
+            <div id="questionsContainer"></div>
+
+            <div class="mt-6 text-center">
+                <button onclick="calculateScore()" id="calcBtn" class="px-8 py-3 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 shadow-lg shadow-teal-900/20 transition text-lg disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+                    Calculate My Score
+                </button>
+                <div id="answerAllMsg" class="text-sm text-gray-500 mt-2 hidden" id="answerAllMsg">Please answer all 15 questions to see your score.</div>
+            </div>
+        </div>
+
+        <div id="resultsSection" class="hidden">
+            <div class="card p-8 rounded-xl border border-gray-700 mb-8 text-center">
+                <div class="score-ring mx-auto" id="scoreRing" style="border-color: #dc2626;">
+                    <span class="score-number" id="scoreNum" style="color: #dc2626;">0</span>
+                    <span class="score-label" id="scoreOutOf" style="color: #9ca3af;">/ 100</span>
+                </div>
+                <div class="mt-4">
+                    <h2 id="scoreVerdict" class="text-2xl font-bold text-white"></h2>
+                    <p id="scoreSummary" class="text-gray-400 mt-2 max-w-lg mx-auto"></p>
+                </div>
+            </div>
+
+            <div class="card p-6 rounded-xl border border-gray-700 mb-8">
+                <h3 id="tipsHeading" class="text-xl font-bold text-white mb-4">What You Should Fix</h3>
+                <div id="tipsContainer"></div>
+            </div>
+
+            <div class="card p-6 rounded-xl border border-gray-700 mb-8">
+                <h3 id="goodHeading" class="text-xl font-bold text-white mb-4">What You Are Doing Well</h3>
+                <div id="goodContainer"></div>
+            </div>
+
+            <div class="text-center space-y-4 mt-8">
+                <button onclick="resetQuiz()" id="retakeBtn" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition">
+                    Take Quiz Again
+                </button>
+                <div class="space-y-2">
+                    <a href="https://blog.pashtuneinstein.com/how-strong-is-your-password-really-and-why-it-matters/" target="_blank" rel="noopener noreferrer" class="block text-teal-400 hover:text-teal-300 text-sm" id="link1">How Strong Is Your Password, Really? →</a>
+                    <a href="https://blog.pashtuneinstein.com/4-privacy-checks-you-should-be-doing-but-probably-arent/" target="_blank" rel="noopener noreferrer" class="block text-teal-400 hover:text-teal-300 text-sm" id="link2">4 Privacy Checks You Should Be Doing →</a>
+                    <a href="https://blog.pashtuneinstein.com/5-services-to-encrypt-your-life/" target="_blank" rel="noopener noreferrer" class="block text-teal-400 hover:text-teal-300 text-sm" id="link3">5 Services to Encrypt Your Life →</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="mt-12 p-6 border-t border-gray-800 text-center text-gray-500 relative z-10 bg-[#0d1117]">
+        <div class="max-w-7xl mx-auto">
+            <p class="mb-3 font-semibold">&copy; 2026 PashtunEinstein. All rights reserved.</p>
+            <div class="md:hidden flex justify-center space-x-4 text-sm mb-4">
+                <a href="https://pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="hover:text-teal-400">Website</a>
+                <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="hover:text-teal-400">Blog</a>
+                <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" rel="noopener noreferrer" class="hover:text-teal-400">YouTube</a>
+                <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" rel="noopener noreferrer" class="hover:text-teal-400">Facebook</a>
+            </div>
+            <p class="text-xs opacity-50">All answers stay in your browser — nothing is sent anywhere</p>
+        </div>
+    </footer>
+
+    <script>
+    const Q = {
+        en: [
+            { q: "I use a password manager to create and store unique passwords.", tip: "Use a password manager like Bitwarden or KeePass to create and store unique passwords for every account.", cat: "passwords" },
+            { q: "I use two-factor authentication (2FA) on my important accounts.", tip: "Enable 2FA on email, banking, and social media. Use an authenticator app instead of SMS when possible.", cat: "auth" },
+            { q: "I never reuse the same password across different accounts.", tip: "Reusing passwords means one breach exposes all your accounts. Use unique passwords everywhere.", cat: "passwords" },
+            { q: "I keep my operating system and browser updated automatically.", tip: "Outdated software is one of the easiest ways attackers get in. Turn on automatic updates today.", cat: "updates" },
+            { q: "I check app permissions and remove access I do not need.", tip: "Go through your phone and computer app settings. Remove location, microphone, and camera access from apps that do not need it.", cat: "permissions" },
+            { q: "I use a VPN on public or shared Wi-Fi networks.", tip: "A VPN encrypts your traffic on public networks. Use one whenever you connect to coffee shop, airport, or hotel Wi-Fi.", cat: "network" },
+            { q: "I verify links and senders before clicking in emails or messages.", tip: "Hover over links before clicking. Check the sender's full email address. When in doubt, go directly to the website instead.", cat: "phishing" },
+            { q: "I use encrypted messaging (like Signal) for private conversations.", tip: "SMS and many chat apps do not use end-to-end encryption. Switch to Signal or a similar app for private conversations.", cat: "messaging" },
+            { q: "I review and limit what I share on social media.", tip: "Check your social media privacy settings regularly. Avoid sharing your birthday, hometown, workplace, and daily routine publicly.", cat: "social" },
+            { q: "I use a privacy-focused browser with tracker blocking.", tip: "Switch to Firefox or Brave and install uBlock Origin. These block trackers and reduce your browser fingerprint.", cat: "browser" },
+            { q: "I use encrypted DNS (like 1.1.1.1 or 9.9.9.9) on my devices.", tip: "Change your DNS to a privacy-friendly provider like Cloudflare (1.1.1.1) or Quad9 (9.9.9.9) to prevent your ISP from seeing your browsing.", cat: "network" },
+            { q: "I encrypt sensitive files before storing them in the cloud.", tip: "Use AES encryption (like our SecureText tool) before uploading sensitive files to any cloud service.", cat: "encryption" },
+            { q: "I use separate email addresses for different purposes.", tip: "Use one email for banking, one for social media, and one for signups. This limits exposure if one gets compromised.", cat: "identity" },
+            { q: "I check whether my accounts have appeared in data breaches.", tip: "Search your email on HaveIBeenPwned.com regularly. If you find breaches, change those passwords immediately.", cat: "breaches" },
+            { q: "I avoid connecting to unknown or suspicious Wi-Fi networks.", tip: "Evil twin Wi-Fi attacks can capture your traffic. Only connect to networks you trust, and use a VPN when unsure.", cat: "network" }
+        ],
+        ur: [
+            { q: "میں منفرد پاسورڈ بنانے اور محفوظ کرنے کے لیے پاسورڈ مینیجر استعمال کرتا/کرتی ہوں۔", tip: "Bitwarden یا KeePass جیسا پاسورڈ مینیجر استعمال کریں تاکہ ہر اکاؤنٹ کے لیے منفرد پاسورڈ بنایا جا سکے۔", cat: "passwords" },
+            { q: "میں اپنے اہم اکاؤنٹس پر دو عنصری توثیق (2FA) استعمال کرتا/کرتی ہوں۔", tip: "ای میل، بینکنگ اور سوشل میڈیا پر 2FA ضرور فعال کریں۔ جہاں ممکن ہو آمنٹیکیٹر ایپ استعمال کریں۔", cat: "auth" },
+            { q: "میں مختلف اکاؤنٹس پر ایک ہی پاسورڈ دوبارہ استعمال نہیں کرتا/کرتی۔", tip: "پاسورڈ دوبارہ استعمال کرنے کا مطلب ہے کہ ایک خلاف ورزی سے تمام اکاؤنٹس متاثر ہوتے ہیں۔", cat: "passwords" },
+            { q: "میں اپنے آپریٹنگ سسٹم اور براؤزر کو خود بخود اپ ڈیٹ رکھتا/رکھتی ہوں۔", tip: "پرانی سافٹ ویئر حملہ آوروں کے لیے آسان راستہ ہے۔ فوری طور پر آٹومٹک اپ ڈیٹس آن کریں۔", cat: "updates" },
+            { q: "میں ایپ کی اجازتوں کی جانچ کرتا/کرتی ہوں اور غیر ضروری رسائی ہٹاتا/ہٹاتی ہوں۔", tip: "فون اور کمپیوٹر کی ایپ سیٹنگز چیک کریں۔ لوکیشن، مائیکروفون اور کیمرہ کی رسائی غیرضروری ایپس سے ہٹائیں۔", cat: "permissions" },
+            { q: "میں عوامی یا شیئرڈ Wi-Fi پر VPN استعمال کرتا/کرتی ہوں۔", tip: "VPN عوامی نیٹ ورک پر آپ کے ٹریفک کو انکرپٹ کرتا ہے۔ کافی شاپ یا ہوٹل Wi-Fi پر VPN ضرور استعمال کریں۔", cat: "network" },
+            { q: "میں ای میل یا میسجز میں لنکس اور بھیجنے والے کی تصدیق کرتا/کرتی ہوں۔", tip: "کلک کرنے سے پہلے لنکس پر ہوور کریں۔ بھیجنے والے کا مکمل ای میل ایڈریس چیک کریں۔ شک ہو تو براہ راست ویب سائٹ جائیں۔", cat: "phishing" },
+            { q: "میں نجی گفتگو کے لیے انکرپٹڈ میسجنگ (جیسے Signal) استعمال کرتا/کرتی ہوں۔", tip: "SMS اور بہت سی چیٹ ایپس اینڈ ٹو اینڈ انکرپشن نہیں استعمال کرتیں۔ نجی گفتگو کے لیے Signal پر منتقل ہوں۔", cat: "messaging" },
+            { q: "میں سوشل میڈیا پر شیئر کرنے کی چیزوں کی حد بندی کرتا/کرتی ہوں۔", tip: "سوشل میڈیا کی پرائیویسی سیٹنگز باقاعدگی سے چیک کریں۔ سالگرہ، شہر اور روزمرہ کی روٹ شئر کرنے سے پرہیز کریں۔", cat: "social" },
+            { q: "میں ٹریکر بلاکنگ کے ساتھ پرائیویسی فولڈ براؤزر استعمال کرتا/کرتی ہوں۔", tip: "Firefox یا Brave پر سوئچ کریں اور uBlock Origin انسٹال کریں۔ یہ ٹریکرز بلاک کرتا ہے اور براؤزر فنگرپرنٹ کم کرتا ہے۔", cat: "browser" },
+            { q: "میں اپنے آلات پر انکرپٹڈ DNS (جیسے 1.1.1.1 یا 9.9.9.9) استعمال کرتا/کرتی ہوں۔", tip: "DNS کو Cloudflare (1.1.1.1) یا Quad9 (9.9.9.9) پر تبدیل کریں تاکہ ISP آپ کی براؤزنگ نہ دیکھ سکے۔", cat: "network" },
+            { q: "میں حساس فائلیں کلاؤڈ میں محفوظ کرنے سے پہلے انکرپٹ کرتا/کرتی ہوں۔", tip: "کسی بھی کلاؤڈ سروس پر اپ لوڈ کرنے سے پہلے AES انکرپشن استعمال کریں۔", cat: "encryption" },
+            { q: "میں مختلف مقاصد کے لیے الگ ای میل ایڈریس استعمال کرتا/کرتی ہوں۔", tip: "بینکنگ کے لیے ایک ای میل، سوشل میڈیا کے لیے دوسرا، اور سائن اپ کے لیے تیسرا استعمال کریں۔", cat: "identity" },
+            { q: "میں چیک کرتا/کرتی ہوں کہ میرے اکاؤنٹس ڈیٹا بریچز میں شامل تو نہیں ہیں۔", tip: "اپنا ای میل HaveIBeenPwned.com پر تلاش کریں۔ اگر بریچ ملے تو فوری طور پر پاسورڈ تبدیل کریں۔", cat: "breaches" },
+            { q: "میں نامعلوم یا مشکوک Wi-Fi نیٹ ورکس سے جڑنے سے گریز کرتا/کرتی ہوں۔", tip: "انیول ٹوئن Wi-Fi حملے آپ کے ٹریفک کو کیپچر کر سکتے ہیں۔ صرف قابل اعتماد نیٹ ورکس سے جڑیں اور شک ہو تو VPN استعمال کریں۔", cat: "network" }
+        ],
+        ps: [
+            { q: "زه د بېلابېلو پړنومو جوړولو او خوندي کولو لپاره د پړنومي مدیر کاروم.", tip: "د Bitwarden يا KeePass پړنومي مدیر وکاروئ ترڅو د هر اکاونټ لپاره بېلابېلي پړنومي جوړ کړئ.", cat: "passwords" },
+            { q: "زه په خپلو مهمو اکاونټونو کې دوه عنصري تصدیق (2FA) کاروم.", tip: "بریښنالیک، بانکدت او ټولنیزو رسنیو کې 2FA فعاله کړئ. چېرته چې شته وي، تصدیقونکي برنامه وکاروئ.", cat: "auth" },
+            { q: "زه بېلابېلو اکاونټونو کې یوه پړنومه بیا نه کاروم.", tip: "د پړنومو بیا کارول دا مانا لري چې یوه برید ټول اکاونټونه ځپې. هرچیرته بېلابېلي پړنومي وکاروئ.", cat: "passwords" },
+            { q: "زه خپل عملیاتي سیستم او براوزر اتوماتيک تازه ساتم.", tip: "زوړ سافټویر د بریدګرو لپاره اسانه لار ده. نن ورځ اتوماتيک تازه کول فعاله کړئ.", cat: "updates" },
+            { q: "زه د اپليکيشنو اجازتو ته کته کوم او غیر ضروري لاسرسي له مینځه وړم.", tip: "د تلیفون او کمپیوټر اپليکيشنو ترتیبات وګورئ. د هغو اپسو څخه ځای، مایکروفون او کامرې لاسرسی لرې کړئ چې اړتیا یې نشته.", cat: "permissions" },
+            { q: "زه په عامه یا شریکه Wi-Fi شبکو کې VPN کاروم.", tip: "VPN په عامه شبکو کې ستاسو ټریفیک کوډوي. د کافي شاپ، هوایی ډګر یا هوټل Wi-Fi کارولو وخت VIPN وکاروئ.", cat: "network" },
+            { q: "زه په بریښنالیک یا پیغامونو کې د لینکونو او لیږونکي تصدیق کوم.", tip: "د کلیلکولو مخکې لینکونو باندې هورور وکړئ. د لیږونکي بشپړ بریښنالیک پته وګورئ. که شک ولرئ، مستقیم سایټته لاړ شئ.", cat: "phishing" },
+            { q: "زه د خصوصي خبرو لپاره کوډ شوی پیغام رساني (لکه Signal) کاروم.", tip: "SMS او ډیری چیټ اپليکيشنې د پای تر پای کوډینګ نه استعماوي. د خصوصي خبرو لپاره Signal ته وروځئ.", cat: "messaging" },
+            { q: "زه هغه څه چې په ټولنیزو رسنیو کې شریکوم، محدودوم او ګورم یې.", tip: "خپل ټولنیزو رسنیو د پرایویسي ترتیباتو منظم کتنه وکړئ. د کلیزې، ښار او ورځني روټ شریکولو څخه ډډه وکړئ.", cat: "social" },
+            { q: "زه د ټریکر بلاک کولو سره د پرایویسي تمرکز براوزر کاروم.", tip: "Firefox یا Brave ته ولاړ شئ او uBlock Origin نصب کړئ. دا ټریکرز بلاکوي او ستاسو براوزر فینګرپرنټ کموي.", cat: "browser" },
+            { q: "زه خپلو دستگاهونو باندی کوډ شوی DNS (لکه 1.1.1.1 یا 9.9.9.9) کاروم.", tip: "خپل DNS د Cloudflare (1.1.1.1) یا Quad9 (9.9.9.9) ته بدلولو سره خپل ISP خپل براوزینګ له لیدو څخه مخنیوی وکړئ.", cat: "network" },
+            { q: "زه حساس فایلونه په کلاوډ کي خوندي کولو مخکې کوډوم.", tip: "هرڅه کلاوډ ته پورته کولو مخکې AES کوډينګ وکاروئ.", cat: "encryption" },
+            { q: "زه بېلابېلو موخو لپاره بېلابېل بریښنالیک پتې کاروم.", tip: "بانکدت لپاره یو بریښنالیک، ټولنیزو رسنیو لپاره بل، او نوم لیکنې لپاره دریم وکاروئ.", cat: "identity" },
+            { q: "زه ګورم چې زما اکاونټونه په معلوماتي بریدونو کي شامل نه دي.", tip: "خپل بریښنالیک HaveIBeenPwned.com باندې وپلټئ. که برید وموندل شو، هغه پړنومي سمدستي بدل کړئ.", cat: "breaches" },
+            { q: "زه له ناپیژندلې یا مشکوکې Wi-Fi شبکو سره نښلو څخه ډډه کوم.", tip: "د جعلي Wi-Fi بریدونه ستاسو ټریفیک نیولی شي. یوازې باوري شبکو سره وصل شئ او که شک ولرئ نو VPN وکاروئ.", cat: "network" }
+        ]
+    };
+
+    let currentLang = 'en';
+    let answers = {};
+
+    function setLang(lang) {
+        currentLang = lang;
+        document.getElementById('siteTitle').textContent = lang === 'en' ? 'PrivacyCheck' : lang === 'ur' ? 'پرائیویسی چیک' : 'پرایویسي کتنه';
+        const t = Q[lang];
+        document.getElementById('pageTitle').textContent = lang === 'en' ? 'Privacy Checklist Scorer' : lang === 'ur' ? 'پرائیویسی چیک لسٹ اسکورر' : 'د پرایویسي کتنې لیست سکور';
+        const descs = {
+            en: "Answer 15 questions about your digital habits and get a privacy score out of 100. See exactly where you are exposed and what to fix first. Nothing is sent to any server.",
+            ur: "اپنی ڈیجیٹل عادتوں کے بارے میں 15 سوالات کے جواب دیں اور 100 میں سے پرائیویسی اسکور حاصل کریں۔ دیکھیں کہ آپ کہاںExposed ہیں اور پہلے کیا ٹھیک کرنا ہے۔",
+            ps: "د خپلو ډیجیټل عادتو په اړه ۱۵ پوښتنو ته ځواب ورکړئ او د ۱۰۰ څخه د پرایویسي سکور ترلاسه کړئ. وګورئ چې تاسو چیرتهExpose یاست او لومړی څه حل کړئ."
+        };
+        document.getElementById('pageDesc').textContent = descs[lang];
+        document.getElementById('calcBtn').textContent = lang === 'en' ? 'Calculate My Score' : lang === 'ur' ? 'اسکور معلوم کریں' : 'خپل سکور محاسبه کړئ';
+        const btns = ['btnEn','btnUr','btnPs'];
+        btns.forEach(id => {
+            const b = document.getElementById(id);
+            b.classList.remove('bg-teal-500','text-black');
+            b.classList.add('bg-gray-700','text-white');
+        });
+        const activeIdx = lang === 'en' ? 0 : lang === 'ur' ? 1 : 2;
+        const activeBtn = document.getElementById(btns[activeIdx]);
+        activeBtn.classList.remove('bg-gray-700','text-white');
+        activeBtn.classList.add('bg-teal-500','text-black');
+        renderQuestions();
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questionsContainer');
+        const t = Q[currentLang];
+        let html = '';
+        t.forEach((q, i) => {
+            const answered = answers[i] !== undefined;
+            const val = answers[i];
+            html += `
+            <div class="question-row">
+                <span class="text-sm md:text-base flex-1 mr-3">${i + 1}. ${q.q}</span>
+                <div class="flex gap-2 flex-shrink-0">
+                    <button class="yes-btn ${val === true ? 'active' : ''}" onclick="answer(${i}, true)">${currentLang === 'en' ? 'Yes' : currentLang === 'ur' ? 'ہاں' : 'هو'}</button>
+                    <button class="no-btn ${val === false ? 'active' : ''}" onclick="answer(${i}, false)">${currentLang === 'en' ? 'No' : currentLang === 'ur' ? 'نہیں' : 'نه'}</button>
+                </div>
+            </div>`;
+        });
+        container.innerHTML = html;
+        updateProgress();
+    }
+
+    function answer(index, value) {
+        answers[index] = value;
+        renderQuestions();
+    }
+
+    function updateProgress() {
+        const total = Object.keys(answers).length;
+        const pct = Math.round((total / 15) * 100);
+        document.getElementById('progressLabel').textContent = currentLang === 'en' ? `${total} of 15 answered` : currentLang === 'ur' ? `${total} از 15 جواب دیں` : `${total} له ۱۵ ځوابونه`;
+        document.getElementById('progressPercent').textContent = pct + '%';
+        document.getElementById('progressBar').style.width = pct + '%';
+        if (pct < 50) document.getElementById('progressBar').style.backgroundColor = '#dc2626';
+        else if (pct < 100) document.getElementById('progressBar').style.backgroundColor = '#d97706';
+        else document.getElementById('progressBar').style.backgroundColor = '#16a34a';
+        const btn = document.getElementById('calcBtn');
+        btn.disabled = total < 15;
+        document.getElementById('answerAllMsg').classList.toggle('hidden', total >= 15);
+        if (!btn.disabled) {
+            btn.classList.add('hover:bg-teal-700');
+        }
+    }
+
+    function calculateScore() {
+        const total = Object.keys(answers).length;
+        if (total < 15) return;
+        let yesCount = 0;
+        const noQuestions = [];
+        const yesQuestions = [];
+        const t = Q[currentLang];
+
+        for (let i = 0; i < 15; i++) {
+            if (answers[i]) {
+                yesCount++;
+                yesQuestions.push(i);
+            } else {
+                noQuestions.push(i);
+            }
+        }
+
+        const score = Math.round((yesCount / 15) * 100);
+        let verdict, summaryClass;
+        const verdicts = {
+            en: [
+                { v: "Critical Risk", s: "Your digital privacy has major gaps. Start fixing the items below — even small changes make a big difference." },
+                { v: "Needs Work", s: "You have some good habits, but important areas still need attention. Focus on the critical items below." },
+                { v: "Getting Better", s: "You are doing well in some areas but still have blind spots. Review the warnings below." },
+                { v: "Good", s: "Solid privacy habits overall. A few more improvements and you will be very well protected." },
+                { v: "Excellent", s: "You take digital privacy seriously. Keep it up and encourage others to follow your example." }
+            ],
+            ur: [
+                { v: "شدید خطرہ", s: "آپ کی ڈیجیٹل پرائیویسی میں بڑے عیب ہیں۔ نیچے دیے گئے مسائل حل کریں۔" },
+                { v: "بہتری کی ضرورت", s: "آپ کی کچھ عادات اچھی ہیں لیکن اہم شعبوں میں ابھی توجہ درکار ہے۔" },
+                { v: "بہتر ہو رہا ہے", s: "آپ کچھ شعبوں میں اچھے ہیں لیکن ابھی خامیاں ہیں۔ نیچے انتباہات دیکھیں۔" },
+                { v: "اچھا", s: "مجموعی طور پر اچھی پرائیویسی عادات۔ مزید بہتری سے آپ بہت محفوظ ہوں گے۔" },
+                { v: "شاندار", s: "آپ ڈیجیٹل پرائیویسی کو سنجیدگی سے لیتے ہیں۔ ایسا ہی رکھیں۔" }
+            ],
+            ps: [
+                { v: "شدید خطر", s: "ستاسو ډیجیټل پرایویسي کي سترې تشې دي. لاندې مسئلې حل کړئ." },
+                { v: "د ښه کیدو اړتیا", s: "تاسو ځینې ښې عادت لرئ خو مهمو ساحو کي لا هم پاملرنه پکار ده." },
+                { v: "ښه کیږي", s: "تاسو ځینو برخو کي ښه یاست خو لا تشې لرئ. لاندې خبرداريونه وګورئ." },
+                { v: "ښه", s: "د پرایویسي ښې عادت په مجموعي توګه. څو نورو ښه کولو سره به ډېر خوندي شئ." },
+                { v: "عالي", s: "تاسو ډیجیټل پرایویسي ته سنجیدیلکی وګورئ. همداسې یوساتئ." }
+            ]
+        };
+
+        let idx;
+        if (score < 27) idx = 0;
+        else if (score < 47) idx = 1;
+        else if (score < 67) idx = 2;
+        else if (score < 87) idx = 3;
+        else idx = 4;
+
+        verdict = verdicts[currentLang][idx].v;
+        summaryClass = verdicts[currentLang][idx].s;
+
+        let color;
+        if (score < 27) color = '#dc2626';
+        else if (score < 47) color = '#ea580c';
+        else if (score < 67) color = '#d97706';
+        else if (score < 87) color = '#16a34a';
+        else color = '#059669';
+
+        document.getElementById('quizSection').classList.add('hidden');
+        document.getElementById('resultsSection').classList.remove('hidden');
+
+        const ring = document.getElementById('scoreRing');
+        ring.style.borderColor = color;
+        document.getElementById('scoreNum').textContent = score;
+        document.getElementById('scoreNum').style.color = color;
+        document.getElementById('scoreOutOf').style.color = color;
+        document.getElementById('scoreVerdict').textContent = verdict;
+        document.getElementById('scoreVerdict').style.color = color;
+        document.getElementById('scoreSummary').textContent = summaryClass;
+
+        const tipsHtml = noQuestions.map(i => {
+            const q = t[i];
+            const severity = i < 5 ? 'tip-critical' : 'tip-warning';
+            const label = i < 5 ? (currentLang === 'en' ? 'Fix first' : currentLang === 'ur' ? 'پہلے ٹھیک کریں' : 'لومړی حل') : (currentLang === 'en' ? 'Improve' : currentLang === 'ur' ? 'بہتری دیں' : 'ښه کړئ');
+            const labelColor = i < 5 ? 'text-red-400' : 'text-amber-400';
+            return `<div class="tip-item ${severity}">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="font-semibold text-white text-sm">${q.q}</span>
+                    <span class="${labelColor} text-xs font-bold">${label}</span>
+                </div>
+                <p class="text-gray-400 text-sm">${q.tip}</p>
+            </div>`;
+        }).join('');
+        document.getElementById('tipsHeading').textContent = currentLang === 'en' ? 'What You Should Fix' : currentLang === 'ur' ? 'جو کچ ٹھیک کرنا چاہیے' : 'څه حل کړئ';
+        document.getElementById('tipsContainer').innerHTML = tipsHtml || `<p class="text-gray-500 text-center">${currentLang === 'en' ? 'Nothing to fix — you answered yes to everything!' : currentLang === 'ur' ? 'ٹھیک کرنے کے لیے کچھ نہیں!' : 'حل کولو ته هیڅ نشته!'}</p>`;
+
+        const goodHtml = yesQuestions.map(i => {
+            const q = t[i];
+            return `<div class="tip-item tip-good">
+                <span class="text-green-400 text-sm">✓ ${q.q}</span>
+            </div>`;
+        }).join('');
+        document.getElementById('goodHeading').textContent = currentLang === 'en' ? 'What You Are Doing Well' : currentLang === 'ur' ? 'جو آپ اچھا کر رہے ہیں' : 'څه ښه کوئ';
+        document.getElementById('goodContainer').innerHTML = goodHtml || '';
+
+        document.getElementById('retakeBtn').textContent = currentLang === 'en' ? 'Take Quiz Again' : currentLang === 'ur' ? 'کوئز دوبارہ لیں' : 'کوئز بیا واخلئ';
+    }
+
+    function resetQuiz() {
+        answers = {};
+        document.getElementById('quizSection').classList.remove('hidden');
+        document.getElementById('resultsSection').classList.add('hidden');
+        renderQuestions();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderQuestions();
+
+    // Matrix background (teal theme)
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const chars = '01';
+    const fSize = 14;
+    let cols = Math.floor(canvas.width / fSize);
+    let drops = new Array(cols).fill(1);
+
+    function initMatrix() {
+        cols = Math.floor(canvas.width / fSize);
+        drops = new Array(cols).fill(1);
+    }
+    window.addEventListener('resize', initMatrix);
+    initMatrix();
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0d9488';
+        ctx.font = fSize + 'px monospace';
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            ctx.fillText(text, i * fSize, drops[i] * fSize);
+            if (drops[i] * fSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(drawMatrix, 33);
+    </script>
+
+</body>
+</html>

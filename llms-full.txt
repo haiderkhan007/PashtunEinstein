@@ -14,6 +14,7 @@ Main sections:
 - Science Quiz: https://pashtuneinstein.com/quiz/
 - SecureText AES Cipher Tool: https://pashtuneinstein.com/encryptdoc/
 - PassGuard Password Strength Checker & Generator: https://pashtuneinstein.com/password-checker/
+- PrivacyCheck Privacy Checklist Scorer: https://pashtuneinstein.com/privacy-check/
 - Privacy Policy: https://pashtuneinstein.com/privacy_policy/
 - Resources: https://pashtuneinstein.com/resources/
 

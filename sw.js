@@ -10,6 +10,7 @@ const APP_SHELL = [
   "/comm1/",
   "/encryptdoc/",
   "/password-checker/",
+  "/privacy-check/",
   "/language_tutor/",
   "/privacy_policy/",
   "/quiz/",
