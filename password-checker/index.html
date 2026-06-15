@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker & Generator — PashtunEinstein</title>
+    <meta name="description" content="Check how strong your password really is and generate secure passwords instantly. Free, private, and works entirely in your browser.">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PashtunEinstein">
+    <meta property="og:title" content="Password Strength Checker & Generator — PashtunEinstein">
+    <meta property="og:description" content="Check how strong your password really is and generate secure passwords instantly. Free, private, and works entirely in your browser.">
+    <meta property="og:url" content="https://pashtuneinstein.com/password-checker/">
+    <meta property="og:image" content="https://pashtuneinstein.com/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Password Strength Checker & Generator — PashtunEinstein">
+    <meta name="twitter:description" content="Check how strong your password really is and generate secure passwords instantly. Free, private, and works entirely in your browser.">
+    <meta name="twitter:image" content="https://pashtuneinstein.com/logo.png">
+    <meta name="theme-color" content="#020617">
+    <link rel="canonical" href="https://pashtuneinstein.com/password-checker/">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/logo.png">
+    <script defer src="/pwa.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PashtunEinstein Password Strength Checker & Generator",
+      "url": "https://pashtuneinstein.com/password-checker/",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Any",
+      "description": "A browser-based tool to check password strength and generate secure passwords. Everything runs locally — nothing is sent to any server.",
+      "publisher": {
+        "@id": "https://pashtuneinstein.com/#organization"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pashtuneinstein.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Academy",
+          "item": "https://pashtuneinstein.com/academy/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Password Strength Checker & Generator",
+          "item": "https://pashtuneinstein.com/password-checker/"
+        }
+      ]
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .card {
+            background-color: rgba(22, 27, 34, 0.95);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #4b5563;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #374151;
+        }
+        .divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+        .divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+
+        .strength-bar-track {
+            background-color: #1f2937;
+            border-radius: 9999px;
+            overflow: hidden;
+            height: 14px;
+        }
+
+        .strength-bar-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.4s ease, background-color 0.4s ease;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .check-pass {
+            background-color: #16a34a;
+            color: white;
+        }
+
+        .check-fail {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        .check-warn {
+            background-color: #d97706;
+            color: white;
+        }
+
+        .password-display {
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 1px;
+        }
+
+        .slider-label {
+            min-width: 28px;
+            text-align: right;
+        }
+
+        .breach-warning {
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .copy-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #16a34a;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <header class="p-4 border-b border-gray-700 relative z-10 bg-opacity-90 bg-[#0d1117]">
+        <div class="max-w-7xl mx-auto flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
+            <div class="flex items-center space-x-4">
+                <a href="https://pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-4 hover:opacity-90 transition-opacity">
+                    <img src="/logo.png" alt="PashtunEinstein Logo" class="h-16 w-16 rounded-full bg-white p-1 shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/64x64/ffffff/1e40af?text=PE'" title="PashtunEinstein Logo">
+                    <div class="flex flex-col">
+                        <span id="siteTitle" class="text-2xl font-bold text-yellow-400 leading-none">PassGuard</span>
+                        <span class="text-sm text-gray-400 font-medium mt-1">PashtunEinstein</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="space-x-4 hidden md:flex">
+                <a href="https://pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-yellow-400 transition-colors">Website</a>
+                <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-yellow-400 transition-colors">Blog</a>
+                <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-yellow-400 transition-colors">YouTube</a>
+                <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-yellow-400 transition-colors">Facebook</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 md:p-8 relative z-10">
+
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
+            <button onclick="setLang('en')" class="px-4 py-2 rounded-lg font-semibold text-sm bg-yellow-500 text-black hover:bg-yellow-400 transition">English</button>
+            <button onclick="setLang('ur')" class="px-4 py-2 rounded-lg font-semibold text-sm bg-gray-700 text-white hover:bg-gray-600 transition">اردو</button>
+            <button onclick="setLang('ps')" class="px-4 py-2 rounded-lg font-semibold text-sm bg-gray-700 text-white hover:bg-gray-600 transition">پښتو</button>
+        </div>
+
+        <h1 id="pageTitle" class="text-3xl md:text-4xl font-extrabold text-center mt-2 mb-3 text-white">Password Strength Checker & Generator</h1>
+        <p id="pageDesc" class="text-center mb-10 text-gray-400 max-w-2xl mx-auto">Check how strong your password really is and generate secure passwords instantly. Everything runs locally in your browser — nothing is sent to any server.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <div class="card p-6 rounded-xl border border-gray-700">
+                <h2 id="checkerTitle" class="text-2xl font-semibold mb-4 text-white border-b border-gray-700 pb-2 flex items-center">
+                    <span>🔍 Password Checker</span>
+                </h2>
+
+                <div class="mb-4">
+                    <label for="passwordInput" class="block text-sm font-medium text-yellow-400 mb-2" id="checkerLabel">Enter a password to check</label>
+                    <div class="relative">
+                        <input type="password" id="passwordInput" class="w-full p-3 pr-12 rounded-lg bg-gray-800 border border-gray-700 focus:ring-yellow-500 focus:border-yellow-500 text-gray-200 placeholder-gray-500" placeholder="Type or paste a password..." autocomplete="off">
+                        <button onclick="toggleVisibility()" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-yellow-400 transition p-1">
+                            <span id="eyeIcon">👁️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                        <span id="strengthLabel" class="text-sm font-semibold text-gray-400">—</span>
+                        <span id="strengthPercent" class="text-sm font-semibold text-gray-400">0%</span>
+                    </div>
+                    <div class="strength-bar-track">
+                        <div id="strengthBar" class="strength-bar-fill" style="width: 0%; background-color: #dc2626;"></div>
+                    </div>
+                </div>
+
+                <div id="crackTime" class="mb-4 p-3 rounded-lg bg-gray-800 border border-gray-700 text-center hidden">
+                    <span class="text-sm text-gray-400" id="crackTimeLabel">Estimated time to crack:</span>
+                    <div id="crackTimeValue" class="text-lg font-bold text-white mt-1"></div>
+                </div>
+
+                <div id="breachWarning" class="mb-4 p-3 rounded-lg bg-red-900/40 border border-red-700 text-center hidden">
+                    <span class="text-red-400 font-semibold breach-warning" id="breachWarningText">⚠️ This password has appeared in known data breaches!</span>
+                </div>
+
+                <div class="space-y-2 mb-4" id="checklist">
+                    <div class="check-item">
+                        <span class="check-icon check-fail" id="check8">✗</span>
+                        <span id="check8Text">At least 8 characters</span>
+                    </div>
+                    <div class="check-item">
+                        <span class="check-icon check-fail" id="checkUpper">✗</span>
+                        <span id="checkUpperText">Contains uppercase letter</span>
+                    </div>
+                    <div class="check-item">
+                        <span class="check-icon check-fail" id="checkLower">✗</span>
+                        <span id="checkLowerText">Contains lowercase letter</span>
+                    </div>
+                    <div class="check-item">
+                        <span class="check-icon check-fail" id="checkNumber">✗</span>
+                        <span id="checkNumberText">Contains number</span>
+                    </div>
+                    <div class="check-item">
+                        <span class="check-icon check-fail" id="checkSpecial">✗</span>
+                        <span id="checkSpecialText">Contains special character</span>
+                    </div>
+                    <div class="check-item">
+                        <span class="check-icon check-fail" id="checkCommon">✗</span>
+                        <span id="checkCommonText">Not a common password</span>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-lg bg-gray-800/50 border border-gray-700 text-xs text-gray-500 text-center" id="privacyNote">🔒 Your password never leaves your browser. All checks happen locally.</div>
+            </div>
+
+            <div class="card p-6 rounded-xl border border-gray-700">
+                <h2 id="generatorTitle" class="text-2xl font-semibold mb-4 text-white border-b border-gray-700 pb-2 flex items-center">
+                    <span>🔑 Password Generator</span>
+                </h2>
+
+                <div class="mb-5">
+                    <label class="block text-sm font-medium text-yellow-400 mb-2" id="lengthLabel">Password length: <span id="lengthValue">16</span></label>
+                    <input type="range" id="lengthSlider" min="8" max="64" value="16" class="w-full accent-yellow-500">
+                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                        <span>8</span>
+                        <span>64</span>
+                    </div>
+                </div>
+
+                <div class="mb-5 space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="optUpper" checked class="accent-yellow-500 w-4 h-4">
+                        <span id="optUpperText">Uppercase letters (A-Z)</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="optLower" checked class="accent-yellow-500 w-4 h-4">
+                        <span id="optLowerText">Lowercase letters (a-z)</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="optNumbers" checked class="accent-yellow-500 w-4 h-4">
+                        <span id="optNumbersText">Numbers (0-9)</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="optSymbols" checked class="accent-yellow-500 w-4 h-4">
+                        <span id="optSymbolsText">Symbols (!@#$...)</span>
+                    </label>
+                </div>
+
+                <div class="mb-5 p-4 rounded-lg bg-gray-900 border border-gray-700">
+                    <div class="flex items-center justify-between gap-3">
+                        <span id="generatedPassword" class="password-display text-green-400 text-lg md:text-xl break-all flex-1 select-all" style="word-break: break-all;">----------</span>
+                        <div class="flex gap-2 flex-shrink-0">
+                            <button onclick="copyPassword()" class="px-3 py-2 bg-yellow-600 text-white text-sm font-semibold rounded-lg hover:bg-yellow-700 transition" id="copyBtn" title="Copy">📋</button>
+                            <button onclick="generatePassword()" class="px-3 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition" id="refreshBtn" title="Regenerate">🔄</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="generatePassword()" class="btn-primary w-full px-4 py-3 bg-yellow-600 text-white font-bold rounded-lg hover:bg-yellow-700 shadow-lg shadow-yellow-900/20 text-lg" id="generateBtn">
+                    Generate Secure Password
+                </button>
+
+                <div class="mt-4 p-3 rounded-lg bg-gray-800/50 border border-gray-700 text-xs text-gray-500 text-center" id="tipBox">
+                    💡 <span id="tipText">Tip: Use at least 16 characters with a mix of uppercase, lowercase, numbers, and symbols for maximum security.</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card p-6 rounded-xl border border-gray-700 mt-8">
+            <h3 id="tipsTitle" class="text-xl font-semibold mb-4 text-white">5 Tips for Creating Strong Passwords</h3>
+            <ol class="list-decimal list-inside space-y-2 text-gray-300" id="tipsList">
+                <li id="tip1">Use at least 16 characters. Longer passwords are exponentially harder to crack.</li>
+                <li id="tip2">Mix uppercase, lowercase, numbers, and special characters.</li>
+                <li id="tip3">Never reuse passwords across different accounts.</li>
+                <li id="tip4">Avoid personal information like names, birthdays, or common words.</li>
+                <li id="tip5">Use a password manager to store unique passwords for every account.</li>
+            </ol>
+            <div class="mt-4 text-center">
+                <a href="https://blog.pashtuneinstein.com/how-strong-is-your-password-really-and-why-it-matters/" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300 underline text-sm" id="learnMoreLink">Learn more about password security →</a>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="copyToast" class="copy-toast">✓ Copied!</div>
+
+    <footer class="mt-12 p-6 border-t border-gray-800 text-center text-gray-500 relative z-10 bg-[#0d1117]">
+        <div class="max-w-7xl mx-auto">
+            <p class="mb-3 font-semibold">&copy; 2026 PashtunEinstein. All rights reserved.</p>
+            <div class="md:hidden flex justify-center space-x-4 text-sm mb-4">
+                <a href="https://pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400">Website</a>
+                <a href="https://blog.pashtuneinstein.com/" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400">Blog</a>
+                <a href="https://www.youtube.com/@PashtunEinstein" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400">YouTube</a>
+                <a href="https://www.facebook.com/profile.php?id=61550513243090" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400">Facebook</a>
+            </div>
+            <p class="text-xs opacity-50">All checks run locally • No data sent to any server</p>
+        </div>
+    </footer>
+
+    <script>
+    const commonPasswords = new Set([
+        "password","123456","12345678","qwerty","abc123","monkey","1234567","letmein","trustno1",
+        "dragon","baseball","iloveyou","master","sunshine","ashley","bailey","passw0rd","shadow",
+        "123123","654321","superman","qazwsx","michael","football","password1","password123",
+        "princess","login","welcome","admin","hello","charlie","donald","test","access",
+        "thunder","batman","pepper","buster","hunter","solo","starwars","ranger","harley",
+        "summer","winter","spring","autumn","computer","internet","love","god","money","secret",
+        "letmein1","changeme","default","1q2w3e4r","1qaz2wsx","zaq1xsw2","qweasdzxc","pass123",
+        "ipad","iphone","android","samsung","google","youtube","amazon","facebook","twitter",
+        "000000","111111","222222","333333","444444","555555","666666","777777","888888","999999",
+        "1234","12345","123456789","1234567890","696969","6969","69696969","420","4200","420420",
+        "a","aa","aaa","aaaa","zzzz","zzz","zz","z","qwerty123","123qwe","1q2w3e","a1b2c3",
+        "aa123456","password!","password1!","p@ssw0rd","p@ssword","admin123","root","toor",
+        "pass","pass1234","test123","demo","guest","master123","welcome1","flower","forever"
+    ]);
+
+    const translations = {
+        en: {
+            siteTitle: "PassGuard",
+            pageTitle: "Password Strength Checker & Generator",
+            pageDesc: "Check how strong your password really is and generate secure passwords instantly. Everything runs locally in your browser — nothing is sent to any server.",
+            checkerTitle: "🔍 Password Checker",
+            checkerLabel: "Enter a password to check",
+            generatorTitle: "🔑 Password Generator",
+            lengthLabel: "Password length: ",
+            optUpperText: "Uppercase letters (A-Z)",
+            optLowerText: "Lowercase letters (a-z)",
+            optNumbersText: "Numbers (0-9)",
+            optSymbolsText: "Symbols (!@#$...)",
+            generateBtn: "Generate Secure Password",
+            privacyNote: "🔒 Your password never leaves your browser. All checks happen locally.",
+            tipBox: '💡 <span>Tip: Use at least 16 characters with a mix of uppercase, lowercase, numbers, and symbols for maximum security.</span>',
+            check8: "At least 8 characters",
+            checkUpper: "Contains uppercase letter",
+            checkLower: "Contains lowercase letter",
+            checkNumber: "Contains number",
+            checkSpecial: "Contains special character",
+            checkCommon: "Not a common password",
+            crackTimeLabel: "Estimated time to crack:",
+            breachWarning: "⚠️ This password has appeared in known data breaches!",
+            strengthLabels: ["Very Weak", "Weak", "Fair", "Strong", "Very Strong"],
+            tipsTitle: "5 Tips for Creating Strong Passwords",
+            tips: [
+                "Use at least 16 characters. Longer passwords are exponentially harder to crack.",
+                "Mix uppercase, lowercase, numbers, and special characters.",
+                "Never reuse passwords across different accounts.",
+                "Avoid personal information like names, birthdays, or common words.",
+                "Use a password manager to store unique passwords for every account."
+            ],
+            learnMore: "Learn more about password security →"
+        },
+        ur: {
+            siteTitle: "PassGuard",
+            pageTitle: "پاسورڈ سٹرینگتھ چیکر اور جنریٹر",
+            pageDesc: "اپنے پاسورڈ کی طاقت چیکھیں اور فوری طور پر محفوظ پاسورڈ بنائیں۔ سب کچھ آپ کے براؤزر میں مقامی طور پر چلتا ہے — کچھ بھی کسی سرور کو نہیں بھیجا جاتا۔",
+            checkerTitle: "🔍 پاسورڈ چیکر",
+            checkerLabel: "چیک کرنے کے لیے پاسورڈ درج کریں",
+            generatorTitle: "🔑 پاسورڈ جنریٹر",
+            lengthLabel: "پاسورڈ کی لمبائی: ",
+            optUpperText: "بڑے حروف (A-Z)",
+            optLowerText: "چھوٹے حروف (a-z)",
+            optNumbersText: "نمبر (0-9)",
+            optSymbolsText: "علامات (!@#$...)",
+            generateBtn: "محفوظ پاسورڈ بنائیں",
+            privacyNote: "🔒 آپ کا پاسورڈ کبھی آپ کے براؤزر سے باہر نہیں جاتا۔ تمام چیکس مقامی ہیں۔",
+            tipBox: '💡 <span>تجویز: زیادہ سے زیادہ سیکیورٹی کے لیے کم از کم 16 حروف استعمال کریں اور بڑے، چھوٹے حروف، نمبر اور علامات ملا کریں۔</span>',
+            check8: "کم از کم 8 حروف",
+            checkUpper: "بڑا حرف شامل ہے",
+            checkLower: "چھوٹا حرف شامل ہے",
+            checkNumber: "نمبر شامل ہے",
+            checkSpecial: "خاص حرف شامل ہے",
+            checkCommon: "عام پاسورڈ نہیں ہے",
+            crackTimeLabel: "تخمینی وقت توڑنے کے لیے:",
+            breachWarning: "⚠️ یہ پاسورڈ ڈیٹا بریچز میں پایا گیا ہے!",
+            strengthLabels: ["بہت کمزور", "کمزور", "متوسط", "مضبوط", "بہت مضبوط"],
+            tipsTitle: "مضبوط پاسورڈ بنانے کے 5 ٹپس",
+            tips: [
+                "کم از کم 16 حروف استعمال کریں۔ لمبے پاسورڈ توڑنا بہت مشکل ہوتا ہے۔",
+                "بڑے، چھوٹے حروف، نمبر اور خاص حروف ملا کریں۔",
+                "مختلف اکاؤنٹس پر ایک ہی پاسورڈ دوبارہ استعمال نہ کریں۔",
+                "اپنے نام، سالگرہ یا عام الفاظ سے پرہیز کریں۔",
+                "ہر اکاؤنٹ کے لیے منفرد پاسورڈ محفوظ رکھنے کے لیے پاسورڈ مینیجر استعمال کریں۔"
+            ],
+            learnMore: "پاسورڈ سیکیورٹی کے بارے میں مزید جانیں →"
+        },
+        ps: {
+            siteTitle: "PassGuard",
+            pageTitle: "د پټنومې قومت کتنه او جوړون",
+            pageDesc: "وګورئ چې ستاسو پټنوم څومره قوي دی او سمدستي خوندي پړنومي جوړ کړئ. ټول ستاسو په براوزر کې پاتي کیږي — هیڅ شی هیڅ سرور ته نه لیږل کیږي.",
+            checkerTitle: "🔍 د پټنومې کتنه",
+            checkerLabel: "د کتنې لپاره پټنومه ولیکئ",
+            generatorTitle: "🔑 د پټنومې جوړون",
+            lengthLabel: "د پټنومې اوږدوالی: ",
+            optUpperText: "لوی توري (A-Z)",
+            optLowerText: "کوچني توري (a-z)",
+            optNumbersText: "شمیرې (0-9)",
+            optSymbolsText: "علامتونه (!@#$...)",
+            generateBtn: "خوندي پټنومه جوړ کړئ",
+            privacyNote: "🔒 ستاسو پټنومه هیڅکله ستاسو له براوزر څخه بهر نه ځي. ټولې کتنې سیمه ييزې دي.",
+            tipBox: '💡 <span>مشوره: د اعظمي امنیت لپاره لږترلږه ۱۶ توري وکاروئ او لوی، کوچني توري، شمیرې او علامتونه يې سره ګډ کړئ.</span>',
+            check8: "لږترلږه ۸ توري",
+            checkUpper: "لوی توری لري",
+            checkLower: "کوچنی توری لري",
+            checkNumber: "شمیره لري",
+            checkSpecial: "ځانګړی توری لري",
+            checkCommon: "عامه پټنومه نده",
+            crackTimeLabel: "د ماتولو تخمینی وخت:",
+            breachWarning: "⚠️ دا پټنومه په ډیټا برېچونو کې موندل شوې ده!",
+            strengthLabels: ["خورا کمزورې", "کمزورې", "منځنۍ", "پیاوړې", "خورا پیاوړې"],
+            tipsTitle: "د پیاوړو پړنومو جوړولو ۵ لارې",
+            tips: [
+                "لږترلږه ۱۶ توري وکاروئ. اوږدې پړنومي د ماتولو لپاره خورا ستونزمنې دي.",
+                "لوی، کوچني توري، شمیرې او ځانګړي توري سره ګډ کړئ.",
+                "بیلابیلو اکاونټونو کې یو پټنومه بیا ونه کاروئ.",
+                "خپل نوم، کلیزه یا عامو الفاظو څخه ډډه وکړئ.",
+                "هر اکاونټ لپاره بیلابیلې پړنومي خوندي ساتلو لپاره د پړنومي مدیر کاروئ."
+            ],
+            learnMore: "د پړنومي امنیت په اړه نور ولولئ →"
+        }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+        currentLang = lang;
+        const t = translations[lang];
+        document.getElementById('siteTitle').textContent = t.siteTitle;
+        document.getElementById('pageTitle').textContent = t.pageTitle;
+        document.getElementById('pageDesc').textContent = t.pageDesc;
+        document.getElementById('checkerTitle').innerHTML = t.checkerTitle;
+        document.getElementById('checkerLabel').textContent = t.checkerLabel;
+        document.getElementById('generatorTitle').innerHTML = t.generatorTitle;
+        document.getElementById('lengthLabel').innerHTML = t.lengthLabel + '<span id="lengthValue">' + document.getElementById('lengthSlider').value + '</span>';
+        document.getElementById('optUpperText').textContent = t.optUpperText;
+        document.getElementById('optLowerText').textContent = t.optLowerText;
+        document.getElementById('optNumbersText').textContent = t.optNumbersText;
+        document.getElementById('optSymbolsText').textContent = t.optSymbolsText;
+        document.getElementById('generateBtn').textContent = t.generateBtn;
+        document.getElementById('privacyNote').textContent = t.privacyNote;
+        document.getElementById('tipBox').innerHTML = t.tipBox;
+        document.getElementById('check8Text').textContent = t.check8;
+        document.getElementById('checkUpperText').textContent = t.checkUpper;
+        document.getElementById('checkLowerText').textContent = t.checkLower;
+        document.getElementById('checkNumberText').textContent = t.checkNumber;
+        document.getElementById('checkSpecialText').textContent = t.checkSpecial;
+        document.getElementById('checkCommonText').textContent = t.checkCommon;
+        document.getElementById('crackTimeLabel').textContent = t.crackTimeLabel;
+        document.getElementById('breachWarningText').textContent = t.breachWarning;
+        document.getElementById('tipsTitle').textContent = t.tipsTitle;
+        document.getElementById('learnMoreLink').textContent = t.learnMore;
+        const tips = document.getElementById('tipsList').querySelectorAll('li');
+        tips.forEach((li, i) => { li.textContent = t.tips[i]; });
+        const langBtns = document.querySelectorAll('.flex.flex-wrap button');
+        langBtns.forEach(btn => {
+            btn.classList.remove('bg-yellow-500', 'text-black');
+            btn.classList.add('bg-gray-700', 'text-white');
+        });
+        const btnIndex = lang === 'en' ? 0 : lang === 'ur' ? 1 : 2;
+        langBtns[btnIndex].classList.remove('bg-gray-700', 'text-white');
+        langBtns[btnIndex].classList.add('bg-yellow-500', 'text-black');
+        if (document.getElementById('passwordInput').value) checkPassword();
+    }
+
+    function toggleVisibility() {
+        const input = document.getElementById('passwordInput');
+        const icon = document.getElementById('eyeIcon');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = '🙈';
+        } else {
+            input.type = 'password';
+            icon.textContent = '👁️';
+        }
+    }
+
+    function checkPassword() {
+        const pw = document.getElementById('passwordInput').value;
+        const t = translations[currentLang];
+
+        if (!pw) {
+            resetChecker();
+            return;
+        }
+
+        const hasUpper = /[A-Z]/.test(pw);
+        const hasLower = /[a-z]/.test(pw);
+        const hasNumber = /[0-9]/.test(pw);
+        const hasSpecial = /[^A-Za-z0-9]/.test(pw);
+        const hasLength = pw.length >= 8;
+        const isCommon = commonPasswords.has(pw.toLowerCase());
+
+        updateCheck('check8', hasLength);
+        updateCheck('checkUpper', hasUpper);
+        updateCheck('checkLower', hasLower);
+        updateCheck('checkNumber', hasNumber);
+        updateCheck('checkSpecial', hasSpecial);
+        updateCheck('checkCommon', !isCommon);
+
+        const crackTime = estimateCrackTime(pw, hasUpper, hasLower, hasNumber, hasSpecial);
+        document.getElementById('crackTime').classList.remove('hidden');
+        document.getElementById('crackTimeValue').textContent = crackTime.text;
+
+        const isBreach = isCommon;
+        document.getElementById('breachWarning').classList.toggle('hidden', !isBreach);
+
+        let score = 0;
+        if (hasLength) score += 15;
+        if (pw.length >= 12) score += 10;
+        if (pw.length >= 16) score += 10;
+        if (pw.length >= 20) score += 5;
+        if (hasUpper) score += 10;
+        if (hasLower) score += 10;
+        if (hasNumber) score += 10;
+        if (hasSpecial) score += 15;
+        if (isCommon) score = Math.min(score, 10);
+        if (!hasLength) score = Math.min(score, 20);
+        score = Math.min(score, 100);
+
+        let label, color;
+        if (score < 25) { label = t.strengthLabels[0]; color = '#dc2626'; }
+        else if (score < 45) { label = t.strengthLabels[1]; color = '#ea580c'; }
+        else if (score < 65) { label = t.strengthLabels[2]; color = '#d97706'; }
+        else if (score < 85) { label = t.strengthLabels[3]; color = '#16a34a'; }
+        else { label = t.strengthLabels[4]; color = '#059669'; }
+
+        document.getElementById('strengthBar').style.width = score + '%';
+        document.getElementById('strengthBar').style.backgroundColor = color;
+        document.getElementById('strengthLabel').textContent = label;
+        document.getElementById('strengthLabel').style.color = color;
+        document.getElementById('strengthPercent').textContent = score + '%';
+    }
+
+    function updateCheck(id, passed) {
+        const el = document.getElementById(id);
+        el.textContent = passed ? '✓' : '✗';
+        el.className = 'check-icon ' + (passed ? 'check-pass' : 'check-fail');
+    }
+
+    function estimateCrackTime(pw, hasUpper, hasLower, hasNumber, hasSpecial) {
+        let charsetSize = 0;
+        if (hasLower) charsetSize += 26;
+        if (hasUpper) charsetSize += 26;
+        if (hasNumber) charsetSize += 10;
+        if (hasSpecial) charsetSize += 33;
+        if (charsetSize === 0) charsetSize = 26;
+
+        const combinations = Math.pow(charsetSize, pw.length);
+        const guessesPerSecond = 1e10;
+        const seconds = combinations / guessesPerSecond / 2;
+
+        if (seconds < 1) return { text: currentLang === 'en' ? 'Instant' : currentLang === 'ur' ? 'فوری' : 'سمدستي' };
+        if (seconds < 60) return { text: Math.ceil(seconds) + (currentLang === 'en' ? ' seconds' : currentLang === 'ur' ? ' سیکنڈ' : ' ثانیې') };
+        if (seconds < 3600) return { text: Math.ceil(seconds / 60) + (currentLang === 'en' ? ' minutes' : currentLang === 'ur' ? ' منٹ' : ' دقيقې') };
+        if (seconds < 86400) return { text: Math.ceil(seconds / 3600) + (currentLang === 'en' ? ' hours' : currentLang === 'ur' ? ' گھنٹے' : ' ساعتونه') };
+        if (seconds < 86400 * 365) return { text: Math.ceil(seconds / 86400) + (currentLang === 'en' ? ' days' : currentLang === 'ur' ? ' دن' : ' ورځې') };
+        if (seconds < 86400 * 365 * 1000) return { text: Math.ceil(seconds / (86400 * 365)) + (currentLang === 'en' ? ' years' : currentLang === 'ur' ? ' سال' : ' کالونه') };
+        if (seconds < 86400 * 365 * 1e6) return { text: (seconds / (86400 * 365 * 1000)).toFixed(0) + (currentLang === 'en' ? ' thousand years' : currentLang === 'ur' ? ' ہزار سال' : ' زره کالونه') };
+        if (seconds < 86400 * 365 * 1e9) return { text: (seconds / (86400 * 365 * 1e6)).toFixed(0) + (currentLang === 'en' ? ' million years' : currentLang === 'ur' ? ' ملین سال' : ' ملین کالونه') };
+        return { text: currentLang === 'en' ? 'Centuries+' : currentLang === 'ur' ? 'صدیاں+' : ' پېړۍ+' };
+    }
+
+    function resetChecker() {
+        document.getElementById('strengthBar').style.width = '0%';
+        document.getElementById('strengthLabel').textContent = '—';
+        document.getElementById('strengthLabel').style.color = '#9ca3af';
+        document.getElementById('strengthPercent').textContent = '0%';
+        document.getElementById('crackTime').classList.add('hidden');
+        document.getElementById('breachWarning').classList.add('hidden');
+        ['check8','checkUpper','checkLower','checkNumber','checkSpecial','checkCommon'].forEach(id => {
+            document.getElementById(id).textContent = '✗';
+            document.getElementById(id).className = 'check-icon check-fail';
+        });
+    }
+
+    function generatePassword() {
+        const length = parseInt(document.getElementById('lengthSlider').value);
+        const useUpper = document.getElementById('optUpper').checked;
+        const useLower = document.getElementById('optLower').checked;
+        const useNumbers = document.getElementById('optNumbers').checked;
+        const useSymbols = document.getElementById('optSymbols').checked;
+
+        let charset = '';
+        let required = [];
+        if (useUpper) { charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; required.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); }
+        if (useLower) { charset += 'abcdefghijklmnopqrstuvwxyz'; required.push('abcdefghijklmnopqrstuvwxyz'); }
+        if (useNumbers) { charset += '0123456789'; required.push('0123456789'); }
+        if (useSymbols) { charset += '!@#$%^&*()_+-=[]{}|;:,.<>?'; required.push('!@#$%^&*()_+-=[]{}|;:,.<>?'); }
+
+        if (!charset) { charset = 'abcdefghijklmnopqrstuvwxyz'; required = ['abcdefghijklmnopqrstuvwxyz']; }
+
+        let password = '';
+        for (const req of required) {
+            password += req.charAt(Math.floor(Math.random() * req.length));
+        }
+        for (let i = password.length; i < length; i++) {
+            password += charset.charAt(Math.floor(Math.random() * charset.length));
+        }
+
+        password = password.split('').sort(() => Math.random() - 0.5).join('');
+        document.getElementById('generatedPassword').textContent = password;
+    }
+
+    function copyPassword() {
+        const pw = document.getElementById('generatedPassword').textContent;
+        if (!pw || pw === '----------') return;
+        navigator.clipboard.writeText(pw).then(() => {
+            const toast = document.getElementById('copyToast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }).catch(() => {
+            const textarea = document.createElement('textarea');
+            textarea.value = pw;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            const toast = document.getElementById('copyToast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    }
+
+    document.getElementById('passwordInput').addEventListener('input', checkPassword);
+
+    document.getElementById('lengthSlider').addEventListener('input', function() {
+        document.getElementById('lengthValue').textContent = this.value;
+    });
+
+    generatePassword();
+
+    // Matrix background
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const chars = '01';
+    const fSize = 14;
+    let cols = Math.floor(canvas.width / fSize);
+    let dropsArr = new Array(cols).fill(1);
+
+    function initMatrix() {
+        cols = Math.floor(canvas.width / fSize);
+        dropsArr = new Array(cols).fill(1);
+    }
+    window.addEventListener('resize', initMatrix);
+    initMatrix();
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#b8860b';
+        ctx.font = fSize + 'px monospace';
+        for (let i = 0; i < dropsArr.length; i++) {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            ctx.fillText(text, i * fSize, dropsArr[i] * fSize);
+            if (dropsArr[i] * fSize > canvas.height && Math.random() > 0.975) dropsArr[i] = 0;
+            dropsArr[i]++;
+        }
+    }
+    setInterval(drawMatrix, 33);
+    </script>
+
+</body>
+</html>

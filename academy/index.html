@@ -84,7 +84,7 @@
       "name": "What subjects does PashtunEinstein Academy cover?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Academy covers AI education, science topics in Pashto, Urdu, and English, communication and ethics training, AES encryption tools, and Pashto/Urdu language translation and vocabulary."
+        "text": "The Academy covers AI education, science topics in Pashto, Urdu, and English, communication and ethics training, AES encryption tools, password strength checking and generation, and Pashto/Urdu language translation and vocabulary."
       }
     },
     {
@@ -399,13 +399,22 @@ footer {
         <a href="/webscience/" class="app-btn">Open App</a>
     </div>
 
-    <div class="app-card">
+<div class="app-card">
         <div>
             <div class="app-icon">🌍</div>
             <div class="app-title">Language Tutor</div>
             <p id="desc6" class="app-desc">Pashto–Urdu tutor to build vocabulary fast.</p>
         </div>
         <a href="/language_tutor/" class="app-btn">Open App</a>
+    </div>
+
+    <div class="app-card">
+        <div>
+            <div class="app-icon">🔑</div>
+            <div class="app-title" id="title7">PassGuard</div>
+            <p id="desc7" class="app-desc">Check password strength and generate secure passwords instantly.</p>
+        </div>
+        <a href="/password-checker/" class="app-btn">Open App</a>
     </div>
 
 </div>
@@ -421,7 +430,7 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-    &copy; 2025 PashtunEinstein. All rights reserved.
+    &copy; 2026 PashtunEinstein. All rights reserved.
 </footer>
 
 <script>
@@ -435,7 +444,8 @@ const translations = {
         "Learn AI the easy way with simple tutorials.",
         "Will AI take your job? Find out instantly.",
         "Learn science in Pashto, Urdu & English.",
-        "Pashto–Urdu tutor to build vocabulary fast."
+        "Pashto–Urdu tutor to build vocabulary fast.",
+        "Check password strength and generate secure passwords instantly."
     ],
     ur: [
         "اخلاقی اور کامیاب رابطے کی مہارت حاصل کریں۔",
@@ -443,7 +453,8 @@ const translations = {
         "آسان طریقے سے اے آئی سیکھیں۔",
         "کیا اے آئی آپ کی نوکری لے لے گی؟ فوراً جانیں۔",
         "سائنس کو آسان زبان میں سیکھیں۔",
-        "لفظوں کا ذخیرہ بڑھانے کے لیے پشتو اُردو ٹیوٹر۔"
+        "لفظوں کا ذخیرہ بڑھانے کے لیے پشتو اُردو ٹیوٹر۔",
+        "پاسورڈ کی طاقت چیکھیں اور فوری طور پر محفوظ پاسورڈ بنائیں۔"
     ],
     ps: [
         "د اخلاقي او بريالي اړيکو هنر زده کړئ.",
@@ -451,12 +462,13 @@ const translations = {
         "په اسانه طریقه مصنوعي ذهانت زده کړئ.",
         "ايا AI به ستاسو دندې واخلي؟ ژر معلومه کړئ.",
         "ساینس په ساده ژبه زده کړئ.",
-        "د پښتو-اردو ژبې ښوونکی د ټکو یادولو لپاره."
+        "د پښتو-اردو ژبې ښوونکی د ټکو یادولو لپاره.",
+        "د پټنومې قومت وګورئ او سمدستي خوندي پړنومي جوړ کړئ."
     ]
 };
 
 function setLang(lang) {
-    const ids = ["desc1", "desc2", "desc3", "desc4", "desc5", "desc6"];
+    const ids = ["desc1", "desc2", "desc3", "desc4", "desc5", "desc6", "desc7"];
     ids.forEach((id, i) => {
         document.getElementById(id).innerText = translations[lang][i];
     });

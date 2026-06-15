@@ -13,6 +13,7 @@ Main sections:
 - SpeakWise: https://pashtuneinstein.com/comm1/
 - Science Quiz: https://pashtuneinstein.com/quiz/
 - SecureText AES Cipher Tool: https://pashtuneinstein.com/encryptdoc/
+- PassGuard Password Strength Checker & Generator: https://pashtuneinstein.com/password-checker/
 - Privacy Policy: https://pashtuneinstein.com/privacy_policy/
 - Resources: https://pashtuneinstein.com/resources/
 
